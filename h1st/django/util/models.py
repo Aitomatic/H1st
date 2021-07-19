@@ -1,9 +1,9 @@
+from uuid import uuid4
+
 from django.db.models.base import Model
-from django.db.models.fields import UUIDField
+from django.db.models.fields import CharField, UUIDField
 
 from model_utils.models import TimeStampedModel
-
-from uuid import uuid4
 
 
 class _ModelWithUUIDPK(Model):
@@ -145,4 +145,36 @@ class _ModelWithUUIDPKAndTimestamps(
 
         get_latest_by = 'modified'
 
-        ordering = '-modified',
+        ordering = ('-modified',)
+
+
+class _ModelWithUniqueName(Model):
+    name = \
+        CharField(
+            verbose_name='Unique Name',
+            help_text='Unique Name',
+
+            max_length=255,
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=True,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    class Meta:
+        abstract = True
+
+        ordering = ('name',)
+
+    def __str__(self) -> str:
+        return f'{type(self).__name__} "{self.name}"'

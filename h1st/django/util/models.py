@@ -137,27 +137,18 @@ class _ModelWithUUIDPK(Model):
         # verbose_name_plural = ...
 
 
-class _ModelWithUUIDPKAndTimestamps(
+class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
         _ModelWithUUIDPK,
         TimeStampedModel):
-    class Meta(_ModelWithUUIDPK.Meta):
-        abstract = True
-
-        get_latest_by = 'modified'
-
-        ordering = ('-modified',)
-
-
-class _ModelWithUniqueName(Model):
     name = \
         CharField(
-            verbose_name='Unique Name',
-            help_text='Unique Name',
+            verbose_name='(optional) Unique Name',
+            help_text='(optional) Unique Name',
 
             max_length=255,
 
-            null=False,
-            blank=False,
+            null=True,
+            blank=True,
             choices=None,
             db_column=None,
             db_index=True,
@@ -171,10 +162,14 @@ class _ModelWithUniqueName(Model):
             # validators=None
         )
 
-    class Meta:
+    class Meta(_ModelWithUUIDPK.Meta):
         abstract = True
 
-        ordering = ('name',)
+        get_latest_by = 'modified'
 
+        ordering = 'name', '-modified',
+    
     def __str__(self) -> str:
-        return f'{type(self).__name__} "{self.name}"'
+        return (f'{type(self).__name__} "{self.name}"'
+                if self.name
+                else f'{type(self).__name__} #{self.uuid}')

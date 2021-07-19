@@ -14,11 +14,14 @@ import numpy
 import pandas
 
 from ..util import PGSQL_IDENTIFIER_MAX_LEN, dir_path_with_slash
-from ..util.models import _ModelWithUUIDPKAndTimestamps, _ModelWithUniqueName
+from ..util.models import (
+    _ModelWithUUIDPK,
+    _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
+)
 from .apps import H1stDataModuleConfig
 
 
-class DataSchema(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
+class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
     name = \
         CharField(
             verbose_name='Data Schema Unique Name',
@@ -64,7 +67,7 @@ class DataSchema(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
             # validators=None
         )
 
-    class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
+    class Meta(_ModelWithUUIDPK.Meta):
         verbose_name = 'Data Schema'
         verbose_name_plural = 'Data Schemas'
 
@@ -80,7 +83,7 @@ class DataSchema(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
         return f'"{self.name}" {type(self).__name__}'
 
 
-class DataSet(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
+class DataSet(PolymorphicModel, _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
     RELATED_NAME = 'data_sets'
     RELATED_QUERY_NAME = 'data_set'
 
@@ -128,7 +131,7 @@ class DataSet(PolymorphicModel, _ModelWithUUIDPKAndTimestamps):
             # validators=None
         )
 
-    class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
+    class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
         verbose_name = 'Data Set'
         verbose_name_plural = 'Data Sets'
 
@@ -183,8 +186,8 @@ class JSONDataSet(DataSet):
         return self.json
 
 
-class NamedJSONDataSet(_ModelWithUniqueName, JSONDataSet):
-    class Meta(_ModelWithUniqueName.Meta, JSONDataSet.Meta):
+class NamedJSONDataSet(JSONDataSet):
+    class Meta(JSONDataSet.Meta):
         verbose_name = 'Named JSON Data Set'
         verbose_name_plural = 'Named JSON Data Sets'
 
@@ -239,8 +242,8 @@ class NumPyArray(JSONDataSet):
                 ndmin=0)
 
 
-class NamedNumPyArray(_ModelWithUniqueName, NumPyArray):
-    class Meta(_ModelWithUniqueName.Meta, NumPyArray.Meta):
+class NamedNumPyArray(NumPyArray):
+    class Meta(NumPyArray.Meta):
         verbose_name = 'Named NumPy Array'
         verbose_name_plural = 'Named NumPy Arrays'
 
@@ -282,8 +285,8 @@ class PandasDataFrame(JSONDataSet):
         return pandas.DataFrame(**self.json)
 
 
-class NamedPandasDataFrame(_ModelWithUniqueName, PandasDataFrame):
-    class Meta(_ModelWithUniqueName.Meta, PandasDataFrame.Meta):
+class NamedPandasDataFrame(PandasDataFrame):
+    class Meta(PandasDataFrame.Meta):
         verbose_name = 'Named Pandas DataFrame'
         verbose_name_plural = 'Named Pandas DataFrames'
 
@@ -373,8 +376,8 @@ class CSVDataSet(_FileStoredDataSet):
         return self.to_pandas()
 
 
-class NamedCSVDataSet(_ModelWithUniqueName, CSVDataSet):
-    class Meta(_ModelWithUniqueName.Meta, CSVDataSet.Meta):
+class NamedCSVDataSet(CSVDataSet):
+    class Meta(CSVDataSet.Meta):
         verbose_name = 'Named CSV Data Set'
         verbose_name_plural = 'Named CSV Data Sets'
 
@@ -419,8 +422,8 @@ class ParquetDataSet(_FileStoredDataSet):
         return self.to_pandas()
 
 
-class NamedParquetDataSet(_ModelWithUniqueName, ParquetDataSet):
-    class Meta(_ModelWithUniqueName.Meta, ParquetDataSet.Meta):
+class NamedParquetDataSet(ParquetDataSet):
+    class Meta(ParquetDataSet.Meta):
         verbose_name = 'Named Parquet Data Set'
         verbose_name_plural = 'Named Parquet Data Sets'
 
@@ -447,8 +450,8 @@ class TFRecordDataSet(_FileStoredDataSet):
         default_related_name = 'tfrecord_data_sets'
 
 
-class NamedTFRecordDataSet(_ModelWithUniqueName, TFRecordDataSet):
-    class Meta(_ModelWithUniqueName.Meta, TFRecordDataSet.Meta):
+class NamedTFRecordDataSet(TFRecordDataSet):
+    class Meta(TFRecordDataSet.Meta):
         verbose_name = 'Named TFRecord Data Set'
         verbose_name_plural = 'Named TFRecord Data Sets'
 

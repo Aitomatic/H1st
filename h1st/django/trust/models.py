@@ -9,12 +9,12 @@ from json.decoder import JSONDecoder
 from ..model.models import H1stModel
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
 from ..util.git import get_git_repo_head_commit_hash
-from ..util.models import _ModelWithUUIDPKAndTimestamps
+from ..util.models import _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
 from ..util.pip import get_python_dependencies
 from .apps import H1stTrustModuleConfig
 
 
-class Decision(_ModelWithUUIDPKAndTimestamps):
+class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
     RELATED_NAME = 'decisions'
     RELATED_QUERY_NAME = 'decision'
 
@@ -161,7 +161,7 @@ class Decision(_ModelWithUUIDPKAndTimestamps):
             # validators
         )
 
-    class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
+    class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
         verbose_name = 'Decision'
         verbose_name_plural = 'Decisions'
 
@@ -176,7 +176,7 @@ class Decision(_ModelWithUUIDPKAndTimestamps):
         return f'{type(self).__name__} #{self.uuid} by {self.model}'
 
 
-class ModelEvalMetricsSet(_ModelWithUUIDPKAndTimestamps):
+class ModelEvalMetricsSet(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
     RELATED_NAME = 'model_eval_metrics_sets'
     RELATED_QUERY_NAME = 'model_eval_metrics_set'
 
@@ -255,7 +255,7 @@ class ModelEvalMetricsSet(_ModelWithUUIDPKAndTimestamps):
             # validators
         )
 
-    class Meta(_ModelWithUUIDPKAndTimestamps.Meta):
+    class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
         verbose_name = 'Model Evaluation Metrics Set'
         verbose_name_plural = 'Model Evaluation Metrics Sets'
 

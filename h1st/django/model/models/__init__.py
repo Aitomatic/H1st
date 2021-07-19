@@ -1,6 +1,5 @@
 from .base import (
-    Model, H1stModel,
-    NamedModel, NamedH1stModel
+    Model, H1stModel
 )
 
 from .ml import (
@@ -18,7 +17,6 @@ from .workflow import (
 
 __all__ = [
     'Model', 'H1stModel',
-    'NamedModel', 'NamedH1stModel',
 
     'MLModel', 'H1stMLModel',
     'SKLModel', 'H1stSKLModel',

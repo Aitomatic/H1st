@@ -186,18 +186,6 @@ class JSONDataSet(DataSet):
         return self.json
 
 
-class NamedJSONDataSet(JSONDataSet):
-    class Meta(JSONDataSet.Meta):
-        verbose_name = 'Named JSON Data Set'
-        verbose_name_plural = 'Named JSON Data Sets'
-
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
-
-        default_related_name = 'named_json_data_sets'
-
-
 class NumPyArray(JSONDataSet):
     dtype = \
         JSONField(
@@ -242,18 +230,6 @@ class NumPyArray(JSONDataSet):
                 ndmin=0)
 
 
-class NamedNumPyArray(NumPyArray):
-    class Meta(NumPyArray.Meta):
-        verbose_name = 'Named NumPy Array'
-        verbose_name_plural = 'Named NumPy Arrays'
-
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
-
-        default_related_name = 'named_numpy_arrays'
-
-
 class PandasDataFrame(JSONDataSet):
     class Meta(JSONDataSet.Meta):
         verbose_name = 'Pandas DataFrame'
@@ -283,18 +259,6 @@ class PandasDataFrame(JSONDataSet):
 
     def load(self):
         return pandas.DataFrame(**self.json)
-
-
-class NamedPandasDataFrame(PandasDataFrame):
-    class Meta(PandasDataFrame.Meta):
-        verbose_name = 'Named Pandas DataFrame'
-        verbose_name_plural = 'Named Pandas DataFrames'
-
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
-
-        default_related_name = 'named_pandas_dataframes'
 
 
 class _FileStoredDataSet(DataSet):
@@ -376,22 +340,6 @@ class CSVDataSet(_FileStoredDataSet):
         return self.to_pandas()
 
 
-class NamedCSVDataSet(CSVDataSet):
-    class Meta(CSVDataSet.Meta):
-        verbose_name = 'Named CSV Data Set'
-        verbose_name_plural = 'Named CSV Data Sets'
-
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
-
-        default_related_name = 'named_csv_data_sets'
-
-    def __str__(self) -> str:
-        return f'"{self.name}" {type(self).__name__} @ ' \
-            f'{dir_path_with_slash(self.path) if self.is_dir else self.path}'
-
-
 class ParquetDataSet(_FileStoredDataSet):
     class Meta(_FileStoredDataSet.Meta):
         verbose_name = 'Parquet Data Set'
@@ -422,22 +370,6 @@ class ParquetDataSet(_FileStoredDataSet):
         return self.to_pandas()
 
 
-class NamedParquetDataSet(ParquetDataSet):
-    class Meta(ParquetDataSet.Meta):
-        verbose_name = 'Named Parquet Data Set'
-        verbose_name_plural = 'Named Parquet Data Sets'
-
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
-
-        default_related_name = 'named_parquet_data_sets'
-
-    def __str__(self) -> str:
-        return f'"{self.name}" {type(self).__name__} @ ' \
-            f'{dir_path_with_slash(self.path) if self.is_dir else self.path}'
-
-
 class TFRecordDataSet(_FileStoredDataSet):
     class Meta(_FileStoredDataSet.Meta):
         verbose_name = 'TFRecord Data Set'
@@ -448,19 +380,3 @@ class TFRecordDataSet(_FileStoredDataSet):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'tfrecord_data_sets'
-
-
-class NamedTFRecordDataSet(TFRecordDataSet):
-    class Meta(TFRecordDataSet.Meta):
-        verbose_name = 'Named TFRecord Data Set'
-        verbose_name_plural = 'Named TFRecord Data Sets'
-
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
-        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
-            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
-
-        default_related_name = 'named_tfrecord_data_sets'
-
-    def __str__(self) -> str:
-        return f'"{self.name}" {type(self).__name__} @ ' \
-            f'{dir_path_with_slash(self.path) if self.is_dir else self.path}'

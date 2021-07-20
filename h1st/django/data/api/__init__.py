@@ -1,8 +1,22 @@
-from ..models import \
-    DataSchema, DataSet, \
-    JSONDataSet, NamedJSONDataSet, \
-    NumPyArray, NamedNumPyArray, \
-    PandasDataFrame, NamedPandasDataFrame, \
-    CSVDataSet, NamedCSVDataSet, \
-    ParquetDataSet, NamedParquetDataSet, \
-    TFRecordDataSet, NamedTFRecordDataSet
+from ..models import (
+    DataSchema,
+    DataSet,
+    JSONDataSet,
+    NumPyArray,
+    PandasDataFrame,
+    CSVDataSet,
+    ParquetDataSet,
+    TFRecordDataSet
+)
+
+
+__all__ = [
+    'DataSchema',
+    'DataSet',
+    'JSONDataSet',
+    'NumPyArray',
+    'PandasDataFrame',
+    'CSVDataSet',
+    'ParquetDataSet',
+    'TFRecordDataSet'
+]

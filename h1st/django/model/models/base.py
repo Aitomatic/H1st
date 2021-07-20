@@ -21,9 +21,6 @@ class Model(PolymorphicModel,
 
         default_related_name = 'h1st_models'
 
-    def __str__(self) -> str:
-        return f'{type(self).__name__} #{self.uuid}'
-
 
 # aliases
 H1stModel = Model

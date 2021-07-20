@@ -10,21 +10,25 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='namedjsondataset',
-            name='jsondataset_ptr'),
-        migrations.RemoveField(
-            model_name='namednumpyarray',
-            name='numpyarray_ptr'),
-        migrations.RemoveField(
-            model_name='namedpandasdataframe',
-            name='pandasdataframe_ptr'),
-        migrations.RemoveField(
-            model_name='namedparquetdataset',
-            name='parquetdataset_ptr'),
-        migrations.RemoveField(
-            model_name='namedtfrecorddataset',
-            name='tfrecorddataset_ptr'),
+        # commenting out `RemoveField`
+        # because of SQLite3 bug:
+        # https://stackoverflow.com/questions/37955984/trying-to-migrate-in-django-1-9-strange-sql-error-django-db-utils-operationa
+        # migrations.RemoveField(
+        #    model_name='namedjsondataset',
+        #    name='jsondataset_ptr'),
+        # migrations.RemoveField(
+        #     model_name='namednumpyarray',
+        #     name='numpyarray_ptr'),
+        # migrations.RemoveField(
+        #     model_name='namedpandasdataframe',
+        #     name='pandasdataframe_ptr'),
+        # migrations.RemoveField(
+        #     model_name='namedparquetdataset',
+        #     name='parquetdataset_ptr'),
+        # migrations.RemoveField(
+        #     model_name='namedtfrecorddataset',
+        #     name='tfrecorddataset_ptr'),
+
         migrations.DeleteModel(
             name='NamedCSVDataSet'),
         migrations.DeleteModel(

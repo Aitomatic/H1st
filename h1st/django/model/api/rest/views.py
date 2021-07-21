@@ -34,10 +34,10 @@ from .filters import ModelFilter
 from .queries import MODEL_REST_API_QUERY_SET
 from .serializers import H1stModelSerializer
 from ....trust.models import Decision
-from ....util.views import MultipleFieldLookupMixin
+from ....util.views import LookUpByPKorNameMixin
 
 
-class H1stModelViewSet(MultipleFieldLookupMixin, ModelViewSet):
+class H1stModelViewSet(LookUpByPKorNameMixin, ModelViewSet):
     queryset = MODEL_REST_API_QUERY_SET
 
     serializer_class = H1stModelSerializer

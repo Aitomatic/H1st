@@ -1,20 +1,26 @@
+from django.db.models.query_utils import Q
 from django.shortcuts import get_object_or_404
 
 
-# django-rest-framework.org/api-guide/generic-views/#creating-custom-mixins
-class MultipleFieldLookupMixin:
-    """
-    Apply this mixin to any view or viewset to get multiple field filtering
-    based on a `lookup_fields` attribute, instead of the default single field
-    filtering.
-    """
+# refs:
+# - django-rest-framework.org/api-guide/generic-views/#creating-custom-mixins
+# - stackoverflow.com/questions/38461366
+class LookUpByPKorNameMixin:
     def get_object(self):
-        queryset = self.get_queryset()              # Get the base queryset
-        queryset = self.filter_queryset(queryset)   # Apply any filter backends
-        filters = {}
-        for field in self.lookup_fields:
-            if self.kwargs[field]:   # Ignore empty fields
-                filters[field] = self.kwargs[field]
-        obj = get_object_or_404(queryset, **filters)   # Lookup the object
+        # get base queryset
+        queryset = self.get_queryset()
+
+        # apply any filter backends
+        queryset = self.filter_queryset(queryset)
+
+        # get look-up value
+        lookup_value = self.kwargs['pk']
+
+        # look up object by PK or Name
+        obj = get_object_or_404(queryset,
+                                Q(pk=lookup_value) | Q(name=lookup_value))
+
+        # check object permissions
         self.check_object_permissions(self.request, obj)
+
         return obj

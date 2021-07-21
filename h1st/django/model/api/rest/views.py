@@ -1,12 +1,17 @@
-from django.core.files.uploadedfile import \
-    InMemoryUploadedFile, \
-    TemporaryUploadedFile
+from inspect import getsource
+from tempfile import mkstemp
 
-from rest_framework.authentication import \
-    BasicAuthentication, \
-    RemoteUserAuthentication, \
-    SessionAuthentication, \
+from django.core.files.uploadedfile import (
+    InMemoryUploadedFile,
+    TemporaryUploadedFile
+)
+
+from rest_framework.authentication import (
+    BasicAuthentication,
+    RemoteUserAuthentication,
+    SessionAuthentication,
     TokenAuthentication
+)
 from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import CoreJSONRenderer, JSONRenderer
@@ -21,9 +26,6 @@ from rest_framework_filters.backends import \
 
 from silk.profiling.profiler import silk_profile
 
-from inspect import getsource
-from tempfile import mkstemp
-
 from ....data.util import \
     load_data_set_pointers_as_json, \
     save_numpy_arrays_and_pandas_dfs_as_data_set_pointers
@@ -32,20 +34,22 @@ from .filters import ModelFilter
 from .queries import MODEL_REST_API_QUERY_SET
 from .serializers import H1stModelSerializer
 from ....trust.models import Decision
+from ....util.views import MultipleFieldLookupMixin
 
 
-class H1stModelViewSet(ModelViewSet):
+class H1stModelViewSet(ModelViewSet, MultipleFieldLookupMixin):
     queryset = MODEL_REST_API_QUERY_SET
 
     serializer_class = H1stModelSerializer
 
-    authentication_classes = \
-        BasicAuthentication, \
-        RemoteUserAuthentication, \
-        SessionAuthentication, \
+    authentication_classes = (
+        BasicAuthentication,
+        RemoteUserAuthentication,
+        SessionAuthentication,
         TokenAuthentication
+    )
 
-    permission_classes = IsAuthenticated,
+    permission_classes = (IsAuthenticated,)
 
     filter_class = ModelFilter
 
@@ -54,20 +58,19 @@ class H1stModelViewSet(ModelViewSet):
         ComplexFilterBackend, \
         RestFrameworkFilterBackend
 
-    ordering_fields = \
-        'uuid', \
-        'created', \
-        'modified'
+    ordering_fields = 'name', 'created', 'modified'
 
-    ordering = '-modified'
+    ordering = 'name', '-modified'
 
     pagination_class = None
 
-    parser_classes = JSONParser,
+    parser_classes = (JSONParser,)
 
     renderer_classes = \
         CoreJSONRenderer, \
         JSONRenderer
+
+    lookup_fields = 'uuid', 'name'
 
     @silk_profile(name=f'{__module__}: {Model._meta.verbose_name_plural}')
     def list(self, *args, **kwargs):
@@ -85,7 +88,7 @@ class ModelExecAPIView(APIView):
         SessionAuthentication, \
         TokenAuthentication
 
-    permission_classes = IsAuthenticated,
+    permission_classes = (IsAuthenticated,)
 
     parser_classes = \
         JSONParser, \
@@ -94,13 +97,13 @@ class ModelExecAPIView(APIView):
     def post(self, request, *args, **kwargs):
         try:
             model_uuid = request.data.pop('UUID')
-        except:
+        except Exception:
             return Response("'UUID' Key Not Found in Request Body")
 
         if request.content_type == 'application/json':
             try:
                 model = Model.objects.get(uuid=model_uuid)
-            except:
+            except Exception:
                 return Response(f"Model with UUID #{model_uuid} Not Found")
 
             json_input_data = request.data
@@ -111,7 +114,8 @@ class ModelExecAPIView(APIView):
             json_output_data = model.predict(loaded_json_input_data)
 
             saved_json_output_data = \
-                save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(json_output_data)
+                save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(
+                    json_output_data)
 
             Decision.objects.create(
                 input_data=json_input_data,
@@ -130,14 +134,14 @@ class ModelExecAPIView(APIView):
         elif request.content_type.startswith('multipart/form-data'):
             try:
                 assert isinstance(model_uuid, list) and (len(model_uuid) == 1)
-            except:
+            except Exception:
                 return Response(f"{model_uuid} Not Valid")
 
             model_uuid = model_uuid[0]
 
             try:
                 model = Model.objects.get(uuid=model_uuid)
-            except:
+            except Exception:
                 return Response(f"Model with UUID #{model_uuid} Not Found")
 
             data = {}

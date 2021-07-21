@@ -7,6 +7,7 @@ MODEL_REST_API_QUERY_GRAPH = \
     ModelQueryGraph(
         Model,
         'uuid',
+        'name',
         'created',
         'modified')
 

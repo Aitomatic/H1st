@@ -1,8 +1,9 @@
-from rest_framework.authentication import \
-    BasicAuthentication, \
-    RemoteUserAuthentication, \
-    SessionAuthentication, \
+from rest_framework.authentication import (
+    BasicAuthentication,
+    RemoteUserAuthentication,
+    SessionAuthentication,
     TokenAuthentication
+)
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
@@ -12,9 +13,10 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from rest_framework.filters import OrderingFilter
-from rest_framework_filters.backends import \
-    ComplexFilterBackend, \
+from rest_framework_filters.backends import (
+    ComplexFilterBackend,
     RestFrameworkFilterBackend
+)
 
 from silk.profiling.profiler import silk_profile
 
@@ -23,9 +25,10 @@ from ...util import load_data_set_pointers_as_json
 from .filters import DataSetFilter
 from .queries import DATA_SET_REST_API_QUERY_SET
 from .serializers import DataSetSerializer
+from ....util.views import LookUpByUUIDorNameMixin
 
 
-class DataSetViewSet(ModelViewSet):
+class DataSetViewSet(LookUpByUUIDorNameMixin, ModelViewSet):
     queryset = DATA_SET_REST_API_QUERY_SET
 
     serializer_class = DataSetSerializer
@@ -45,16 +48,13 @@ class DataSetViewSet(ModelViewSet):
         ComplexFilterBackend, \
         RestFrameworkFilterBackend
 
-    ordering_fields = \
-        'uuid', \
-        'created', \
-        'modified'
+    ordering_fields = 'name', 'created', 'modified'
 
-    ordering = '-modified'
+    ordering = 'name', '-modified'
 
     pagination_class = LimitOffsetPagination
 
-    parser_classes = JSONParser,
+    parser_classes = (JSONParser,)
 
     renderer_classes = \
         CoreJSONRenderer, \
@@ -70,17 +70,18 @@ class DataSetViewSet(ModelViewSet):
 
 
 class DataQueryAPIView(APIView):
-    authentication_classes = \
-        BasicAuthentication, \
-        RemoteUserAuthentication, \
-        SessionAuthentication, \
+    authentication_classes = (
+        BasicAuthentication,
+        RemoteUserAuthentication,
+        SessionAuthentication,
         TokenAuthentication
+    )
 
-    permission_classes = IsAuthenticated,
+    permission_classes = (IsAuthenticated,)
 
-    parser_classes = JSONParser,
+    parser_classes = (JSONParser,)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         return Response(
                 data=load_data_set_pointers_as_json(request.data),
                 status=None,

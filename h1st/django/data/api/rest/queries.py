@@ -7,6 +7,7 @@ DATA_SET_REST_API_QUERY_GRAPH = \
     ModelQueryGraph(
         DataSet,
         'uuid',
+        'name',
         'created',
         'modified')
 

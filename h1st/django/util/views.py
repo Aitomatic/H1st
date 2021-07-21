@@ -15,7 +15,7 @@ class LookUpByUUIDorNameMixin:
         queryset = self.filter_queryset(queryset)
 
         # get look-up value
-        lookup_value = str(self.kwargs['pk'])
+        lookup_value = str(self.kwargs[self.lookup_field])
 
         try:   # try looking up object by UUID
             _uuid = UUID(lookup_value, version=4)

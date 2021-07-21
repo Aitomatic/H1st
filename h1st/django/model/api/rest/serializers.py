@@ -9,11 +9,13 @@ class H1stModelSerializer(ModelSerializer):
     class Meta:
         model = Model
 
-        fields = \
-            'description', \
-            'uuid', \
-            'created', \
+        fields = (
+            'description',
+            'uuid',
+            'name',
+            'created',
             'modified'
+        )
 
     def get_description(self, obj):
         return str(obj)

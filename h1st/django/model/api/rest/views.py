@@ -37,7 +37,7 @@ from ....trust.models import Decision
 from ....util.views import MultipleFieldLookupMixin
 
 
-class H1stModelViewSet(ModelViewSet, MultipleFieldLookupMixin):
+class H1stModelViewSet(MultipleFieldLookupMixin, ModelViewSet):
     queryset = MODEL_REST_API_QUERY_SET
 
     serializer_class = H1stModelSerializer
@@ -94,7 +94,7 @@ class ModelExecAPIView(APIView):
         JSONParser, \
         MultiPartParser
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         try:
             model_uuid = request.data.pop('UUID')
         except Exception:

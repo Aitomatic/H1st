@@ -1,7 +1,17 @@
 {
   "PACKAGE": "H1st",
-  "AUTHOR": "Human-First AI (H1st)",
+  "VERSION": "2021.07",
   "DESCRIPTION": "Human-First AI (H1st)",
-  "VERSION": "2021.06",
-  "URL": "H1st.ai"
+  "AUTHOR": "Human-First AI (H1st)",
+
+  "URL": "H1st.ai",
+  "DOWNLOAD_URL": "https://GitHub.com/H1st-AI/H1st/archive/main.zip",
+
+  "CLASSIFIERS": [
+  ],
+
+  "KEYWORDS": [
+    "Artificial Intelligence",
+    "AI"
+  ]
 }

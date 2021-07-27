@@ -75,9 +75,6 @@ Django-Storages >= 1.11.1
 # Django CORS Headers
 Django-CORS-Headers >= 3.7.0
 
-# Django User Accounts
-Django-User-Accounts >= 3.0.4
-
 
 # DATABASE CONNECTORS/DRIVERS
 MySQLClient >= 2.0.3; python_version < '3.9'

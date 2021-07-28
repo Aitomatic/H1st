@@ -46,7 +46,7 @@ Django >= 3.1.13, < 3.2
 Django-Polymorphic >= 3.0.0
 
 # Django Admin Themes
-Django-Jazzmin >= 2.4.7
+Django-Jazzmin >= 2.4.8
 
 # Django REST Framework
 DjangoRESTFramework >= 3.12.4

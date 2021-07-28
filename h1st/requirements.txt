@@ -30,10 +30,6 @@ SciKit-Fuzzy >= 0.4.2
 CloudPickle >= 1.6.0
 PyYAML
     # version range not specified to avoid conflict with AWSCLI
-S3FS >= 0.4, < 0.5
-    # S3FS >= 0.5 has async-related bugs
-# FSSpec >= 2021.4.0
-    # required by S3FS
 ULID-Py >= 1.1.0
 
 
@@ -82,6 +78,17 @@ PsycoPG2-binary >= 2.9.1
 
 # ML MODEL SERDE
 JobLib >= 1.0.1
+
+
+# CLOUD
+
+# AWS
+AWSCLI >= 1.20.8
+AWSEBCLI >= 3.20.0
+S3FS >= 0.4, < 0.5
+    # S3FS >= 0.5 has async-related bugs
+# FSSpec >= 2021.4.0
+    # required by S3FS
 
 
 # OTHER

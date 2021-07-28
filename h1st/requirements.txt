@@ -83,8 +83,8 @@ JobLib >= 1.0.1
 # CLOUD
 
 # AWS
-AWSCLI >= 1.20.8
-AWSEBCLI >= 3.20.0
+AWSCLI
+AWSEBCLI
 S3FS >= 0.4, < 0.5
     # S3FS >= 0.5 has async-related bugs
 # FSSpec >= 2021.4.0

@@ -1,5 +1,8 @@
+import json
+from json.decoder import JSONDecoder
+import os
+
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models.base import Model
 from django.db.models.deletion import SET_NULL
 from django.db.models.fields import BooleanField, CharField
 from django.db.models.fields.json import JSONField
@@ -7,9 +10,6 @@ from django.db.models.fields.related import ForeignKey
 
 from polymorphic.models import PolymorphicModel
 
-import json
-from json.decoder import JSONDecoder
-import os
 import numpy
 import pandas
 
@@ -77,13 +77,14 @@ class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
 
         default_related_name = 'data_schemas'
 
-        ordering = 'name',
+        ordering = ('name',)
 
     def __str__(self) -> str:
         return f'"{self.name}" {type(self).__name__}'
 
 
-class DataSet(PolymorphicModel, _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
+class DataSet(PolymorphicModel,
+              _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
     RELATED_NAME = 'data_sets'
     RELATED_QUERY_NAME = 'data_set'
 

@@ -1,8 +1,8 @@
 # DATA MANAGEMENT & PROCESSING
 NumPy >= 1.19.5, < 1.20
 Pandas >= 1.3.1
-PyArrow >= 4.0.1
-Ray[tune] >= 1.5.0
+PyArrow >= 5.0.0
+Ray[tune] >= 1.5.1
 
 
 # GRAPH PROCESSING
@@ -10,7 +10,7 @@ GraphViz >= 0.17
 
 
 # MACHINE LEARNING
-Auto-SKLearn >= 0.12.7
+Auto-SKLearn >= 0.13.0
 SciKit-Learn >= 0.24.2
 LIME >= 0.2.0.1
 # SHAP >= 0.39.0
@@ -96,4 +96,4 @@ Cython >= 0.29.24
 GitPython >= 3.1.18
 Ruamel.YAML >= 0.17.10
 PSUtil >= 5.8.0
-Tqdm >= 4.61.2
+Tqdm >= 4.62.0

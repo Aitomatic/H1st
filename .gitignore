@@ -152,6 +152,3 @@ flake8.txt
 .DS_Store
 
 
-node_modules
-examples/ModelHosting/uploaded/**
-/examples/AIcargo/uploaded

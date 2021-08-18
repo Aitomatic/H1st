@@ -22,6 +22,7 @@
     "--disable", "missing-class-docstring",
     "--disable", "missing-function-docstring",
     "--disable", "missing-module-docstring",
+    "--disable", "not-a-mapping",
     "--disable", "relative-beyond-top-level",
     "--disable", "too-few-public-methods",
     "--disable", "too-many-ancestors",

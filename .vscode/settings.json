@@ -17,6 +17,8 @@
 
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
+    "--disable", "relative-beyond-top-level",
+    "--disable", "too-many-ancestors",
   ],
 
   "python.linting.flake8Enabled": true,

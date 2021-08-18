@@ -4,5 +4,6 @@ pyflakes:
 
 pylint:
   disable:
+    - not-a-mapping
     - relative-beyond-top-level
     - too-many-ancestors

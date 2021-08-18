@@ -18,8 +18,6 @@ from rest_framework_filters.backends import (
     RestFrameworkFilterBackend
 )
 
-from silk.profiling.profiler import silk_profile
-
 from ...models import DataSet
 from ...util import load_data_set_pointers_as_json
 from .filters import DataSetFilter
@@ -60,11 +58,9 @@ class DataSetViewSet(LookUpByUUIDorNameMixin, ModelViewSet):
         CoreJSONRenderer, \
         JSONRenderer
 
-    @silk_profile(name=f'{__module__}: {DataSet._meta.verbose_name_plural}')
     def list(self, *args, **kwargs):
         return super().list(*args, **kwargs)
 
-    @silk_profile(name=f'{__module__}: {DataSet._meta.verbose_name}')
     def retrieve(self, *args, **kwargs):
         return super().retrieve(*args, **kwargs)
 

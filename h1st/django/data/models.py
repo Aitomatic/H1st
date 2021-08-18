@@ -222,13 +222,12 @@ class NumPyArray(JSONDataSet):
         default_related_name = 'numpy_arrays'
 
     def load(self):
-        return numpy.array(
-                object=self.json,
-                dtype=self.dtype,
-                copy=False,
-                order='K',
-                subok=False,
-                ndmin=0)
+        return numpy.array(object=self.json,
+                           dtype=self.dtype,
+                           copy=False,
+                           order='K',
+                           subok=False,
+                           ndmin=0)
 
 
 class PandasDataFrame(JSONDataSet):

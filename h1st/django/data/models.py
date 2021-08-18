@@ -2,6 +2,7 @@ import json
 from json.decoder import JSONDecoder
 import os
 
+from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import SET_NULL
 from django.db.models.fields import BooleanField, CharField
@@ -243,19 +244,18 @@ class PandasDataFrame(JSONDataSet):
 
     @classmethod
     def jsonize(cls, df: pandas.DataFrame) -> dict:
-        return json.loads(
-                df.to_json(path_or_buf=None,
-                           orient='split',
-                           date_format='iso',
-                           double_precision=10,
-                           force_ascii=False,
-                           date_unit='ms',
-                           default_handler=None,
-                           lines=False,
-                           compression=None,
-                           index=True,
-                           indent=None,
-                           storage_options=None))
+        return json.loads(df.to_json(path_or_buf=None,
+                                     orient='split',
+                                     date_format='iso',
+                                     double_precision=10,
+                                     force_ascii=False,
+                                     date_unit='ms',
+                                     default_handler=None,
+                                     lines=False,
+                                     compression=None,
+                                     index=True,
+                                     indent=None,
+                                     storage_options=None))
 
     def load(self):
         return pandas.DataFrame(**self.json)
@@ -325,16 +325,13 @@ class CSVDataSet(_FileStoredDataSet):
 
     def to_pandas(self, **kwargs):
         # set AWS credentials if applicable
-        from django.conf import settings
         aws_key = settings.__dict__.get('AWS_ACCESS_KEY_ID')
         aws_secret = settings.__dict__.get('AWS_SECRET_ACCESS_KEY')
         if aws_key and aws_secret:
             os.environ['AWS_ACCESS_KEY_ID'] = aws_key
             os.environ['AWS_SECRET_ACCESS_KEY'] = aws_secret
 
-        return pandas.read_csv(
-                self.path,
-                **kwargs)
+        return pandas.read_csv(self.path, **kwargs)
 
     def load(self):
         return self.to_pandas()
@@ -353,18 +350,16 @@ class ParquetDataSet(_FileStoredDataSet):
 
     def to_pandas(self, engine='pyarrow', columns=None, **kwargs):
         # set AWS credentials if applicable
-        from django.conf import settings
         aws_key = settings.__dict__.get('AWS_ACCESS_KEY_ID')
         aws_secret = settings.__dict__.get('AWS_SECRET_ACCESS_KEY')
         if aws_key and aws_secret:
             os.environ['AWS_ACCESS_KEY_ID'] = aws_key
             os.environ['AWS_SECRET_ACCESS_KEY'] = aws_secret
 
-        return pandas.read_parquet(
-                path=self.path,
-                engine=engine,
-                columns=columns,
-                **kwargs)
+        return pandas.read_parquet(path=self.path,
+                                   engine=engine,
+                                   columns=columns,
+                                   **kwargs)
 
     def load(self):
         return self.to_pandas()

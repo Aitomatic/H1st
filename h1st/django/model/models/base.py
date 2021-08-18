@@ -1,6 +1,6 @@
 from polymorphic.models import PolymorphicModel
 
-from h1st.model.model import Model as _CoreH1stModel
+from h1st.model.model import Model as CoreH1stModel
 
 from ...util import PGSQL_IDENTIFIER_MAX_LEN
 from ...util.models import _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
@@ -9,7 +9,7 @@ from ..apps import H1stModelModuleConfig
 
 class Model(PolymorphicModel,
             _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps,
-            _CoreH1stModel):
+            CoreH1stModel):
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
         verbose_name = 'H1st Model'
         verbose_name_plural = 'H1st Models'

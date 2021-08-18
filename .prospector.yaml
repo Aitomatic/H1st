@@ -1,3 +1,8 @@
+pyflakes:
+  disable:
+    - F821
+
 pylint:
   disable:
     - relative-beyond-top-level
+    - too-many-ancestors

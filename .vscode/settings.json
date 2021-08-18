@@ -17,6 +17,7 @@
 
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
+    "--disable", "line-too-long",
     "--disable", "missing-class-docstring",
     "--disable", "missing-function-docstring",
     "--disable", "missing-module-docstring",

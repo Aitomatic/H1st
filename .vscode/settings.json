@@ -22,6 +22,9 @@
   ],
 
   "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--ignore=F821",
+  ],
 
   "python.linting.mypyEnabled": false,
 

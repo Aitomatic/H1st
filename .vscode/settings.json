@@ -35,6 +35,9 @@
   "python.linting.prospectorEnabled": true,
 
   "python.linting.pylamaEnabled": true,
+  "python.linting.pylamaArgs": [
+    "--ignore E0602",
+  ],
 
   "python.linting.banditEnabled": true,
   "python.linting.banditArgs": [

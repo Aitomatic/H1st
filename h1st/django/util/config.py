@@ -41,7 +41,8 @@ def parse_config_file(path=None):
             assert db_user, f'*** USER NOT FOUND IN {db_config} ***'
             assert db_password, f'*** PASSWORD NOT FOUND IN {db_config} ***'
 
-        config['db'] = dict(ENGINE=f'django.db.backends.{db_engine}',
+        config['db'] = dict(ENGINE=('django_query_profiler.django.db.backends'
+                                    f'.{db_engine}'),
                             NAME=db_name,
                             HOST=db_host,
                             PORT=(5432

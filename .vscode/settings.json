@@ -24,6 +24,7 @@
     "--disable", "missing-module-docstring",
     "--disable", "not-a-mapping",
     "--disable", "relative-beyond-top-level",
+    "--disable", "signature-differs",
     "--disable", "too-few-public-methods",
     "--disable", "too-many-ancestors",
   ],

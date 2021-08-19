@@ -6,4 +6,5 @@ pylint:
   disable:
     - not-a-mapping
     - relative-beyond-top-level
+    - signature-differs
     - too-many-ancestors

@@ -24,6 +24,8 @@ from rest_framework_filters.backends import \
     ComplexFilterBackend, \
     RestFrameworkFilterBackend
 
+from silk.profiling.profiler import silk_profile
+
 from ....data.util import \
     load_data_set_pointers_as_json, \
     save_numpy_arrays_and_pandas_dfs_as_data_set_pointers
@@ -70,9 +72,11 @@ class H1stModelViewSet(LookUpByUUIDorNameMixin, ModelViewSet):
 
     lookup_fields = 'uuid', 'name'
 
+    @silk_profile(name=f'{__module__}: {Model._meta.verbose_name_plural}')
     def list(self, *args, **kwargs):
         return super().list(*args, **kwargs)
 
+    @silk_profile(name=f'{__module__}: {Model._meta.verbose_name}')
     def retrieve(self, *args, **kwargs):
         return super().retrieve(*args, **kwargs)
 

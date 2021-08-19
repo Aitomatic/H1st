@@ -25,6 +25,7 @@
     "--disable", "missing-function-docstring",
     "--disable", "missing-module-docstring",
     "--disable", "not-a-mapping",
+    "--disable", "protected-access",
     "--disable", "relative-beyond-top-level",
     "--disable", "signature-differs",
     "--disable", "too-few-public-methods",

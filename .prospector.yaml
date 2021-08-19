@@ -7,6 +7,7 @@ pylint:
     - import-outside-toplevel
     - no-else-return
     - not-a-mapping
+    - protected-access
     - relative-beyond-top-level
     - signature-differs
     - too-many-ancestors

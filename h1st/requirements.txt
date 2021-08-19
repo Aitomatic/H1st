@@ -72,9 +72,15 @@ Django-Storages >= 1.11.1
 Django-CORS-Headers >= 3.8.0
 
 
+# UI
+Gradio >= 2.2.13
+# Streamlit >= 0.86.0
+
+
 # DATABASE CONNECTORS/DRIVERS
 MySQLClient >= 2.0.3
 PsycoPG2-binary >= 2.9.1
+
 
 # ML MODEL SERDE
 JobLib >= 1.0.1

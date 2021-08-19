@@ -17,6 +17,7 @@
 
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
+    "--disable", "import-outside-toplevel",
     "--disable", "invalid-name",
     "--disable", "line-too-long",
     "--disable", "missing-class-docstring",

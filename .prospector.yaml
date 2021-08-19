@@ -4,6 +4,8 @@ pyflakes:
 
 pylint:
   disable:
+    - import-outside-toplevel
+    - no-else-return
     - not-a-mapping
     - relative-beyond-top-level
     - signature-differs

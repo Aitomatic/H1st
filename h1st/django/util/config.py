@@ -1,11 +1,12 @@
+import os
+from pathlib import Path
+import sys
+
 from django.conf import settings
 from django.core.wsgi import get_wsgi_application
 from django.core.asgi import get_asgi_application
 
-import os
-from pathlib import Path
 from ruamel import yaml
-import sys
 
 
 _H1ST_DJANGO_CONFIG_FILE_NAME = '.config.yml'
@@ -13,9 +14,8 @@ _H1ST_DJANGO_CONFIG_FILE_NAME = '.config.yml'
 
 def parse_config_file(path=None):
     if path is None:
-        path = os.environ.get(
-                'H1ST_DJANGO_CONFIG_FILE_PATH',
-                _H1ST_DJANGO_CONFIG_FILE_NAME)
+        path = os.environ.get('H1ST_DJANGO_CONFIG_FILE_PATH',
+                              _H1ST_DJANGO_CONFIG_FILE_NAME)
 
     if os.path.isfile(path):
         # parse whole YAML config file
@@ -76,9 +76,9 @@ def config_app(
     os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
     settings.configure(
-        **{SETTING_KEY: setting_value
-           for SETTING_KEY, setting_value in _settings.__dict__.items()
-           if SETTING_KEY.isupper()})
+        **{setting_key: setting_value
+           for setting_key, setting_value in _settings.__dict__.items()
+           if setting_key.isupper()})
 
     if asgi:
         get_asgi_application()

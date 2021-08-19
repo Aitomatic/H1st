@@ -17,6 +17,7 @@
 
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
+    "--disable", "abstract-method",
     "--disable", "import-outside-toplevel",
     "--disable", "invalid-name",
     "--disable", "line-too-long",

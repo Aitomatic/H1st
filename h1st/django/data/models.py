@@ -5,7 +5,7 @@ import os
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import SET_NULL
-from django.db.models.fields import BooleanField, CharField
+from django.db.models.fields import BooleanField, CharField, TextField
 from django.db.models.fields.json import JSONField
 from django.db.models.fields.related import ForeignKey
 
@@ -150,6 +150,41 @@ class DataSet(PolymorphicModel,
         raise NotImplementedError
 
 
+class TextDataSet(DataSet):
+    text = \
+        TextField(
+            verbose_name='Text',
+            help_text='Text',
+
+            null=True,
+            blank=True,
+            choices=None,
+            db_column=None,
+            db_index=False,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    class Meta(DataSet.Meta):
+        verbose_name = 'Text Data Set'
+        verbose_name_plural = 'Text Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'text_data_sets'
+
+    def load(self):
+        return self.text
+
+
 class JSONDataSet(DataSet):
     json = \
         JSONField(
@@ -279,7 +314,6 @@ class _FileStoredDataSet(DataSet):
             editable=True,
             # error_messages=None,
             primary_key=False,
-
             unique=False,
             unique_for_date=None, unique_for_month=None, unique_for_year=None,
             # validators=None

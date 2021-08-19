@@ -60,6 +60,7 @@ DjangoRESTFramework-Filters == 1.0.0.dev2
 Django-Model-Query-Graphs >= 0.0.5
 
 # Django Query Profiling
+Django-Query-Profiler >= 0.8
 Django-Silk >= 4.1.0
 
 # Django Extensions & Utilities

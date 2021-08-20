@@ -133,7 +133,7 @@ class Model(NodeContainable, Trustable):
         :params data: data for prediction
         :returns: prediction result as a dictionary
         """
-        # not raise NotImplementedError so the initial model created by integrator will just work
+        # not raise NotImplementedError so the initial model created by integrator will just work 
         return {"input_data" : input_data}
 
     # def validate_node_output(self, input_data: dict=None, schema=None) -> SchemaValidationResult:

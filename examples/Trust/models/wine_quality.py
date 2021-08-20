@@ -16,7 +16,9 @@ class WineQuality(h1.MLModel):
              The task is to determine the `Quality` of the wine based on 11 physicochemical tests as input."
 
         self.label_column = "Quality"
-        self.base_model = self._build_base_model()
+        self.base_model = RandomForestRegressor(max_depth=6, random_state=0, n_estimators=10)
+        self.metrics = None
+        self.features = None
         self.test_size = 0.2
 
     # @audit
@@ -60,8 +62,7 @@ class WineQuality(h1.MLModel):
     @h1.Explainable
     # @h1.Describable
     def train(self, prepared_data):
-        X_train, Y_train = prepared_data["train_df"], prepared_data[
-            "train_labels"]
+        X_train, Y_train = prepared_data["train_df"], prepared_data["train_labels"]
         self.base_model.fit(X_train, Y_train)
 
     def _mean_absolute_percentage_error(self, y_true, y_pred):
@@ -73,16 +74,7 @@ class WineQuality(h1.MLModel):
     def evaluate(self, data):
         X_test, y_true = data["test_df"], data["test_labels"]
         y_pred = self.base_model.predict(X_test)
-        return {"mape": self._mean_absolute_percentage_error(y_true, y_pred)}
-
-    def predict(self, input_data):
-        """
-        :params data: data for prediction
-        :returns: prediction result as a dictionary
-        """
-        return self.base_model.predict(np.expand_dims(input_data, axis=0))[0]
-
-    def _build_base_model(self):
-        return RandomForestRegressor(max_depth=6,
-                                     random_state=0,
-                                     n_estimators=10)
+        self.metrics = {
+            "mape": self._mean_absolute_percentage_error(y_true, y_pred)
+        }
+        return self.metrics

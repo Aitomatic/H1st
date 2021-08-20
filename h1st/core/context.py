@@ -10,7 +10,7 @@ class Context:
 
     @classmethod
     def init_model_repo(cls, repo_path):
-        from h1st.model_repository import ModelRepository
+        from h1st.model.repository import ModelRepository
         if not hasattr(ModelRepository, 'MODEL_REPO'):
             setattr(ModelRepository, 'MODEL_REPO', ModelRepository(storage=repo_path))
 
@@ -39,7 +39,8 @@ def discover_h1st_project(cwd=None) -> tuple:
 
     while cur != cur.parent:
         # detect the root of the H1ST project structure
-        if (cur / "config.py").exists() and (cur / "graph.py").exists():
+        # some project does not have graph.py yet, so we only look for config file for now
+        if (cur / "config.py").exists():
             last_is_module = True
             module_path = str(cur)
         elif last_is_module:

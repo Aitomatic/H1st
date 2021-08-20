@@ -18,8 +18,6 @@ class Node:
         :param id: the node's id
         """
         if containable:
-            if not isinstance(containable, NodeContainable):
-                raise GraphException(f'containable must be an instance of NodeContainable')            
             containable._node = self
         
         self._id = id

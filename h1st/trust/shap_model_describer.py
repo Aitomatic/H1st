@@ -1,21 +1,22 @@
 import shap
+from h1st.core.trust.describer import Describer
 
-class SHAPModelDescriber:
-    def __init__(self, model, data):
-        self.model = model
-        self.data = data
-        self.get_shap_describer()
-        self.get_shap_values()
-        ## Only for testing if plots are generated
-        # self.plot_shap_describer()
 
-    def plot_shap_describer(self):
-        shap.summary_plot(self.shap_values, self.data['train_df'])
+class SHAPModelDescriber(Describer):
+    def __init__(self, base_model, data_to_describe):
+        self.model_describer(base_model, data_to_describe)
+        # self._plot_shap_describer(data_to_describe)
 
-    def get_shap_describer(self):
-        self.shap_describer = shap.TreeExplainer(self.model)
+    def model_describer(self, base_model, data_to_describe):
+        self._get_shap_describer(base_model)
+        self._get_shap_values(data_to_describe)
 
-    def get_shap_values(self):
+    def _plot_shap_describer(self, data_to_describe):
+        shap.summary_plot(self.shap_values, data_to_describe)
+
+    def _get_shap_describer(self, base_model):
+        self.shap_describer = shap.TreeExplainer(base_model)
+
+    def _get_shap_values(self, data_to_describe):
         self.shap_values = self.shap_describer.shap_values(
-            self.data["train_df"], check_additivity=False
-        )
+            data_to_describe, check_additivity=False)

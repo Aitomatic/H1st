@@ -9,7 +9,7 @@ from h1st.core.viz import DotGraphVisualizer
 from h1st.trust.trustable import Trustable
 
 
-class Graph(NodeContainable, Trustable):
+class Graph(NodeContainable):
     """
     A Graph is itself a NodeContainable, meaning it can be enclosed within a Node,
     forming a hierarchy of Graphs

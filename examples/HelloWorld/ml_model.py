@@ -4,12 +4,14 @@ We demonstrate here how to wrap a ScikitLearn model within an h1.Model
 """
 
 from sklearn import svm, datasets, metrics
-import h1st as h1
+from h1st.model.ml_model import MLModel
 
 
-class MLModel(h1.Model):
+class SimpleMLModel(MLModel):
     def __init__(self):
-        self._native_model = svm.SVC(gamma=0.001, C=100.)
+        # H1st can automatically save/load this "self.base_model" property if it's a SKlearn or tf.keras.Model
+        # This is the native SKLearn model
+        self.base_model = svm.SVC(gamma=0.001, C=100.)
 
     def get_data(self):
         digits = datasets.load_digits()
@@ -33,15 +35,35 @@ class MLModel(h1.Model):
         }
 
     def train(self, prepared_data):
-        self._native_model.fit(prepared_data["train_x"], prepared_data["train_y"])
+        self.base_model.fit(prepared_data["train_x"], prepared_data["train_y"])
 
     def evaluate(self, data):
         pred_y = self.predict({"x": data["test_x"]})
-        metric = metrics.accuracy_score(data["test_y"], pred_y)
-        return metric
+        # self.metrics can also be persisted automatically by H1st
+        self.metrics = metrics.accuracy_score(data["test_y"], pred_y)
+        return self.metrics
 
-    """
-    We expect an array of input data rows in the "x" field of the input_data dict
-    """
-    def predict(self, input_data):
-        return self._native_model.predict(input_data["x"])
+    def predict(self, input_data: dict) -> dict:
+        """
+        We expect an array of input data rows in the "x" field of the input_data dict
+        """
+        return self.base_model.predict(input_data["x"])
+
+if __name__ == "__main__":
+    m = SimpleMLModel()
+    raw_data = m.get_data()
+    print(raw_data)
+
+    prepared_data = m.prep(raw_data)
+    print(prepared_data['train_x'].shape)
+    print(prepared_data['test_x'].shape)
+    
+    m.train(prepared_data)
+    m.evaluate(prepared_data)
+    print("accuracy_score = %.4f" % m.metrics)
+
+    version_id = m.persist()
+    print("Persisted to version_id = %s" % version_id)
+    m = MLModel().load(version_id)
+    print(m.metrics)
+

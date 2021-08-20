@@ -6,9 +6,13 @@ from silk.profiling.profiler import silk_profile
 
 from .models import (
     DataSchema,
+
     JSONDataSet,
     NumPyArray,
     PandasDataFrame,
+
+    TextDataSet,
+
     CSVDataSet,
     ParquetDataSet,
     TFRecordDataSet
@@ -32,6 +36,14 @@ class DataSchemaAdmin(ModelAdmin):
 class JSONDataSetAdmin(ModelAdmin):
     show_full_result_count = False
 
+    def get_queryset(self, request):
+        query_set = super().get_queryset(request=request)
+
+        return (query_set
+                if request.resolver_match.url_name.endswith('_change')
+                else query_set.defer('json')   # defer often large JSON field
+                )
+
     @silk_profile(name=f'{__module__}: {JSONDataSet._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)
@@ -43,9 +55,7 @@ class JSONDataSetAdmin(ModelAdmin):
 
 
 @register(NumPyArray, site=site)
-class NumPyArrayAdmin(ModelAdmin):
-    show_full_result_count = False
-
+class NumPyArrayAdmin(JSONDataSetAdmin):
     @silk_profile(name=f'{__module__}: {NumPyArray._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)
@@ -57,15 +67,35 @@ class NumPyArrayAdmin(ModelAdmin):
 
 
 @register(PandasDataFrame, site=site)
-class PandasDataFrameAdmin(ModelAdmin):
-    show_full_result_count = False
-
+class PandasDataFrameAdmin(JSONDataSetAdmin):
     @silk_profile(name=f'{__module__}: {PandasDataFrame._meta.verbose_name}')
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)
 
     @silk_profile(
         name=f'{__module__}: {PandasDataFrame._meta.verbose_name_plural}')
+    def changelist_view(self, *args, **kwargs):
+        return super().changelist_view(*args, **kwargs)
+
+
+@register(TextDataSet, site=site)
+class TextDataSetAdmin(ModelAdmin):
+    show_full_result_count = False
+
+    def get_queryset(self, request):
+        query_set = super().get_queryset(request=request)
+
+        return (query_set
+                if request.resolver_match.url_name.endswith('_change')
+                else query_set.defer('text')   # defer often large text field
+                )
+
+    @silk_profile(name=f'{__module__}: {TextDataSet._meta.verbose_name}')
+    def changeform_view(self, *args, **kwargs):
+        return super().changeform_view(*args, **kwargs)
+
+    @silk_profile(
+        name=f'{__module__}: {TextDataSet._meta.verbose_name_plural}')
     def changelist_view(self, *args, **kwargs):
         return super().changelist_view(*args, **kwargs)
 

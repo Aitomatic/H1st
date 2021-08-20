@@ -167,8 +167,8 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
 
         get_latest_by = 'modified'
 
-        ordering = 'name', '-modified',
-    
+        ordering = 'name', '-modified'
+
     def __str__(self) -> str:
         return (f'{type(self).__name__} "{self.name}"'
                 if self.name

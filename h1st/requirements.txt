@@ -1,8 +1,8 @@
 # DATA MANAGEMENT & PROCESSING
 NumPy >= 1.19.5, < 1.20
-Pandas >= 1.3.0
-PyArrow >= 4.0.1
-Ray[tune] >= 1.4.1; (python_version < '3.9') and (platform_machine != 'armv7l')
+Pandas >= 1.3.2
+PyArrow >= 5.0.0
+Ray[tune] >= 1.5.2
 
 
 # GRAPH PROCESSING
@@ -10,15 +10,15 @@ GraphViz >= 0.17
 
 
 # MACHINE LEARNING
-Auto-SKLearn >= 0.12.6; python_version < '3.9'
+Auto-SKLearn >= 0.13.0
 SciKit-Learn >= 0.24.2
 LIME >= 0.2.0.1
 SHAP >= 0.39.0
 
 # HYPER-PARAMETER TUNING
 Bayesian-Optimization >= 1.2.0
-ConfigSpace >= 0.4.19; python_version < '3.9'
-Hpbandster >= 0.7.4; python_version < '3.9'
+ConfigSpace >= 0.4.19
+Hpbandster >= 0.7.4
 Tabulate >= 0.8.9
 
 
@@ -30,10 +30,6 @@ SciKit-Fuzzy >= 0.4.2
 CloudPickle >= 1.6.0
 PyYAML
     # version range not specified to avoid conflict with AWSCLI
-S3FS >= 0.4, < 0.5
-    # S3FS >= 0.5 has async-related bugs
-# FSSpec >= 2021.4.0
-    # required by S3FS
 ULID-Py >= 1.1.0
 
 
@@ -43,14 +39,13 @@ Colored >= 1.4.2
 
 
 # DJANGO
-Django >= 3.1.13, < 3.2
-    # *** Jun 2021: Silk profiling incompatible with Django 3.2 ***
+Django >= 3.2.6
 
 # Django Polymorphic Models
 Django-Polymorphic >= 3.0.0
 
 # Django Admin Themes
-Django-Jazzmin >= 2.4.7
+Django-Jazzmin >= 2.4.8
 
 # Django REST Framework
 DjangoRESTFramework >= 3.12.4
@@ -65,6 +60,7 @@ DjangoRESTFramework-Filters == 1.0.0.dev2
 Django-Model-Query-Graphs >= 0.0.5
 
 # Django Query Profiling
+Django-Query-Profiler >= 0.8
 Django-Silk >= 4.1.0
 
 # Django Extensions & Utilities
@@ -73,15 +69,32 @@ Django-Model-Utils >= 4.1.1
 Django-Storages >= 1.11.1
 
 # Django CORS Headers
-Django-CORS-Headers >= 3.7.0
+Django-CORS-Headers >= 3.8.0
+
+
+# UI
+Gradio >= 2.2.13
+# Streamlit >= 0.86.0
 
 
 # DATABASE CONNECTORS/DRIVERS
-MySQLClient >= 2.0.3; python_version < '3.9'
+MySQLClient >= 2.0.3
 PsycoPG2-binary >= 2.9.1
+
 
 # ML MODEL SERDE
 JobLib >= 1.0.1
+
+
+# CLOUD
+
+# AWS
+AWSCLI
+AWSEBCLI >= 3.20.1
+S3FS >= 0.4, < 0.5
+    # S3FS >= 0.5 has async-related bugs
+# FSSpec >= 2021.4.0
+    # required by S3FS
 
 
 # OTHER
@@ -89,4 +102,4 @@ Cython >= 0.29.24
 GitPython >= 3.1.18
 Ruamel.YAML >= 0.17.10
 PSUtil >= 5.8.0
-Tqdm >= 4.61.2
+Tqdm >= 4.62.1

@@ -1,6 +1,11 @@
+from json.decoder import JSONDecoder
+
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models.fields.json import JSONField
+
 from polymorphic.models import PolymorphicModel
 
-from h1st.model.model import Model as _CoreH1stModel
+from h1st.model.model import Model as CoreH1stModel
 
 from ...util import PGSQL_IDENTIFIER_MAX_LEN
 from ...util.models import _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
@@ -9,7 +14,30 @@ from ..apps import H1stModelModuleConfig
 
 class Model(PolymorphicModel,
             _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps,
-            _CoreH1stModel):
+            CoreH1stModel):
+    params = \
+        JSONField(
+            verbose_name='Paramemeters',
+            help_text='Paramemeters',
+
+            encoder=DjangoJSONEncoder,
+            decoder=JSONDecoder,
+
+            null=True,
+            blank=True,
+            choices=None,
+            db_column=None,
+            db_index=False,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
         verbose_name = 'H1st Model'
         verbose_name_plural = 'H1st Models'

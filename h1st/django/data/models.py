@@ -1,15 +1,16 @@
+import json
+from json.decoder import JSONDecoder
+import os
+
+from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models.base import Model
 from django.db.models.deletion import SET_NULL
-from django.db.models.fields import BooleanField, CharField
+from django.db.models.fields import BooleanField, CharField, TextField
 from django.db.models.fields.json import JSONField
 from django.db.models.fields.related import ForeignKey
 
 from polymorphic.models import PolymorphicModel
 
-import json
-from json.decoder import JSONDecoder
-import os
 import numpy
 import pandas
 
@@ -77,13 +78,14 @@ class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
 
         default_related_name = 'data_schemas'
 
-        ordering = 'name',
+        ordering = ('name',)
 
     def __str__(self) -> str:
         return f'"{self.name}" {type(self).__name__}'
 
 
-class DataSet(PolymorphicModel, _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
+class DataSet(PolymorphicModel,
+              _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
     RELATED_NAME = 'data_sets'
     RELATED_QUERY_NAME = 'data_set'
 
@@ -221,13 +223,12 @@ class NumPyArray(JSONDataSet):
         default_related_name = 'numpy_arrays'
 
     def load(self):
-        return numpy.array(
-                object=self.json,
-                dtype=self.dtype,
-                copy=False,
-                order='K',
-                subok=False,
-                ndmin=0)
+        return numpy.array(object=self.json,
+                           dtype=self.dtype,
+                           copy=False,
+                           order='K',
+                           subok=False,
+                           ndmin=0)
 
 
 class PandasDataFrame(JSONDataSet):
@@ -243,22 +244,56 @@ class PandasDataFrame(JSONDataSet):
 
     @classmethod
     def jsonize(cls, df: pandas.DataFrame) -> dict:
-        return json.loads(
-                df.to_json(path_or_buf=None,
-                           orient='split',
-                           date_format='iso',
-                           double_precision=10,
-                           force_ascii=False,
-                           date_unit='ms',
-                           default_handler=None,
-                           lines=False,
-                           compression=None,
-                           index=True,
-                           indent=None,
-                           storage_options=None))
+        return json.loads(df.to_json(path_or_buf=None,
+                                     orient='split',
+                                     date_format='iso',
+                                     double_precision=10,
+                                     force_ascii=False,
+                                     date_unit='ms',
+                                     default_handler=None,
+                                     lines=False,
+                                     compression=None,
+                                     index=True,
+                                     indent=None,
+                                     storage_options=None))
 
     def load(self):
         return pandas.DataFrame(**self.json)
+
+
+class TextDataSet(DataSet):
+    text = \
+        TextField(
+            verbose_name='Text',
+            help_text='Text',
+
+            null=True,
+            blank=True,
+            choices=None,
+            db_column=None,
+            db_index=False,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    class Meta(DataSet.Meta):
+        verbose_name = 'Text Data Set'
+        verbose_name_plural = 'Text Data Sets'
+
+        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'text_data_sets'
+
+    def load(self):
+        return self.text
 
 
 class _FileStoredDataSet(DataSet):
@@ -279,7 +314,6 @@ class _FileStoredDataSet(DataSet):
             editable=True,
             # error_messages=None,
             primary_key=False,
-
             unique=False,
             unique_for_date=None, unique_for_month=None, unique_for_year=None,
             # validators=None
@@ -325,16 +359,13 @@ class CSVDataSet(_FileStoredDataSet):
 
     def to_pandas(self, **kwargs):
         # set AWS credentials if applicable
-        from django.conf import settings
         aws_key = settings.__dict__.get('AWS_ACCESS_KEY_ID')
         aws_secret = settings.__dict__.get('AWS_SECRET_ACCESS_KEY')
         if aws_key and aws_secret:
             os.environ['AWS_ACCESS_KEY_ID'] = aws_key
             os.environ['AWS_SECRET_ACCESS_KEY'] = aws_secret
 
-        return pandas.read_csv(
-                self.path,
-                **kwargs)
+        return pandas.read_csv(self.path, **kwargs)
 
     def load(self):
         return self.to_pandas()
@@ -353,18 +384,16 @@ class ParquetDataSet(_FileStoredDataSet):
 
     def to_pandas(self, engine='pyarrow', columns=None, **kwargs):
         # set AWS credentials if applicable
-        from django.conf import settings
         aws_key = settings.__dict__.get('AWS_ACCESS_KEY_ID')
         aws_secret = settings.__dict__.get('AWS_SECRET_ACCESS_KEY')
         if aws_key and aws_secret:
             os.environ['AWS_ACCESS_KEY_ID'] = aws_key
             os.environ['AWS_SECRET_ACCESS_KEY'] = aws_secret
 
-        return pandas.read_parquet(
-                path=self.path,
-                engine=engine,
-                columns=columns,
-                **kwargs)
+        return pandas.read_parquet(path=self.path,
+                                   engine=engine,
+                                   columns=columns,
+                                   **kwargs)
 
     def load(self):
         return self.to_pandas()

@@ -68,7 +68,7 @@ class TestDescribable(unittest.TestCase):
     def test_describable(self):
         m = TestModelDescribable()
         data = m.load_data()
-        prepared_data = m.prep(data)
+        prepared_data = m.prep_data(data)
         m.train(prepared_data)
         describer = m.describe()
         self.assertEqual(describer.shap_describer.shap_values.shape, m.prepared_data['train_df'].shape)

@@ -68,7 +68,7 @@ class TestExplainable(unittest.TestCase):
     def test_explainable(self):
         m = TestModelExplainable()
         data = m.load_data()
-        prepared_data = m.prep(data)
+        prepared_data = m.prep_data(data)
         m.train(prepared_data)
         idx = 4
         decision = m.prepared_data["train_df"].iloc[idx], m.prepared_data["train_labels"].iloc[idx]

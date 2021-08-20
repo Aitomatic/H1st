@@ -1,0 +1,57 @@
+{
+  "editor.rulers": [79],
+
+  "files.exclude": {
+    "**/.git": true,
+    "**/.mypy_cache": true,
+    "**/*.pyc": {"when": "$(basename).py"}, 
+    "**/__pycache__": true,
+    "**/.ropeproject": true,
+  },
+
+  "python.analysis.diagnosticSeverityOverrides": { 
+    "reportUndefinedVariable" : "none",
+  },
+
+  "python.linting.enabled": true,
+
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": [
+    "--disable", "abstract-method",
+    "--disable", "import-outside-toplevel",
+    "--disable", "invalid-name",
+    "--disable", "line-too-long",
+    "--disable", "missing-class-docstring",
+    "--disable", "missing-function-docstring",
+    "--disable", "missing-module-docstring",
+    "--disable", "not-a-mapping",
+    "--disable", "protected-access",
+    "--disable", "relative-beyond-top-level",
+    "--disable", "signature-differs",
+    "--disable", "too-few-public-methods",
+    "--disable", "too-many-ancestors",
+  ],
+
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--ignore=F821",
+  ],
+
+  "python.linting.mypyEnabled": false,
+
+  "python.linting.pydocstyleEnabled": false,
+
+  "python.linting.pycodestyleEnabled": true,
+
+  "python.linting.prospectorEnabled": true,
+
+  "python.linting.pylamaEnabled": true,
+  "python.linting.pylamaArgs": [
+    "--ignore E0602",
+  ],
+
+  "python.linting.banditEnabled": true,
+  "python.linting.banditArgs": [
+    "--skip B101",
+  ]
+}

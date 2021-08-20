@@ -14,6 +14,7 @@ develop-eggs/
 dist/
 downloads/
 examples/*/models
+examples/*/model_repo
 eggs/
 .eggs/
 lib/
@@ -132,15 +133,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-.DS_store
-
-# IntelliJ IDEA / PyCharm
-.idea/
-*.iml
 
 # Visual Studio Code
 .vscode/
 *.code-workspace
+
 
 # local scratchpad
 /scratch
@@ -149,4 +146,10 @@ Digraph.gv*
 
 flake8.txt
 data
-.models
+.models/
+
+
+# misc/other
+.DS_Store
+
+

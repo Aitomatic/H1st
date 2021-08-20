@@ -1,7 +1,3 @@
-#### [Get a FREE premium T-shirt](https://bit.ly/free-tshirt-for-h1st) and celebrate the launch of H1st AI! :tada:
-<img src="https://h1st-static.s3.amazonaws.com/H1st-logo.png" alt="H1st" width="100"/>
-
-
 ## Join the Human-First AI revolution
 _“We humans have .. insight that can then be mixed with powerful AI .. to help move society forward. Second, we also have to build trust directly into our technology .. And third, all of the technology we build must be inclusive and respectful to everyone.”_
 <br/>— Satya Nadella, Microsoft CEO
@@ -21,10 +17,10 @@ Human-First AI (`H1st` AI) solves three critical challenges in real-world data s
 
 
 ## Get started
-`H1st` runs on Python 3.7 or above. Install with `pip3 install h1st`.
+`H1st` runs on Python 3.7 or above. Install with `pip3 install h1st`. For Windows, please use 64bit version and install [VS Build Tools](https://visualstudio.microsoft.com/downloads/) before installing H1st.
 
 See the [examples/HelloWorld folder](examples/HelloWorld) for simple "Hello world" examples of using 
-[H1st rule-based](examples/HelloWorld/rule_based_model.py) & [machine-learned models](examples/HelloWorld/ml_model.py) and using [H1st Graph](examples/HelloWorld/helloworld_graph.py).
+[H1st rule-based](examples/HelloWorld/rule_based_model.py) & [machine-learned models](examples/HelloWorld/ml_model.py) and using [H1st Graph](examples/HelloWorld/graph.py).
 
 For a simple real-world data science example using H1st Model API, take a look at the [forecasting example](examples/Forecasting).
 

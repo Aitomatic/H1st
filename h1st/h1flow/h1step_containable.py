@@ -25,7 +25,7 @@ class NodeContainable:
         """
     def __init__(self):
         self._node = None
-        
+
     @property
     def node(self) -> 'Node':
         if not self._node:
@@ -70,11 +70,14 @@ class NodeContainable:
         """
         func = getattr(self, command)
         if not func:
-            raise GraphException(f'class {self.__class__.__name__} must implement method "{command}')
+            raise GraphException(
+                f'class {self.__class__.__name__} must implement method "{command}'
+            )
 
         result = func(inputs)
         if not isinstance(result, dict):
-            raise GraphException(f'output of {self.__class__.__name__} must be a dict')
+            raise GraphException(
+                f'output of {self.__class__.__name__} must be a dict')
 
         return result
 

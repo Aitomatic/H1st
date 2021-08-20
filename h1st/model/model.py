@@ -6,7 +6,7 @@ from h1st.trust.trustable import Trustable
 # from h1st.schema.schema_validation_result import SchemaValidationResult
 
 
-class Model(NodeContainable,Trustable):
+class Model(Trustable, NodeContainable):
     """
     Base class for H1st Model.
 
@@ -64,7 +64,6 @@ class Model(NodeContainable,Trustable):
 
         :returns: loaded data
         """
-
     def prep(self, loaded_data: dict) -> dict:
         """
         Implement logic to prepare data from loaded data
@@ -72,19 +71,16 @@ class Model(NodeContainable,Trustable):
         :param data: loaded data from ``load_data`` method
         :returns: prepared data
         """
-
     def explore(self, loaded_data: dict) -> None:
         """
         Implement logic to explore data from loaded data
         """
-
     def train(self, prepared_data: dict):
         """
         Implement logic of training model
 
         :param prepared_data: prepared data from ``prep`` method
         """
-
     def persist(self, version=None):
         """
         Persist this model's properties to the ModelRepository. Currently, only `stats`, `metrics`, `model` properties are supported.
@@ -133,8 +129,8 @@ class Model(NodeContainable,Trustable):
         :params data: data for prediction
         :returns: prediction result as a dictionary
         """
-        # not raise NotImplementedError so the initial model created by integrator will just work 
-        return {"input_data" : input_data}
+        # not raise NotImplementedError so the initial model created by integrator will just work
+        return {"input_data": input_data}
 
     # def validate_node_output(self, input_data: dict=None, schema=None) -> SchemaValidationResult:
     #     """

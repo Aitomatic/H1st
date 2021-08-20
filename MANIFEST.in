@@ -1,4 +1,7 @@
 include h1st/requirements*.txt
 include h1st/metadata.json
+include h1st/**/*.json
+
+exclude tests/**/*
 
 recursive-exclude *.pyc

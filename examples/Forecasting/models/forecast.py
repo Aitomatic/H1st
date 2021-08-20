@@ -3,6 +3,8 @@ import pandas as pd
 import os
 import sklearn
 import sklearn.metrics
+import subprocess
+import pathlib
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.compose import make_column_transformer
@@ -10,10 +12,10 @@ from sklearn.preprocessing import OneHotEncoder
 from Forecasting import config
 
 
-class ForecastModel(h1.Model):
+class ForecastModel(h1.MLModel):
     def __init__(self):
         super().__init__()
-        self.model = None
+        self.base_model = None
         self.feature_cols = ['Open', 'Promo', 'StateHoliday', 'SchoolHoliday', 
                             'DayOfWeek', 'DayOfMonth', 'Month',
                             'StoreType', 'Assortment', 'CompetitionDistance', 
@@ -22,12 +24,13 @@ class ForecastModel(h1.Model):
         self.data_dir = config.FORECAST_DATA_PATH
     
     def load_data(self):
-        # does it "fetch" the data or also perform join etc.?
         # needs to have kaggle tools, and user credentials, and agreed to competition rules etc.
-        os.system("mkdir {data}".format(data=self.data_dir))
+        pathlib.Path(self.data_dir).mkdir(parents=True, exist_ok=True)
         if not os.path.isfile(os.path.join(self.data_dir, "train.csv")):
-            os.system("kaggle competitions download -c rossmann-store-sales -p {data}/".format(data=self.data_dir))
-            os.system("cd {data}; unzip rossmann-store-sales.zip".format(data=self.data_dir))
+            print("Using `kaggle` command to download data from rossmann-store-sales competition.")
+            print("You'll need https://pypi.org/project/kaggle/ tool and agrees to the terms of the competition at https://www.kaggle.com/c/rossmann-store-sales/")
+            subprocess.run("kaggle competitions download -c rossmann-store-sales -p {data}/".format(data=self.data_dir), shell=True, check=True)
+            subprocess.run("cd {data}; unzip rossmann-store-sales.zip".format(data=self.data_dir), shell=True, check=True)
 
         df = pd.read_csv(os.path.join(self.data_dir, "train.csv"), low_memory=False)
 
@@ -42,7 +45,7 @@ class ForecastModel(h1.Model):
         print(df.count()) # count NA
         seaborn.distplot(df.Sales) # Sales distribution
 
-    def prep_data(self, loaded_data):
+    def prep(self, loaded_data):
         """
         Prepare data for modelling
         :param loaded_data: data return from load_data method
@@ -96,15 +99,15 @@ class ForecastModel(h1.Model):
             remainder="passthrough")
         
         transformer.fit(train_df[self.feature_cols])
-        model = Pipeline([('transform', transformer), 
+        model = Pipeline([('transform', transformer),
                           ('model', RandomForestRegressor(max_depth=10, n_estimators=200))])
 
         model.fit(train_df, sales)
-        self.model = model
+        self.base_model = model
 
     def evaluate(self, prepared_data):
         val_df = prepared_data['val_df']
-        y_pred = self.model.predict(val_df[self.feature_cols])
+        y_pred = self.base_model.predict(val_df[self.feature_cols])
         y_true = val_df['Sales']
         self.metrics = {'mae': sklearn.metrics.mean_absolute_error(y_true, y_pred),
                         }
@@ -122,6 +125,6 @@ class ForecastModel(h1.Model):
         input_data["Month"] = input_data.Date.dt.month
 
         input_data = input_data[self.feature_cols]
-        result = self.model.predict(input_data)
+        result = self.base_model.predict(input_data)
         
         return result

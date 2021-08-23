@@ -47,6 +47,9 @@ Django-Polymorphic >= 3.0.0
 # Django Admin Themes
 Django-Jazzmin >= 2.4.8
 
+# Django Autocomplete
+Django-Autocomplete-Light >= 3.8.2
+
 # Django REST Framework
 DjangoRESTFramework >= 3.12.4
 CoreAPI >= 2.3.3

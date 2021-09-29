@@ -21,7 +21,7 @@ Ray = {extras = ['tune'], version = '^1.6.0'}
 
 # MACHINE LEARNING
 Auto-SKLearn = '^0.14.0'
-SciKit-Learn = '^1.0'
+# SciKit-Learn = '^1.0'
 
 # HYPER-PARAMETER TUNING
 Bayesian-Optimization = '^1.2.0'

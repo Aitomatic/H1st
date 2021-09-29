@@ -77,7 +77,6 @@ Django-CORS-Headers >= 3.9.0
 
 # UI
 Gradio >= 2.3.6
-# Streamlit >= 0.86.0
 
 
 # DATABASE CONNECTORS/DRIVERS

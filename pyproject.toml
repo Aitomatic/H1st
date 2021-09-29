@@ -90,10 +90,6 @@ Gradio = '^2.3.6'
 MySQLClient = '^2.0.3'
 PsycoPG2-binary = '^2.9.1'
 
-# AWS
-AWSCLI = '*'
-AWSEBCLI = '^3.20.2'
-
 # OTHER
 Cython = '^0.29.24'
 GitPython = '^3.1.24'

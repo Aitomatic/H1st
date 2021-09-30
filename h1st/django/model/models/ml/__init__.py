@@ -8,8 +8,8 @@ __all__ = ('MLModel', 'H1stMLModel',
 
            'TorchModel', 'H1stTorchModel',
 
-           'HuggingFacePreTrainedTransformer',
-           'H1stHuggingFacePreTrainedTransformer')
+           'PreTrainedHuggingFaceTransformer',
+           'H1stPreTrainedHuggingFaceTransformer')
 
 
 from .base import (MLModel, H1stMLModel,
@@ -23,5 +23,5 @@ from .keras import KerasModel, H1stKerasModel
 
 from .torch import TorchModel, H1stTorchModel
 
-from .hugging_face import (HuggingFacePreTrainedTransformer,
-                           H1stHuggingFacePreTrainedTransformer)
+from .hugging_face import (PreTrainedHuggingFaceTransformer,
+                           H1stPreTrainedHuggingFaceTransformer)

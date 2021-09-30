@@ -1,6 +1,6 @@
-from ....util import PGSQL_IDENTIFIER_MAX_LEN
-from ...apps import H1stModelModuleConfig
-from .base import H1stMLModel
+from .....util import PGSQL_IDENTIFIER_MAX_LEN
+from ....apps import H1stModelModuleConfig
+from ..base import H1stMLModel
 
 
 class KerasModel(H1stMLModel):

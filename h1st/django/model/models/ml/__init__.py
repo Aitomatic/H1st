@@ -1,16 +1,17 @@
-__all__ = (
-    'MLModel', 'H1stMLModel',
+__all__ = ('MLModel', 'H1stMLModel',
+           'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
 
-    'SKLModel', 'H1stSKLModel',
+           'SKLModel', 'H1stSKLModel',
 
-    'TFModel', 'H1stTFModel',
-    'KerasModel', 'H1stKerasModel',
+           'TFModel', 'H1stTFModel',
+           'KerasModel', 'H1stKerasModel',
 
-    'TorchModel', 'H1stTorchModel'
-)
+           'TorchModel', 'H1stTorchModel')
 
 
-from .base import MLModel, H1stMLModel
+from .base import (MLModel, H1stMLModel,
+                   PyLoadablePreTrainedMLModel, H1stPyLoadablePreTrainedMLModel
+                   )
 
 from .skl import SKLModel, H1stSKLModel
 

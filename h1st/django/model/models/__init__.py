@@ -1,31 +1,25 @@
-__all__ = (
-    'Model', 'H1stModel',
+__all__ = ('Model', 'H1stModel',
+           'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
 
-    'MLModel', 'H1stMLModel',
-    'SKLModel', 'H1stSKLModel',
-    'TFModel', 'H1stTFModel',
-    'KerasModel', 'H1stKerasModel',
-    'TorchModel', 'H1stTorchModel',
+           'MLModel', 'H1stMLModel',
+           'SKLModel', 'H1stSKLModel',
+           'TFModel', 'H1stTFModel',
+           'KerasModel', 'H1stKerasModel',
+           'TorchModel', 'H1stTorchModel',
 
-    'Workflow', 'H1stWorkflow'
-)
+           'Workflow', 'H1stWorkflow')
 
 
-from .base import (
-    Model, H1stModel
-)
+from .base import Model, H1stModel
 
-from .ml import (
-    MLModel, H1stMLModel,
+from .ml import (MLModel, H1stMLModel,
+                 PyLoadablePreTrainedMLModel, H1stPyLoadablePreTrainedMLModel,
 
-    SKLModel, H1stSKLModel,
+                 SKLModel, H1stSKLModel,
 
-    TFModel, H1stTFModel,
-    KerasModel, H1stKerasModel,
+                 TFModel, H1stTFModel,
+                 KerasModel, H1stKerasModel,
 
-    TorchModel, H1stTorchModel
-)
+                 TorchModel, H1stTorchModel)
 
-from .workflow import (
-    Workflow, H1stWorkflow
-)
+from .workflow import Workflow, H1stWorkflow

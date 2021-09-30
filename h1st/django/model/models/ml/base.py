@@ -62,5 +62,41 @@ class MLModel(H1stModel):
         default_related_name = 'h1st_ml_models'
 
 
+class PyLoadablePreTrainedMLModel(MLModel):
+    py_loader_module_and_qualname = \
+        CharField(
+            verbose_name='Pretrained ML Model Python Loader (module.qualname)',
+            help_text='Pretrained ML Model Python Loader (module.qualname)',
+
+            max_length=255,
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    class Meta(MLModel.Meta):
+        verbose_name = 'H1st Python-Loadable Pre-Trained ML Model'
+        verbose_name_plural = 'H1st Python-Loadable Pre-Trained ML Models'
+
+        db_table = \
+            f"{H1stModelModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'h1st_py_loadable_pretrained_ml_models'
+
+
 # alias
 H1stMLModel = MLModel
+H1stPyLoadablePreTrainedMLModel = PyLoadablePreTrainedMLModel

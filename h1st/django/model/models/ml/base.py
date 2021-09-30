@@ -6,6 +6,28 @@ from ..base import H1stModel
 
 
 class MLModel(H1stModel):
+    artifact_global_url = \
+        CharField(
+            verbose_name='ML Model Artifact Global URL',
+            help_text='ML Model Artifact Global URL',
+
+            max_length=255,
+
+            null=True,
+            blank=True,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=True,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
     artifact_local_path = \
         CharField(
             verbose_name='ML Model Artifact Local Path',

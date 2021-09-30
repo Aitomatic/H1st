@@ -12,8 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RemoveField(
             model_name='mlmodel',
-            name='artifact'
-        ),
+            name='artifact'),
 
         migrations.AddField(
             model_name='mlmodel',
@@ -23,8 +22,7 @@ class Migration(migrations.Migration):
                 default=None,
                 help_text='ML Model Artifact Local Path',
                 max_length=255,
-                verbose_name='ML Model Artifact Local Path')
-        ),
+                verbose_name='ML Model Artifact Local Path')),
 
         migrations.AlterField(
             model_name='model',
@@ -36,6 +34,5 @@ class Migration(migrations.Migration):
                 encoder=django.core.serializers.json.DjangoJSONEncoder,
                 help_text='Model Parameters',
                 null=True,
-                verbose_name='Model Parameters')
-        )
+                verbose_name='Model Parameters'))
     ]

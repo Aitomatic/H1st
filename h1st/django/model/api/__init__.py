@@ -6,8 +6,8 @@ from ..models import (Model, H1stModel,
                       TFModel, H1stTFModel,
                       KerasModel, H1stKerasModel,
 
-                      HuggingFacePreTrainedTransformer,
-                      H1stHuggingFacePreTrainedTransformer,
+                      PreTrainedHuggingFaceTransformer,
+                      H1stPreTrainedHuggingFaceTransformer,
 
                       Workflow, H1stWorkflow)
 
@@ -19,7 +19,7 @@ __all__ = ('Model', 'H1stModel',
            'TFModel', 'H1stTFModel',
            'KerasModel', 'H1stKerasModel',
 
-           'HuggingFacePreTrainedTransformer',
-           'H1stHuggingFacePreTrainedTransformer',
+           'PreTrainedHuggingFaceTransformer',
+           'H1stPreTrainedHuggingFaceTransformer',
 
            'Workflow', 'H1stWorkflow')

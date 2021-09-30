@@ -7,8 +7,8 @@ __all__ = ('Model', 'H1stModel',
            'KerasModel', 'H1stKerasModel',
            'TorchModel', 'H1stTorchModel',
 
-           'HuggingFacePreTrainedTransformer',
-           'H1stHuggingFacePreTrainedTransformer',
+           'PreTrainedHuggingFaceTransformer',
+           'H1stPreTrainedHuggingFaceTransformer',
 
            'Workflow', 'H1stWorkflow')
 
@@ -25,7 +25,7 @@ from .ml import (MLModel, H1stMLModel,
 
                  TorchModel, H1stTorchModel,
 
-                 HuggingFacePreTrainedTransformer,
-                 H1stHuggingFacePreTrainedTransformer)
+                 PreTrainedHuggingFaceTransformer,
+                 H1stPreTrainedHuggingFaceTransformer)
 
 from .workflow import Workflow, H1stWorkflow

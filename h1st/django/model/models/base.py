@@ -17,8 +17,8 @@ class Model(PolymorphicModel,
             CoreH1stModel):
     params = \
         JSONField(
-            verbose_name='Paramemeters',
-            help_text='Paramemeters',
+            verbose_name='Model Parameters',
+            help_text='Model Parameters',
 
             encoder=DjangoJSONEncoder,
             decoder=JSONDecoder,

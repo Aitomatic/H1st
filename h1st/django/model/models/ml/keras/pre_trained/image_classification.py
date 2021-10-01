@@ -3,6 +3,8 @@ import numpy
 from PIL import Image, ImageOps
 from tensorflow.python.keras.applications import imagenet_utils
 
+from ......util import PGSQL_IDENTIFIER_MAX_LEN
+from .....apps import H1stModelModuleConfig
 from ...base import H1stPyLoadablePreTrainedMLModel
 
 
@@ -29,9 +31,16 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             # validators=None
         )
 
-    class Meta:
+    class Meta(H1stPyLoadablePreTrainedMLModel.Meta):
         verbose_name = 'Pre-Trained Keras ImageNet Classifier'
         verbose_name_plural = 'Pre-Trained Keras ImageNet Classifiers'
+
+        db_table = \
+            f"{H1stModelModuleConfig.label}_{__qualname__.split('.')[0]}"
+        assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
+            ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
+
+        default_related_name = 'h1st_pretrained_keras_imagenet_classifiers'
 
     def predict(self,
                 image_file_path: str, n_labels: int = 5) -> dict[str, float]:

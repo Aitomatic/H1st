@@ -4,7 +4,7 @@ __all__ = 'PGSQL_IDENTIFIER_MAX_LEN', 'dir_path_with_slash', 'import_obj'
 from importlib import import_module
 
 
-PGSQL_IDENTIFIER_MAX_LEN = 63
+PGSQL_IDENTIFIER_MAX_LEN: int = 63
 
 
 def dir_path_with_slash(path: str) -> str:

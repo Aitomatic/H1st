@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "h1st"
-version = "0.0.4"
+version = "0.0.5"
 description = "Human-First AI (H1ST)"
 authors = ["h1st-ai <engineering@aitomatic.com>"]
 license = "Apache-2.0"
@@ -103,7 +103,6 @@ commitizen = "^2.19.0"
 pytest = "^6.2.5"
 pre-commit = "^2.15.0"
 tensorflow = "^2.6.0"
-xlrd = "^2.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

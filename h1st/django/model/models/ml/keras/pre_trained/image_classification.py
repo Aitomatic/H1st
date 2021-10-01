@@ -1,18 +1,37 @@
-from abc import abstractmethod
-
+from django.db.models.fields import CharField
 import numpy
 from PIL import Image, ImageOps
+from tensorflow.python.keras.applications import imagenet_utils
 
-from tensorflow.keras.applications.imagenet_utils import decode_predictions
-
-from h1st.django.model.api import H1stKerasModel
+from ...base import H1stPyLoadablePreTrainedMLModel
 
 
-class KerasImageNetClassifierMixIn:
-    @property
-    @abstractmethod
-    def preprocessor(self) -> callable:
-        raise NotImplementedError
+class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
+    preprocessor_module_and_qualname = \
+        CharField(
+            verbose_name='Preprocessor (module.qualname)',
+            help_text='Preprocessor (module.qualname)',
+
+            max_length=255,
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    class Meta:
+        verbose_name = 'Pre-Trained Keras ImageNet Classifier'
+        verbose_name_plural = 'Pre-Trained Keras ImageNet Classifiers'
 
     def predict(self,
                 image_file_path: str, n_labels: int = 5) -> dict[str, float]:
@@ -47,10 +66,9 @@ class KerasImageNetClassifierMixIn:
                 x=preprocessed_fitted_image_batch_array)
 
         # return dict
-        return decode_predictions(preds=probabilities, top=n_labels)
+        return imagenet_utils.decode_predictions(preds=probabilities,
+                                                 top=n_labels)
 
 
-class AbstractKerasImageNetClassifier(KerasImageNetClassifierMixIn,
-                                      H1stKerasModel):
-    class Meta:
-        abstract = True
+# alias
+H1stPreTrainedKerasImageNetClassifier = PreTrainedKerasImageNetClassifier

@@ -88,13 +88,11 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                 x=preprocessed_fitted_img_batch_arr)
 
         # decode predictions & return
-        decoded_preds = [
-            {tup[1]: tup[2] for tup in decoded_pred}
-            for decoded_pred in
-            imagenet_utils.decode_predictions(
-                preds=pred_prob_arr,
-                top=n_labels)
-        ]
+        decoded_preds = [{tup[1]: tup[2] for tup in decoded_pred}
+                         for decoded_pred in
+                         imagenet_utils.decode_predictions(
+                             preds=pred_prob_arr,
+                             top=n_labels)]
 
         return (decoded_preds[0] if single_img else decoded_preds)
 

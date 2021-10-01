@@ -65,8 +65,8 @@ class MLModel(H1stModel):
 class PyLoadablePreTrainedMLModel(MLModel):
     py_loader_module_and_qualname = \
         CharField(
-            verbose_name='Pretrained ML Model Python Loader (module.qualname)',
-            help_text='Pretrained ML Model Python Loader (module.qualname)',
+            verbose_name='Pre-Trained ML Model Python Loader',
+            help_text='Pre-Trained ML Model Python Loader (module.qualname)',
 
             max_length=255,
 

@@ -1,9 +1,11 @@
+from typing import Sequence, Union
+
 from django.db.models.fields import CharField
 import numpy
 from PIL import Image, ImageOps
 from tensorflow.python.keras.applications import imagenet_utils
 
-from ......util import PGSQL_IDENTIFIER_MAX_LEN
+from ......util import PGSQL_IDENTIFIER_MAX_LEN, import_obj
 from .....apps import H1stModelModuleConfig
 from ...base import H1stPyLoadablePreTrainedMLModel
 
@@ -42,41 +44,59 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
         default_related_name = 'h1st_pretrained_keras_imagenet_classifiers'
 
+    @property
+    def preprocessor(self) -> callable:
+        return import_obj(self.preprocessor_module_and_qualname)
+
     def predict(self,
-                image_file_path: str, n_labels: int = 5) -> dict[str, float]:
-        self.load()
+                image_file_path_or_paths: Union[str, Sequence[str]],
+                n_labels: int = 5) -> dict[str, float]:
+        single_img = isinstance(image_file_path_or_paths, str)
 
-        # load image from file
-        image = Image.open(fp=image_file_path, mode='r', formats=None)
+        img_file_paths = ([image_file_path_or_paths]
+                          if single_img
+                          else image_file_path_or_paths)
 
-        # fit image to size model expects
+        # construct 4D array of images' data fitted into standardized size
+        fitted_img_arrs = []
         img_dim_size = self.params['img_dim_size']
-
-        fitted_image = ImageOps.fit(image=image,
-                                    size=(img_dim_size, img_dim_size),
-                                    method=Image.LANCZOS,   # BICUBIC
-                                    bleed=0,
-                                    centering=(0.5, 0.5))
-
-        # convert fitted image to NumPy array
-        fitted_image_array = numpy.asarray(fitted_image, dtype=int, order=None)
-
-        # make a batch of 1 array
-        fitted_image_batch_array = numpy.expand_dims(fitted_image_array,
-                                                     axis=0)
+        for img_file_path in img_file_paths:
+            # load image from file
+            img = Image.open(fp=img_file_path, mode='r', formats=None)
+            # fit image to size model expects
+            fitted_img = ImageOps.fit(image=img,
+                                      size=(img_dim_size, img_dim_size),
+                                      method=Image.LANCZOS,
+                                      bleed=0,
+                                      centering=(0.5, 0.5))
+            # convert fitted image to batch of 1 3D NumPy array
+            fitted_img_arrs.append(numpy.expand_dims(numpy.asarray(fitted_img,
+                                                                   dtype=int,
+                                                                   order=None),
+                                                     axis=0))
+        fitted_img_batch_arr = numpy.vstack(fitted_img_arrs)
 
         # preprocess
-        preprocessed_fitted_image_batch_array = \
-            self.preprocessor(fitted_image_batch_array)
+        preprocessed_fitted_img_batch_arr = \
+            self.preprocessor(fitted_img_batch_arr)
 
-        # predict
-        probabilities = \
-            self._native_model_obj.predict(
-                x=preprocessed_fitted_image_batch_array)
+        # load native model object & predict
+        self.load()
 
-        # return dict
-        return imagenet_utils.decode_predictions(preds=probabilities,
-                                                 top=n_labels)
+        pred_prob_arr = \
+            self._native_obj.predict(
+                x=preprocessed_fitted_img_batch_arr)
+
+        # decode predictions & return
+        decoded_preds = [
+            {tup[1]: tup[2] for tup in decoded_pred}
+            for decoded_pred in
+            imagenet_utils.decode_predictions(
+                preds=pred_prob_arr,
+                top=n_labels)
+        ]
+
+        return (decoded_preds[0] if single_img else decoded_preds)
 
 
 # alias

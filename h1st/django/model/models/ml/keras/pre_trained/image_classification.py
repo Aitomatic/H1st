@@ -49,13 +49,13 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
         return import_obj(self.preprocessor_module_and_qualname)
 
     def predict(self,
-                image_file_path_or_paths: Union[str, Sequence[str]],
+                image_file_or_files: Union[str, Sequence[str]],
                 n_labels: int = 5) -> dict[str, float]:
-        single_img = isinstance(image_file_path_or_paths, str)
+        single_img = isinstance(image_file_or_files, str)
 
-        img_file_paths = ([image_file_path_or_paths]
+        img_file_paths = ([image_file_or_files]
                           if single_img
-                          else image_file_path_or_paths)
+                          else image_file_or_files)
 
         # construct 4D array of images' data fitted into standardized size
         fitted_img_arrs = []

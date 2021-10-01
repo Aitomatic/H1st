@@ -1,6 +1,8 @@
+from abc import abstractmethod
+
 from django.db.models.fields import CharField
 
-from ....util import PGSQL_IDENTIFIER_MAX_LEN
+from ....util import PGSQL_IDENTIFIER_MAX_LEN, import_obj
 from ...apps import H1stModelModuleConfig
 from ..base import H1stModel
 
@@ -50,6 +52,8 @@ class MLModel(H1stModel):
             # validators=None
         )
 
+    _native_obj = None
+
     class Meta(H1stModel.Meta):
         verbose_name = 'H1st ML Model'
         verbose_name_plural = 'H1st ML Models'
@@ -60,6 +64,13 @@ class MLModel(H1stModel):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'h1st_ml_models'
+
+    @abstractmethod
+    def load(self):
+        raise NotImplementedError
+
+    def unload(self):
+        self._native_obj = None
 
 
 class PyLoadablePreTrainedMLModel(MLModel):
@@ -95,6 +106,18 @@ class PyLoadablePreTrainedMLModel(MLModel):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'h1st_py_loadable_pretrained_ml_models'
+
+    @property
+    def loader(self) -> callable:
+        return import_obj(self.py_loader_module_and_qualname)
+
+    @property
+    def init_params(self) -> dict:
+        return ({} if self.params is None else self.params).get('__init__', {})
+
+    def load(self):
+        if not self._native_obj:
+            self._native_obj = self.loader(**self.init_params)
 
 
 # alias

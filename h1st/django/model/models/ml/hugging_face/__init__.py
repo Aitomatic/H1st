@@ -1,7 +1,7 @@
-from ....util import PGSQL_IDENTIFIER_MAX_LEN
-from ...apps import H1stModelModuleConfig
+from .....util import PGSQL_IDENTIFIER_MAX_LEN
+from ....apps import H1stModelModuleConfig
 
-from .base import PyLoadablePreTrainedMLModel
+from ..base import PyLoadablePreTrainedMLModel
 
 
 class PreTrainedHuggingFaceTransformer(PyLoadablePreTrainedMLModel):

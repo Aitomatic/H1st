@@ -1,3 +1,4 @@
+from io import BytesIO
 from typing import Sequence, Union
 
 from django.db.models.fields import CharField
@@ -15,7 +16,7 @@ from .....apps import H1stModelModuleConfig
 from ...base import H1stPyLoadablePreTrainedMLModel
 
 
-InputImageDataType = Union[str, Image.Image, numpy.ndarray]
+InputImageDataType = Union[str, BytesIO, Image.Image, numpy.ndarray]
 OutputImageClassificationType = dict[str, float]
 
 
@@ -58,8 +59,8 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
         return self.params['img_dim_size']
 
     def image_to_4d_array(self, image: InputImageDataType) -> numpy.ndarray:
-        # if string file path, then load from file
-        if isinstance(image, str):
+        # if file-like or string file path, then load from file
+        if isinstance(image, (str, BytesIO)):
             image = Image.open(fp=image, mode='r', formats=None)
 
         # if PIL.Image.Image instance,

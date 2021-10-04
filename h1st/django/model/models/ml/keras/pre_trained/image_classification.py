@@ -1,4 +1,4 @@
-from typing import Sequence, Tuple, TypeVar, Union
+from typing import Sequence, Tuple, Union
 
 from django.db.models.fields import CharField
 
@@ -14,8 +14,8 @@ from .....apps import H1stModelModuleConfig
 from ...base import H1stPyLoadablePreTrainedMLModel
 
 
-ImageTypeVar = TypeVar('ImageTypeVar', str, Image.Image, numpy.ndarray)
-ImageClassificationType = dict[str, float]
+InputImageDataType = Union[str, Image.Image, numpy.ndarray]
+OutputImageClassificationType = dict[str, float]
 
 
 class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
@@ -56,7 +56,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
     def img_dim_size(self):
         return self.params['img_dim_size']
 
-    def image_to_4d_array(self, image: ImageTypeVar) -> numpy.ndarray:
+    def image_to_4d_array(self, image: InputImageDataType) -> numpy.ndarray:
         # if string file path, then load from file
         if isinstance(image, str):
             image = Image.open(fp=image, mode='r', formats=None)
@@ -85,11 +85,14 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
         return import_obj(self.preprocessor_module_and_qualname)
 
     def predict(self,
-                image_or_images: Union[ImageTypeVar, Sequence[ImageTypeVar]],
+                image_or_images: Union[InputImageDataType,
+                                       Sequence[InputImageDataType]],
                 n_labels: int = 5) \
-            -> Union[ImageClassificationType,
-                     Sequence[ImageClassificationType]]:
-        single_img = isinstance(image_or_images, ImageTypeVar)
+            -> Union[OutputImageClassificationType,
+                     Sequence[OutputImageClassificationType]]:
+        single_img = isinstance(image_or_images, (str,
+                                                  Image.Image,
+                                                  numpy.ndarray))
 
         imgs = [image_or_images] if single_img else image_or_images
 

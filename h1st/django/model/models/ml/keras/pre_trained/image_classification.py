@@ -62,7 +62,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
         # then fit to size model expects and then convert to NumPy array
         if isinstance(image, Image.Image):
             img_dim_size = self.img_dim_size
-            image = numpy.asarray(ImageOps.fit(image=img,
+            image = numpy.asarray(ImageOps.fit(image=image,
                                                size=(img_dim_size,
                                                      img_dim_size),
                                                method=Image.LANCZOS,

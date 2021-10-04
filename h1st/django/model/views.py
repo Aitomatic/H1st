@@ -42,20 +42,42 @@ def model_exec_on_json_input_data(request, model_uuid, json_input_data):
 def gradio_ui_view(request, model_uuid):
     model = H1stModel.objects.get(uuid=model_uuid)
 
-    input_components, output_components = model.gradio_ui
+    interface = model.gradio_ui
 
-    interface = Interface(fn=model.predict,
-                          inputs=input_components,
-                          outputs=output_components)
+    if interface is NotImplemented:
+        pass
 
-    interface.launch(inline=False,
-                     inbrowser=True,
-                     share=True,
-                     debug=False,
-                     auth=None,
-                     auth_message=None,
-                     private_endpoint=None,
-                     prevent_thread_lock=False)
+    else:
+        interface.launch(
+            inline=False,
+            # (bool) - whether to display in the interface inline
+            # on python notebooks.
+
+            inbrowser=True,
+            # (bool) - whether to automatically launch the interface
+            # in a new tab on the default browser.
+
+            share=True,
+            # (bool) - whether to create a publicly shareable link
+            # from your computer for the interface.
+
+            debug=False,
+            # (bool) - if True, and the interface was launched
+            # from Google Colab, prints the errors in the cell output.
+
+            auth=None,
+            # (Callable, Union[Tuple[str, str], List[Tuple[str, str]]]) -
+            # If provided, username and password
+            # (or list of username-password tuples)
+            # required to access interface.
+            # Can also provide function that takes username and password
+            # and returns True if valid login.
+
+            auth_message=None,
+            # (str) - If provided, HTML message provided on login page.
+
+            private_endpoint=None,
+            prevent_thread_lock=False)
 
     return JsonResponse(data=str(gradio_interface),
                         encoder=DjangoJSONEncoder,

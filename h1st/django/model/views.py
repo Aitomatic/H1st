@@ -48,6 +48,9 @@ def gradio_ui_view(request, model_uuid):
         pass
 
     else:
+        assert isinstance(interface, Interface), \
+            TypeError(f'*** {interface} NOT A GRADIO INTERFACE ***')
+
         interface.launch(
             inline=False,
             # (bool) - whether to display in the interface inline

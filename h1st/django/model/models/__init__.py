@@ -1,7 +1,9 @@
 __all__ = ('Model', 'H1stModel',
-           'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
+
+           'CloudServiceModel', 'H1stCloudServiceModel',
 
            'MLModel', 'H1stMLModel',
+           'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
 
            'SKLModel', 'H1stSKLModel',
 
@@ -21,6 +23,9 @@ __all__ = ('Model', 'H1stModel',
 
 
 from .base import Model, H1stModel
+
+from .cloud_svc import (CloudServiceModel, H1stCloudServiceModel,
+                        )
 
 from .ml import (MLModel, H1stMLModel,
                  PyLoadablePreTrainedMLModel, H1stPyLoadablePreTrainedMLModel,

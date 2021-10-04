@@ -82,23 +82,20 @@ class H1stModelViewSet(LookUpByUUIDorNameMixin, ModelViewSet):
 
 
 class ModelExecAPIView(APIView):
-    authentication_classes = \
-        BasicAuthentication, \
-        RemoteUserAuthentication, \
-        SessionAuthentication, \
-        TokenAuthentication
+    authentication_classes = (BasicAuthentication,
+                              RemoteUserAuthentication,
+                              SessionAuthentication,
+                              TokenAuthentication)
 
     permission_classes = (IsAuthenticated,)
 
-    parser_classes = \
-        JSONParser, \
-        MultiPartParser
+    parser_classes = JSONParser, MultiPartParser
 
     def post(self, request):
         try:
             model_uuid = request.data.pop('UUID')
-        except Exception:
-            return Response("'UUID' Key Not Found in Request Body")
+        except Exception as err:
+            return Response(f"*** {err} ***")
 
         if request.content_type == 'application/json':
             try:
@@ -158,7 +155,7 @@ class ModelExecAPIView(APIView):
                 else:
                     data[k] = v
 
-            json_output_data = model.predict(data)
+            json_output_data = model.predict(**data)
 
             saved_json_output_data = \
                 save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(

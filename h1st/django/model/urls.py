@@ -2,7 +2,7 @@ from django.urls.conf import include, path
 
 from rest_framework.routers import DefaultRouter
 
-from .api.rest.views import H1stModelViewSet, ModelExecAPIView, TestAPIView
+from .api.rest.views import H1stModelViewSet, ModelExecAPIView
 from .views import exec_on_json_input_data, launch_gradio_ui
 
 

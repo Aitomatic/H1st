@@ -111,8 +111,8 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             self._native_obj.predict(
                 x=preprocessed_fitted_img_batch_arr)
 
-        # decode predictions & return
-        decoded_preds = [{tup[1]: tup[2] for tup in decoded_pred}
+        # decode predictions & return JSON-serializable dict
+        decoded_preds = [{tup[1]: float(tup[2]) for tup in decoded_pred}
                          for decoded_pred in
                          imagenet_utils.decode_predictions(
                              preds=pred_prob_arr,

@@ -1,8 +1,10 @@
+from inspect import getsource
+import json
+
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import JsonResponse
 
-from inspect import getsource
-import json
+from gradio.interface import Interface
 
 from ..data.util import \
     load_data_set_pointers_as_json, \
@@ -31,8 +33,31 @@ def model_exec_on_json_input_data(request, model_uuid, json_input_data):
         model_code={str(model.uuid): getsource(type(model))},
         output_data=saved_json_output_data)
 
-    return JsonResponse(
-            data=saved_json_output_data,
-            encoder=DjangoJSONEncoder,
-            safe=True,
-            json_dumps_params=None)
+    return JsonResponse(data=saved_json_output_data,
+                        encoder=DjangoJSONEncoder,
+                        safe=True,
+                        json_dumps_params=None)
+
+
+def gradio_ui_view(request, model_uuid):
+    model = H1stModel.objects.get(uuid=model_uuid)
+
+    input_components, output_components = model.gradio_ui
+
+    interface = Interface(fn=model.predict,
+                          inputs=input_components,
+                          outputs=output_components)
+
+    interface.launch(inline=False,
+                     inbrowser=True,
+                     share=True,
+                     debug=False,
+                     auth=None,
+                     auth_message=None,
+                     private_endpoint=None,
+                     prevent_thread_lock=False)
+
+    return JsonResponse(data=str(gradio_interface),
+                        encoder=DjangoJSONEncoder,
+                        safe=False,
+                        json_dumps_params=None)

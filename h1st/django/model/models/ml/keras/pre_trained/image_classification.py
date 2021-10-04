@@ -210,11 +210,11 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
             repeat_outputs_per_model=True,
 
-            title=type(self).__qualname__,
+            title=self.name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 
-            description=self.name,
+            description='A Keras model trained to classify ImageNet data',
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 
@@ -256,7 +256,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             # (bool) - If True, flagged data will be encrypted
             # by key provided by creator at launch
 
-            show_tips=True,
+            show_tips=False,
             # (bool) - if True, will occasionally show tips
             # about new Gradio features
 

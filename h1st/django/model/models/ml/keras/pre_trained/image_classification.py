@@ -1,4 +1,4 @@
-from typing import Sequence, Union
+from typing import Sequence, TypeVar, Union
 
 from django.db.models.fields import CharField
 import numpy
@@ -8,6 +8,10 @@ from tensorflow.python.keras.applications import imagenet_utils
 from ......util import PGSQL_IDENTIFIER_MAX_LEN, import_obj
 from .....apps import H1stModelModuleConfig
 from ...base import H1stPyLoadablePreTrainedMLModel
+
+
+ImageTypeVar = TypeVar('ImageTypeVar', str, Image.Image, numpy.ndarray)
+ImageClassificationType = dict[str, float]
 
 
 class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
@@ -44,37 +48,46 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
         default_related_name = 'h1st_pretrained_keras_imagenet_classifiers'
 
+    def image_to_4d_array(self, image: ImageTypeVar) -> numpy.ndarray:
+        # if string file path, then load from file
+        if isinstance(image, str):
+            image = Image.open(fp=image, mode='r', formats=None)
+
+        # if PIL.Image.Image instance,
+        # then fit to size model expects and then convert to NumPy array
+        if isinstance(image, Image.Image):
+            img_dim_size = self.params['img_dim_size']
+            image = numpy.asarray(ImageOps.fit(image=img,
+                                               size=(img_dim_size,
+                                                     img_dim_size),
+                                               method=Image.LANCZOS,
+                                               bleed=0,
+                                               centering=(0.5, 0.5)),
+                                  dtype=int,
+                                  order=None)
+
+        assert isinstance(image, numpy.ndarray), \
+            TypeError(f'*** {image} not a NumPy Array ***')
+
+        # convert to batch of 1 3D NumPy array
+        return numpy.expand_dims(image, axis=0)
+
     @property
     def preprocessor(self) -> callable:
         return import_obj(self.preprocessor_module_and_qualname)
 
     def predict(self,
-                image_file_or_files: Union[str, Sequence[str]],
-                n_labels: int = 5) -> dict[str, float]:
-        single_img = isinstance(image_file_or_files, str)
+                image_or_images: Union[ImageTypeVar, Sequence[ImageTypeVar]],
+                n_labels: int = 5) \
+            -> Union[ImageClassificationType,
+                     Sequence[ImageClassificationType]]:
+        single_img = isinstance(image_or_images, ImageTypeVar)
 
-        img_file_paths = ([image_file_or_files]
-                          if single_img
-                          else image_file_or_files)
+        imgs = [image_or_images] if single_img else image_or_images
 
         # construct 4D array of images' data fitted into standardized size
-        fitted_img_arrs = []
-        img_dim_size = self.params['img_dim_size']
-        for img_file_path in img_file_paths:
-            # load image from file
-            img = Image.open(fp=img_file_path, mode='r', formats=None)
-            # fit image to size model expects
-            fitted_img = ImageOps.fit(image=img,
-                                      size=(img_dim_size, img_dim_size),
-                                      method=Image.LANCZOS,
-                                      bleed=0,
-                                      centering=(0.5, 0.5))
-            # convert fitted image to batch of 1 3D NumPy array
-            fitted_img_arrs.append(numpy.expand_dims(numpy.asarray(fitted_img,
-                                                                   dtype=int,
-                                                                   order=None),
-                                                     axis=0))
-        fitted_img_batch_arr = numpy.vstack(fitted_img_arrs)
+        fitted_img_batch_arr = numpy.vstack([self.image_to_4d_array(image=img)
+                                             for img in imgs])
 
         # preprocess
         preprocessed_fitted_img_batch_arr = \

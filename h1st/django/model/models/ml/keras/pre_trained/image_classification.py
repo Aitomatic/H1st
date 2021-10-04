@@ -68,7 +68,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             image = numpy.asarray(ImageOps.fit(image=image,
                                                size=(img_dim_size,
                                                      img_dim_size),
-                                               method=Image.LANCZOS,
+                                               method=Image.BICUBIC,
                                                bleed=0,
                                                centering=(0.5, 0.5)),
                                   dtype=int,

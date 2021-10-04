@@ -5,6 +5,9 @@ from django.db.models.fields.json import JSONField
 
 from polymorphic.models import PolymorphicModel
 
+from gradio.inputs import InputComponent
+from gradio.outputs import OutputComponent
+
 from h1st.model.model import Model as CoreH1stModel
 
 from ...util import PGSQL_IDENTIFIER_MAX_LEN
@@ -48,6 +51,13 @@ class Model(PolymorphicModel,
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'h1st_models'
+
+    @property
+    def gradio_ui(self) -> Tuple[Union[InputComponent,
+                                       Sequence[InputComponent]],
+                                 Union[OutputComponent,
+                                       Sequence[OutputComponent]]]:
+        return NotImplemented
 
 
 # aliases

@@ -1,3 +1,6 @@
+import os
+
+import h5py
 from tensorflow.python.keras.saving.save import load_model
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN
@@ -18,10 +21,15 @@ class KerasModel(H1stMLModel):
         default_related_name = 'h1st_keras_models'
 
     def load(self):
-        self._native_obj = load_model(filepath=self.artifact_local_path,
-                                      custom_objects=None,
-                                      compile=True,
-                                      options=None)
+        artifact_local_path = os.path.expanduser(path=self.artifact_local_path)
+
+        self._native_obj = \
+            load_model(filepath=(h5py.File(name=artifact_local_path, mode='r')
+                                 if artifact_local_path.endswith('.h5')
+                                 else artifact_local_path),
+                       custom_objects=None,
+                       compile=True,
+                       options=None)
 
 
 # alias

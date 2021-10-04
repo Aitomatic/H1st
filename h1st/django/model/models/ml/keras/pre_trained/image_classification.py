@@ -1,6 +1,7 @@
 from typing import Sequence, TypeVar, Union
 
 from django.db.models.fields import CharField
+import gradio
 import numpy
 from PIL import Image, ImageOps
 from tensorflow.python.keras.applications import imagenet_utils
@@ -48,6 +49,10 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
         default_related_name = 'h1st_pretrained_keras_imagenet_classifiers'
 
+    @property
+    def img_dim_size(self):
+        return self.params['img_dim_size']
+
     def image_to_4d_array(self, image: ImageTypeVar) -> numpy.ndarray:
         # if string file path, then load from file
         if isinstance(image, str):
@@ -56,7 +61,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
         # if PIL.Image.Image instance,
         # then fit to size model expects and then convert to NumPy array
         if isinstance(image, Image.Image):
-            img_dim_size = self.params['img_dim_size']
+            img_dim_size = self.img_dim_size
             image = numpy.asarray(ImageOps.fit(image=img,
                                                size=(img_dim_size,
                                                      img_dim_size),
@@ -108,6 +113,23 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                              top=n_labels)]
 
         return (decoded_preds[0] if single_img else decoded_preds)
+
+    @property
+    def gradio_ui(self):
+        img_dim_size = self.img_dim_size
+
+        return (gradio.inputs.Image(shape=(img_dim_size, img_dim_size),
+                                    image_mode='RGB',
+                                    invert_colors=False,
+                                    source='upload',
+                                    tool='editor',
+                                    type='numpy',
+                                    label='Upload an Image to Classify',
+                                    optional=False),
+
+                gradio.outputs.Label(num_top_classes=5,
+                                     type='auto',
+                                     label=f'Predictions by {self}'))
 
 
 # alias

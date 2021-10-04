@@ -1,7 +1,10 @@
-from typing import Sequence, TypeVar, Union
+from typing import Sequence, Tuple, TypeVar, Union
 
 from django.db.models.fields import CharField
-import gradio
+
+from gradio.inputs import Image as ImageInputComponent
+from gradio.outputs import Label as LabelOutputComponent
+
 import numpy
 from PIL import Image, ImageOps
 from tensorflow.python.keras.applications import imagenet_utils
@@ -115,10 +118,10 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
         return (decoded_preds[0] if single_img else decoded_preds)
 
     @property
-    def gradio_ui(self):
+    def gradio_ui(self) -> Tuple[ImageInputComponent, LabelOutputComponent]:
         img_dim_size = self.img_dim_size
 
-        return (gradio.inputs.Image(shape=(img_dim_size, img_dim_size),
+        return (ImageInputComponent(shape=(img_dim_size, img_dim_size),
                                     image_mode='RGB',
                                     invert_colors=False,
                                     source='upload',
@@ -127,7 +130,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                                     label='Upload an Image to Classify',
                                     optional=False),
 
-                gradio.outputs.Label(num_top_classes=5,
+                LabelOutputComponent(num_top_classes=5,
                                      type='auto',
                                      label=f'Predictions by {self}'))
 

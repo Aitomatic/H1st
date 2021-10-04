@@ -1,4 +1,9 @@
-from uuid import uuid4
+__all__ = ('_ModelWithUUIDPK',
+           '_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps')
+
+
+from typing import Union
+from uuid import UUID, uuid4
 
 from django.db.models.base import Model
 from django.db.models.fields import CharField, UUIDField
@@ -173,3 +178,18 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
         return (f'{type(self).__name__} "{self.name}"'
                 if self.name
                 else f'{type(self).__name__} #{self.uuid}')
+
+    @property
+    def name_or_uuid(self) -> str:
+        return self.name if self.name else self.uuid
+
+    @classmethod
+    def get_by_name_or_uuid(cls, name_or_uuid: Union[str, UUID]) \
+            -> _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps:
+        try:   # try looking up object by UUID
+            _uuid = UUID(name_or_uuid, version=4)
+            return cls.objects.get(uuid=_uuid)
+
+        except ValueError:
+            # else look up by Name
+            return cls.objects.get(name=name_or_uuid)

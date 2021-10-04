@@ -5,8 +5,7 @@ from django.db.models.fields.json import JSONField
 
 from polymorphic.models import PolymorphicModel
 
-from gradio.inputs import InputComponent
-from gradio.outputs import OutputComponent
+from gradio.interface import Interface
 
 from h1st.model.model import Model as CoreH1stModel
 
@@ -53,10 +52,7 @@ class Model(PolymorphicModel,
         default_related_name = 'h1st_models'
 
     @property
-    def gradio_ui(self) -> Tuple[Union[InputComponent,
-                                       Sequence[InputComponent]],
-                                 Union[OutputComponent,
-                                       Sequence[OutputComponent]]]:
+    def gradio_ui(self) -> Interface:
         return NotImplemented
 
 

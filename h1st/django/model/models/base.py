@@ -1,4 +1,5 @@
 from json.decoder import JSONDecoder
+from typing import Sequence, Tuple, Union
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.fields.json import JSONField

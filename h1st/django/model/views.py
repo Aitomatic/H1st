@@ -6,37 +6,10 @@ from django.http.response import HttpResponseRedirect, Http404, JsonResponse
 
 from gradio.interface import Interface
 
-from ..data.util import \
-    load_data_set_pointers_as_json, \
-    save_numpy_arrays_and_pandas_dfs_as_data_set_pointers
+from ..data.util import (load_data_set_pointers_as_json,
+                         save_numpy_arrays_and_pandas_dfs_as_data_set_pointers)
 from .models import H1stModel
 from ..trust.models import Decision
-
-
-def exec_on_json_input_data(request, model_name_or_uuid: str, json_input_data):
-    model = H1stModel.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
-
-    json_input_data = json.loads(json_input_data)
-
-    loaded_json_input_data = load_data_set_pointers_as_json(json_input_data)
-
-    json_output_data = model.predict(loaded_json_input_data)
-
-    saved_json_output_data = \
-        save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(json_output_data)
-
-    print(f'OUTPUT: {saved_json_output_data}')
-
-    Decision.objects.create(
-        input_data=json_input_data,
-        model=model,
-        model_code={str(model.uuid): getsource(type(model))},
-        output_data=saved_json_output_data)
-
-    return JsonResponse(data=saved_json_output_data,
-                        encoder=DjangoJSONEncoder,
-                        safe=True,
-                        json_dumps_params=None)
 
 
 def launch_gradio_ui(request, model_name_or_uuid: str):
@@ -84,3 +57,29 @@ def launch_gradio_ui(request, model_name_or_uuid: str):
                 prevent_thread_lock=False)
 
         return HttpResponseRedirect(redirect_to=share_url)
+
+
+def exec_on_json_input_data(request, model_name_or_uuid: str, json_input_data):
+    model = H1stModel.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
+
+    json_input_data = json.loads(json_input_data)
+
+    loaded_json_input_data = load_data_set_pointers_as_json(json_input_data)
+
+    json_output_data = model.predict(loaded_json_input_data)
+
+    saved_json_output_data = \
+        save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(json_output_data)
+
+    print(f'OUTPUT: {saved_json_output_data}')
+
+    Decision.objects.create(
+        input_data=json_input_data,
+        model=model,
+        model_code={str(model.uuid): getsource(type(model))},
+        output_data=saved_json_output_data)
+
+    return JsonResponse(data=saved_json_output_data,
+                        encoder=DjangoJSONEncoder,
+                        safe=True,
+                        json_dumps_params=None)

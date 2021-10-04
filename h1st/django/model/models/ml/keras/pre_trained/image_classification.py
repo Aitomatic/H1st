@@ -201,7 +201,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             # Increasing this value will increase shap runtime,
             # but improve results.
 
-            theme='default',
+            theme='huggingface',
             # (str) - Theme to use - one of
             # - "default",
             # - "compact",

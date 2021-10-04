@@ -119,7 +119,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                              preds=pred_prob_arr,
                              top=n_labels)]
 
-        return (decoded_preds[0] if single_img else decoded_preds)
+        return decoded_preds[0] if single_img else decoded_preds
 
     @property
     def gradio_ui(self) -> Interface:

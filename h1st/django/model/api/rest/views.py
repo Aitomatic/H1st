@@ -91,6 +91,19 @@ class ModelExecAPIView(APIView):
 
     parser_classes = JSONParser, MultiPartParser
 
+    @staticmethod
+    def handle_request_data_value(v):
+        if isinstance(v, InMemoryUploadedFile):
+            tmp_file_handle, tmp_file_path = mkstemp()
+            tmp_file_handle.write(v.read())
+            return tmp_file_path
+
+        elif isinstance(v, TemporaryUploadedFile):
+            return v.temporary_file_path()
+
+        else:
+            return v
+
     def post(self, request, model_name_or_uuid: str):
         model = Model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
 
@@ -122,17 +135,15 @@ class ModelExecAPIView(APIView):
         elif request.content_type.startswith('multipart/form-data'):
             data = {}
 
+            print(f'*** REQUEST DATA: {request.data} ***')
+
             for k, v in request.data.items():
-                if isinstance(v, InMemoryUploadedFile):
-                    tmp_file_handle, tmp_file_path = mkstemp()
-                    tmp_file_handle.write(v.read())
-                    data[k] = tmp_file_path
+                v_list = request.data.getlist(key=k)
+                data[k] = ([self.handle_request_data_value(v) for v in v_list]
+                           if len(v_list) > 1
+                           else self.handle_request_data_value(v))
 
-                elif isinstance(v, TemporaryUploadedFile):
-                    data[k] = v.temporary_file_path()
-
-                else:
-                    data[k] = v
+            print(f'*** MODEL INPUT DATA: {data} ***')
 
             json_output_data = model.predict(**data)
 
@@ -140,7 +151,7 @@ class ModelExecAPIView(APIView):
                 save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(
                     json_output_data)
 
-            print(f'OUTPUT: {saved_json_output_data}')
+            print(f'*** MODEL OUTPUT: {saved_json_output_data} ***')
 
             Decision.objects.create(
                 input_data=data,

@@ -1,6 +1,4 @@
-__all__ = ('_ModelWithUUIDPK',
-           '_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps')
-
+from __future__ import annotations
 
 from typing import Union
 from uuid import UUID, uuid4
@@ -9,6 +7,10 @@ from django.db.models.base import Model
 from django.db.models.fields import CharField, UUIDField
 
 from model_utils.models import TimeStampedModel
+
+
+__all__ = ('_ModelWithUUIDPK',
+           '_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps')
 
 
 class _ModelWithUUIDPK(Model):

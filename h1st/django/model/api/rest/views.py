@@ -91,18 +91,10 @@ class ModelExecAPIView(APIView):
 
     parser_classes = JSONParser, MultiPartParser
 
-    def post(self, request):
-        try:
-            model_uuid = request.data.pop('UUID')
-        except Exception as err:
-            return Response(f"*** {err} ***")
+    def post(self, request, model_name_or_uuid: str):
+        model = Model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
 
         if request.content_type == 'application/json':
-            try:
-                model = Model.objects.get(uuid=model_uuid)
-            except Exception:
-                return Response(f"Model with UUID #{model_uuid} Not Found")
-
             json_input_data = request.data
 
             loaded_json_input_data = \
@@ -120,27 +112,14 @@ class ModelExecAPIView(APIView):
                 model_code={str(model.uuid): getsource(type(model))},
                 output_data=saved_json_output_data)
 
-            return Response(
-                    data=saved_json_output_data,
-                    status=None,
-                    template_name=None,
-                    headers=None,
-                    exception=False,
-                    content_type=None)
+            return Response(data=saved_json_output_data,
+                            status=None,
+                            template_name=None,
+                            headers=None,
+                            exception=False,
+                            content_type=None)
 
         elif request.content_type.startswith('multipart/form-data'):
-            try:
-                assert isinstance(model_uuid, list) and (len(model_uuid) == 1)
-            except Exception:
-                return Response(f"{model_uuid} Not Valid")
-
-            model_uuid = model_uuid[0]
-
-            try:
-                model = Model.objects.get(uuid=model_uuid)
-            except Exception:
-                return Response(f"Model with UUID #{model_uuid} Not Found")
-
             data = {}
 
             for k, v in request.data.items():
@@ -169,13 +148,12 @@ class ModelExecAPIView(APIView):
                 model_code={str(model.uuid): getsource(type(model))},
                 output_data=saved_json_output_data)
 
-            return Response(
-                    data=saved_json_output_data,
-                    status=None,
-                    template_name=None,
-                    headers=None,
-                    exception=False,
-                    content_type=None)
+            return Response(data=saved_json_output_data,
+                            status=None,
+                            template_name=None,
+                            headers=None,
+                            exception=False,
+                            content_type=None)
 
         else:
             return Response('Content Type must be '

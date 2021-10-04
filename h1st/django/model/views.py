@@ -8,12 +8,12 @@ from gradio.interface import Interface
 
 from ..data.util import (load_data_set_pointers_as_json,
                          save_numpy_arrays_and_pandas_dfs_as_data_set_pointers)
-from .models import H1stModel
+from .models import Model
 from ..trust.models import Decision
 
 
 def launch_gradio_ui(request, model_name_or_uuid: str):
-    model = H1stModel.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
+    model = Model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
 
     interface = model.gradio_ui
 
@@ -60,7 +60,7 @@ def launch_gradio_ui(request, model_name_or_uuid: str):
 
 
 def exec_on_json_input_data(request, model_name_or_uuid: str, json_input_data):
-    model = H1stModel.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
+    model = Model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
 
     json_input_data = json.loads(json_input_data)
 

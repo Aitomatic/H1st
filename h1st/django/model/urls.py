@@ -18,15 +18,12 @@ urlpatterns = [
     path(route='',
          view=include(CORE_REST_API_ROUTER.urls)),
 
-    path(route='<str:model_name_or_uuid>/gradio/',
-         view=launch_gradio_ui),
-
-    path(route='exec/',
+    path(route='<str:model_name_or_uuid>/exec/',
          view=ModelExecAPIView.as_view()),
+
+    path(route='<str:model_name_or_uuid>/ui/',
+         view=launch_gradio_ui),
 
     path(route='<str:model_name_or_uuid>/<str:json_input_data>/',
          view=exec_on_json_input_data),
-
-    path(route='test/',
-         view=TestAPIView.as_view())
 ]

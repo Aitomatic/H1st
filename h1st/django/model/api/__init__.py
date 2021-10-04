@@ -9,7 +9,7 @@ from ..models import (Model, H1stModel,
                       PreTrainedHuggingFaceTransformer,
                       H1stPreTrainedHuggingFaceTransformer,
 
-                      Workflow, H1stWorkflow)
+                      Graph, H1stGraph, Workflow, H1stWorkflow)
 
 
 __all__ = ('Model', 'H1stModel',
@@ -22,4 +22,4 @@ __all__ = ('Model', 'H1stModel',
            'PreTrainedHuggingFaceTransformer',
            'H1stPreTrainedHuggingFaceTransformer',
 
-           'Workflow', 'H1stWorkflow')
+           'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow')

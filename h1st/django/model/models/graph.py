@@ -23,4 +23,4 @@ class Workflow(H1stModel, CoreH1stWorkflow):
 
 
 # alias
-H1stWorkflow = Workflow
+H1stGraph = Graph = H1stWorkflow = Workflow

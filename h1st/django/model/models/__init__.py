@@ -19,7 +19,7 @@ __all__ = ('Model', 'H1stModel',
            'PreTrainedHuggingFaceTransformer',
            'H1stPreTrainedHuggingFaceTransformer',
 
-           'Workflow', 'H1stWorkflow')
+           'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow')
 
 
 from .base import Model, H1stModel
@@ -44,4 +44,4 @@ from .ml import (MLModel, H1stMLModel,
                  PreTrainedHuggingFaceTransformer,
                  H1stPreTrainedHuggingFaceTransformer)
 
-from .workflow import Workflow, H1stWorkflow
+from .graph import Graph, H1stGraph, Workflow, H1stWorkflow

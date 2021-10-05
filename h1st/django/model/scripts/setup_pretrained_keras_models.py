@@ -1,4 +1,3 @@
-# import os
 from tensorflow.python.keras.applications.densenet import (
     DenseNet121, DENSENET121_WEIGHT_PATH as DENSENET121_URL,
     DenseNet169, DENSENET169_WEIGHT_PATH as DENSENET169_URL,

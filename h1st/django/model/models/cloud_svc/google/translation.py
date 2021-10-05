@@ -71,7 +71,7 @@ class GoogleTranslateServiceModel(CloudServiceModel):
                                           default='',
                                           label='Text to Translate'),
 
-                    DropDownInputComponent(choices=languages,
+                    DropDownInputComponent(choices=('auto',) + languages,
                                            type='value',
                                            default='auto',
                                            label='Source Language'),

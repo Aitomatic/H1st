@@ -60,7 +60,7 @@ JobLib = '^1.0.1'
 ULID-Py = '^1.1.0'
 
 # CLI
-Click = '^7.0'   # aligned with Streamlit
+Click = '^7.1.2'   # aligned with Streamlit
 Colored = '^1.4.2'
 
 # DJANGO

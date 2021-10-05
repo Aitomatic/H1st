@@ -152,11 +152,11 @@ class GoogleTranslateServiceModel(CloudServiceModel):
 
             repeat_outputs_per_model=True,
 
-            title=str(self),
+            title=self.name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 
-            description='Google Translate Service Model',
+            description=type(self).__str__,
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 

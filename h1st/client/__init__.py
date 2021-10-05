@@ -1,5 +1,5 @@
 from os import PathLike
-from tempfile import TemporaryFile
+from tempfile import NamedTemporaryFile
 from typing import Optional, Union
 
 import requests
@@ -19,23 +19,21 @@ class H1stClient:
 
     @staticmethod
     def _prep_file_to_upload(file: Union[str, bytes, PathLike, UploadedFile]):
-        if isinstance(file, (str, bytes, PathLike)):
-            return open(file, 'rb')
-
-        elif isinstance(file, UploadedFile):
-            temp_file = TemporaryFile(mode='w+b',
-                                      buffering=-1,
-                                      encoding=None,
-                                      newline=None,
-                                      suffix=None,
-                                      prefix=None,
-                                      dir=None,
-                                      errors=None)
+        if isinstance(file, UploadedFile):
+            temp_file = NamedTemporaryFile(mode='w+b',
+                                           buffering=-1,
+                                           encoding=None,
+                                           newline=None,
+                                           suffix=None,
+                                           prefix=None,
+                                           dir=None,
+                                           delete=True,
+                                           errors=None)
             temp_file.write(file.getvalue())
-            return temp_file
 
-        else:
-            return file
+            file = temp_file.name
+
+        return open(file, 'rb')
 
     def get_decision(self,
                      model_name_or_uuid: str,

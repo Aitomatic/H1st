@@ -1,6 +1,9 @@
-from typing import Optional
+from os import PathLike
+from tempfile import TemporaryFile
+from typing import Optional, Union
 
 import requests
+from streamlit.uploaded_file_manager import UploadedFile
 
 
 class H1stClient:
@@ -14,6 +17,26 @@ class H1stClient:
         return requests.get(url=f'{self.h1st_ai_server_url}/h1st/models',
                             headers={'Authorization': self.auth}).json()
 
+    @staticmethod
+    def _prep_file_to_upload(file: Union[str, bytes, PathLike, UploadedFile]):
+        if isinstance(file, (str, bytes, PathLike)):
+            return open(file, 'rb')
+
+        elif isinstance(file, UploadedFile):
+            temp_file = TemporaryFile(mode='w+b',
+                                      buffering=-1,
+                                      encoding=None,
+                                      newline=None,
+                                      suffix=None,
+                                      prefix=None,
+                                      dir=None,
+                                      errors=None)
+            temp_file.write(file.getvalue())
+            return temp_file
+
+        else:
+            return file
+
     def get_decision(self,
                      model_name_or_uuid: str,
                      data: Optional[dict] = None,
@@ -22,9 +45,10 @@ class H1stClient:
         if files:
             for k, v in files.items():
                 if isinstance(v, (list, tuple)):
-                    files_list.extend([(k, open(i, 'rb')) for i in v])
+                    files_list.extend([(k, self._prep_file_to_upload(i))
+                                       for i in v])
                 else:
-                    files_list.append((k, open(v, 'rb')))
+                    files_list.append((k, self._prep_file_to_upload(v)))
 
         return requests.post(url=(f'{self.h1st_ai_server_url}/h1st/models/'
                                   f'{model_name_or_uuid}/exec/'),

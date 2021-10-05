@@ -92,7 +92,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                 n_labels: int = 5) \
             -> Union[OutputImageClassificationType,
                      Sequence[OutputImageClassificationType]]:
-        single_img = isinstance(image_or_images, (str,
+        single_img = isinstance(image_or_images, (str, BytesIO,
                                                   Image.Image,
                                                   numpy.ndarray))
 

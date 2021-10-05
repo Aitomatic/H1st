@@ -21,7 +21,7 @@ class H1stDataModuleConfig(AppConfig):
     # AppConfig.verbose_name
     # Human-readable name for the application, e.g. “Administration”.
     # This attribute defaults to label.title().
-    verbose_name = 'H1st: AI Data Management'
+    verbose_name = 'H1st AI Data Management'
 
     # AppConfig.path
     # Filesystem path to the application directory,

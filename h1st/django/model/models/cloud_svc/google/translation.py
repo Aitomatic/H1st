@@ -156,7 +156,7 @@ class GoogleTranslateServiceModel(CloudServiceModel):
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 
-            description=type(self).__str__,
+            description=type(self).__name__,
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 

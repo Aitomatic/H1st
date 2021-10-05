@@ -78,7 +78,7 @@ class GoogleTranslateServiceModel(CloudServiceModel):
 
                     DropDownInputComponent(choices=languages,
                                            type='value',
-                                           default='en',
+                                           default='english',
                                            label='Destination Language')],
             # (Union[str, List[Union[str, InputComponent]]]) -
             # a single Gradio input component,

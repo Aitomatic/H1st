@@ -100,6 +100,7 @@ Django-CORS-Headers = '^3.9.0'
 
 # UI
 Gradio = '^2.3.6'
+Streamlit = '^1.0.0'
 
 # DATABASE CONNECTORS/DRIVERS
 MySQLClient = '^2.0.3'

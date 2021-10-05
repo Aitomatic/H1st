@@ -203,16 +203,3 @@ def run():
                 artifact_global_url=global_url,
                 artifact_local_path=f'~/.keras/models/{local_file_name}',
                 params=dict(img_dim_size=img_dim_size)))[0])
-
-        # SKIPPING BELOW EXPENSIVE OPERATIONS
-        # local_tf_saved_model_path = \
-        #     os.path.expanduser(
-        #         f"~/.keras/models/{local_file_name.replace('.h5', '.tf')}")
-        # print(f'saving to {local_tf_saved_model_path}...\n')
-        # keras_model_class().save(filepath=local_tf_saved_model_path,
-        #                          overwrite=True,
-        #                          include_optimizer=True,
-        #                          save_format='tf',
-        #                          signatures=None,
-        #                          options=None,
-        #                          save_traces=True)

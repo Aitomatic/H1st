@@ -2,6 +2,12 @@ __all__ = ('Model', 'H1stModel',
 
            'CloudServiceModel', 'H1stCloudServiceModel',
 
+           'GoogleCloudTranslationServiceModel',
+           'H1stGoogleCloudTranslationServiceModel',
+
+           'GoogleTranslateServiceModel',
+           'H1stGoogleTranslateServiceModel',
+
            'MLModel', 'H1stMLModel',
            'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
 
@@ -25,6 +31,12 @@ __all__ = ('Model', 'H1stModel',
 from .base import Model, H1stModel
 
 from .cloud_svc import (CloudServiceModel, H1stCloudServiceModel,
+
+                        GoogleCloudTranslationServiceModel,
+                        H1stGoogleCloudTranslationServiceModel,
+
+                        GoogleTranslateServiceModel,
+                        H1stGoogleTranslateServiceModel,
                         )
 
 from .ml import (MLModel, H1stMLModel,

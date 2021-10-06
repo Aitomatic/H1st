@@ -29,7 +29,7 @@ from silk.profiling.profiler import silk_profile
 from ....data.util import \
     load_data_set_pointers_as_json, \
     save_numpy_arrays_and_pandas_dfs_as_data_set_pointers
-from ...models import Model
+from ...models import Model, Workflow
 from .filters import ModelFilter
 from .queries import MODEL_REST_API_QUERY_SET
 from .serializers import H1stModelSerializer
@@ -113,7 +113,9 @@ class ModelExecAPIView(APIView):
             loaded_json_input_data = \
                 load_data_set_pointers_as_json(json_input_data)
 
-            json_output_data = model.predict(loaded_json_input_data)
+            json_output_data = (model.predict(loaded_json_input_data)
+                                if isinstance(model, Workflow)
+                                else model.predict(**loaded_json_input_data))
 
             saved_json_output_data = \
                 save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(
@@ -145,7 +147,9 @@ class ModelExecAPIView(APIView):
 
             print(f'*** MODEL INPUT DATA: {data} ***')
 
-            json_output_data = model.predict(**data)
+            json_output_data = (model.predict(data)
+                                if isinstance(model, Workflow)
+                                else model.predict(**data))
 
             saved_json_output_data = \
                 save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(

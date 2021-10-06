@@ -57,6 +57,7 @@ GraphViz = '^0.17'
 # MODEL REPOSITORY
 CloudPickle = '^2.0.0'
 JobLib = '^1.0.1'
+S3FS = '^2021.10.0'
 ULID-Py = '^1.1.0'
 
 # CLI

@@ -59,7 +59,7 @@ class GoogleTranslateServiceModel(CloudServiceModel):
     @enable_dict_io
     def predict(self,
                 text_or_texts: Union[str, Sequence[str]],
-                src: str = 'auto', dest: str = 'en') -> str:
+                src: str = 'auto', dest: str = 'en') -> Union[str, list[str]]:
         self.load()
 
         return (self.client.translate(text=text_or_texts,

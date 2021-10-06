@@ -102,6 +102,7 @@ Django-CORS-Headers = '^3.9.0'
 # UI
 Gradio = '^2.3.6'
 Streamlit = '^1.0.0'
+Watchdog = '^2.1.6'   # better performance for Streamlit
 
 # DATABASE CONNECTORS/DRIVERS
 MySQLClient = '^2.0.3'

@@ -1,25 +1,56 @@
-from ..models import (Model, H1stModel,
-                      PyLoadablePreTrainedMLModel,
-                      H1stPyLoadablePreTrainedMLModel,
+__all__ = (
+    'Model', 'H1stModel',
 
-                      SKLModel, H1stSKLModel,
-                      TFModel, H1stTFModel,
-                      KerasModel, H1stKerasModel,
+    'CloudServiceModel', 'H1stCloudServiceModel',
 
-                      PreTrainedHuggingFaceTransformer,
-                      H1stPreTrainedHuggingFaceTransformer,
+    'GoogleCloudTranslationServiceModel',
+    'H1stGoogleCloudTranslationServiceModel',
+    'GoogleTranslateServiceModel', 'H1stGoogleTranslateServiceModel',
 
-                      Graph, H1stGraph, Workflow, H1stWorkflow)
+    'MLModel', 'H1stMLModel',
+
+    'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
+
+    'SKLModel', 'H1stSKLModel',
+
+    'TFModel', 'H1stTFModel',
+
+    'KerasModel', 'H1stKerasModel',
+
+    'PreTrainedKerasImageNetClassifier',
+    'H1stPreTrainedKerasImageNetClassifier',
+
+    'TorchModel', 'H1stTorchModel',
+
+    'PreTrainedHuggingFaceTransformer',
+    'H1stPreTrainedHuggingFaceTransformer',
+
+    'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow'
+)
 
 
-__all__ = ('Model', 'H1stModel',
-           'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
+from ..models import (
+    Model, H1stModel,
 
-           'SKLModel', 'H1stSKLModel',
-           'TFModel', 'H1stTFModel',
-           'KerasModel', 'H1stKerasModel',
+    CloudServiceModel, H1stCloudServiceModel,
 
-           'PreTrainedHuggingFaceTransformer',
-           'H1stPreTrainedHuggingFaceTransformer',
+    GoogleCloudTranslationServiceModel, H1stGoogleCloudTranslationServiceModel,
+    GoogleTranslateServiceModel, H1stGoogleTranslateServiceModel,
 
-           'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow')
+    MLModel, H1stMLModel,
+    PyLoadablePreTrainedMLModel, H1stPyLoadablePreTrainedMLModel,
+
+    SKLModel, H1stSKLModel,
+
+    TFModel, H1stTFModel,
+
+    KerasModel, H1stKerasModel,
+
+    PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier,
+
+    TorchModel, H1stTorchModel,
+
+    PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
+
+    Graph, H1stGraph, Workflow, H1stWorkflow
+)

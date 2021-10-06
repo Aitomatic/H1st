@@ -8,6 +8,7 @@ __all__ = (
 
 from functools import wraps
 from importlib import import_module
+from inspect import getfullargspec, isfunction, ismethod
 from typing import Any, Callable, TypeVar
 
 
@@ -22,10 +23,24 @@ CallableTypeVar = TypeVar('CallableTypeVar', bound=Callable[..., Any])
 
 
 def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
+    assert isfunction(f) and (not ismethod(f))
+
+    arg_spec = getfullargspec(func=f)
+    is_method_with_self = (arg_spec.args[0] == 'self')
+
     @wraps(f)
     def decor_func_w_dict_io(*args, **kwargs):
-        if (len(args) == 1) and (not kwargs):
+        if is_method_with_self and (len(args) == 2) and (not kwargs):
+            self, d = args
+
+            assert isinstance(d, dict), \
+                TypeError(f'*** ONLY POSITIONAL ARG {d} NOT A DICT ***')
+
+            return dict(result=f(self, **d))
+
+        elif (len(args) == 1) and (not kwargs):
             d = args[0]
+
             assert isinstance(d, dict), \
                 TypeError(f'*** ONLY POSITIONAL ARG {d} NOT A DICT ***')
 

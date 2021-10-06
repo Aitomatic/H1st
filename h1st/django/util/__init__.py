@@ -36,7 +36,10 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
             assert isinstance(d, dict), \
                 TypeError(f'*** ONLY POSITIONAL ARG {d} NOT A DICT ***')
 
-            return dict(result=f(self, **d))
+            d['result'] = f(self, **{k: v for k, v in d.items()
+                                     if k in arg_spec.args})
+
+            return d
 
         elif (len(args) == 1) and (not kwargs):
             d = args[0]
@@ -44,7 +47,10 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
             assert isinstance(d, dict), \
                 TypeError(f'*** ONLY POSITIONAL ARG {d} NOT A DICT ***')
 
-            return dict(result=f(**d))
+            d['result'] = f(**{k: v for k, v in d.items()
+                               if k in arg_spec.args})
+
+            return d
 
         else:
             return f(*args, **kwargs)

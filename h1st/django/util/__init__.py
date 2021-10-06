@@ -1,7 +1,14 @@
-__all__ = 'PGSQL_IDENTIFIER_MAX_LEN', 'dir_path_with_slash', 'import_obj'
+__all__ = (
+    'PGSQL_IDENTIFIER_MAX_LEN',
+    'dir_path_with_slash',
+    'enable_dict_io',
+    'import_obj',
+)
 
 
+from functools import wraps
 from importlib import import_module
+from typing import Any, Callable, TypeVar
 
 
 PGSQL_IDENTIFIER_MAX_LEN: int = 63
@@ -9,6 +16,25 @@ PGSQL_IDENTIFIER_MAX_LEN: int = 63
 
 def dir_path_with_slash(path: str) -> str:
     return path if path.endswith('/') else f'{path}/'
+
+
+CallableTypeVar = TypeVar('CallableTypeVar', bound=Callable[..., Any])
+
+
+def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
+    @wraps(f)
+    def decor_func_w_dict_io(*args, **kwargs):
+        if (len(args) == 1) and (not kwargs):
+            d = args[0]
+            assert isinstance(d, dict), \
+                TypeError(f'*** ONLY POSITIONAL ARG {d} NOT A DICT ***')
+
+            return dict(result=f(**d))
+
+        else:
+            return f(*args, **kwargs)
+
+    return decor_func_w_dict_io
 
 
 def import_obj(module_and_qualname: str):

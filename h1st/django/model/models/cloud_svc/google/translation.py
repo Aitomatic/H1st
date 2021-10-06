@@ -8,6 +8,8 @@ from gradio.inputs import (Textbox as TextBoxInputComponent,
                            Dropdown as DropDownInputComponent)
 from gradio.outputs import Textbox as TextBoxOutputComponent
 
+from typing import Sequence, Union
+
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stModelModuleConfig
 from .. import CloudServiceModel
@@ -55,10 +57,16 @@ class GoogleTranslateServiceModel(CloudServiceModel):
             self.client = Translator()
 
     @enable_dict_io
-    def predict(self, text: str, src: str = 'auto', dest: str = 'en') -> str:
+    def predict(self,
+                text_or_texts: Union[str, Sequence[str]],
+                src: str = 'auto', dest: str = 'en') -> str:
         self.load()
 
-        return self.client.translate(text=text, dest=dest, src=src).text
+        return (self.client.translate(text=text_or_texts,
+                                      dest=dest, src=src).text
+                if isinstance(text_or_texts, str)
+                else [self.client.translate(text=text, dest=dest, src=src).text
+                      for text in text_or_texts])
 
     @property
     def gradio_ui(self) -> Interface:

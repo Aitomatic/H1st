@@ -11,7 +11,7 @@ import numpy
 from PIL import Image, ImageOps
 from tensorflow.python.keras.applications import imagenet_utils
 
-from ......util import PGSQL_IDENTIFIER_MAX_LEN, import_obj
+from ......util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io, import_obj
 from .....apps import H1stModelModuleConfig
 from ...base import H1stPyLoadablePreTrainedMLModel
 
@@ -86,6 +86,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
     def preprocessor(self) -> callable:
         return import_obj(self.preprocessor_module_and_qualname)
 
+    @enable_dict_io
     def predict(self,
                 image_or_images: Union[InputImageDataType,
                                        Sequence[InputImageDataType]],

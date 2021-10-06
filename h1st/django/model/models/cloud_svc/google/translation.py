@@ -8,7 +8,7 @@ from gradio.inputs import (Textbox as TextBoxInputComponent,
                            Dropdown as DropDownInputComponent)
 from gradio.outputs import Textbox as TextBoxOutputComponent
 
-from .....util import PGSQL_IDENTIFIER_MAX_LEN
+from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stModelModuleConfig
 from .. import CloudServiceModel
 
@@ -25,6 +25,7 @@ class GoogleCloudTranslationServiceModel(CloudServiceModel):
 
         default_related_name = 'h1st_google_cloud_translation_service_models'
 
+    @enable_dict_io
     def predict(self, text, src_lang='en', target_lang='es'):
         translate_client = translate.Client()
 
@@ -53,6 +54,7 @@ class GoogleTranslateServiceModel(CloudServiceModel):
         if not self.client:
             self.client = Translator()
 
+    @enable_dict_io
     def predict(self, text: str, src: str = 'auto', dest: str = 'en') -> str:
         self.load()
 

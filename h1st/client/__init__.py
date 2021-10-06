@@ -38,8 +38,12 @@ class H1stClient:
     def get_decision(self,
                      model_name_or_uuid: str,
                      data: Optional[dict] = None,
+                     json: Optional[dict] = None,
                      files: Optional[dict] = None):
+        headers = {'Authorization': self.auth}
+
         files_list = []
+
         if files:
             for k, v in files.items():
                 if isinstance(v, (list, tuple)):
@@ -48,8 +52,12 @@ class H1stClient:
                 else:
                     files_list.append((k, self._prep_file_to_upload(v)))
 
+        else:
+            headers['Content-Type'] = 'application/json'
+
         return requests.post(url=(f'{self.h1st_ai_server_url}/h1st/models/'
                                   f'{model_name_or_uuid}/exec/'),
-                             headers={'Authorization': self.auth},
+                             headers=headers,
                              data={} if data is None else data,
+                             json={} if json is None else json,
                              files=files_list).json()

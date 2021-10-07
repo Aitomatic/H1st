@@ -14,7 +14,7 @@ class H1stModelAdmin(ModelAdmin):
     readonly_fields = ('gradio_interactive_ui',)
 
     def gradio_interactive_ui(self, obj):
-        return (None
+        return ('(not implemented)'
                 if obj.gradio_ui is NotImplemented
                 else f'h1st/models/{obj.name_or_uuid}/ui')
 

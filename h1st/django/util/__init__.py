@@ -33,24 +33,24 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
         if is_method_with_self and (len(args) == 2) and (not kwargs):
             self, d = args
 
-            assert isinstance(d, dict), \
-                TypeError(f'*** ONLY POSITIONAL ARG {d} NOT A DICT ***')
+            if isinstance(d, dict):
+                d['result'] = f(self, **{k: v for k, v in d.items()
+                                         if k in arg_spec.args})
+                return d
 
-            d['result'] = f(self, **{k: v for k, v in d.items()
-                                     if k in arg_spec.args})
-
-            return d
+            else:
+                return f(self, d)
 
         elif (len(args) == 1) and (not kwargs):
             d = args[0]
 
-            assert isinstance(d, dict), \
-                TypeError(f'*** ONLY POSITIONAL ARG {d} NOT A DICT ***')
+            if isinstance(d, dict):
+                d['result'] = f(**{k: v for k, v in d.items()
+                                   if k in arg_spec.args})
+                return d
 
-            d['result'] = f(**{k: v for k, v in d.items()
-                               if k in arg_spec.args})
-
-            return d
+            else:
+                return f(d)
 
         else:
             return f(*args, **kwargs)

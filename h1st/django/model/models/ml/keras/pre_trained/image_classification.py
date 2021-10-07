@@ -140,6 +140,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                                         type='numpy',
                                         label='Upload an Image to Classify',
                                         optional=False),
+
                     SliderInputComponent(minimum=3, maximum=10, step=1,
                                          default=5,
                                          label='No. of Labels to Return')],

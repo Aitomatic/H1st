@@ -4,7 +4,8 @@ from typing import Sequence, Union
 from django.db.models.fields import CharField
 
 from gradio.interface import Interface
-from gradio.inputs import Image as ImageInputComponent
+from gradio.inputs import (Image as ImageInputComponent,
+                           Slider as SliderInputComponent)
 from gradio.outputs import Label as LabelOutputComponent
 
 import numpy
@@ -131,14 +132,17 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             fn=self.predict,
             # (Callable) - the function to wrap an interface around.
 
-            inputs=ImageInputComponent(shape=(img_dim_size, img_dim_size),
-                                       image_mode='RGB',
-                                       invert_colors=False,
-                                       source='upload',
-                                       tool='editor',
-                                       type='numpy',
-                                       label='Upload an Image to Classify',
-                                       optional=False),
+            inputs=[ImageInputComponent(shape=(img_dim_size, img_dim_size),
+                                        image_mode='RGB',
+                                        invert_colors=False,
+                                        source='upload',
+                                        tool='editor',
+                                        type='numpy',
+                                        label='Upload an Image to Classify',
+                                        optional=False),
+                    SliderInputComponent(minimum=3, maximum=10, step=1,
+                                         default=5,
+                                         label='No. of Labels to Return')],
             # (Union[str, List[Union[str, InputComponent]]]) -
             # a single Gradio input component,
             # or list of Gradio input components.
@@ -147,7 +151,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             # The number of input components should match
             # the number of parameters in fn.
 
-            outputs=LabelOutputComponent(num_top_classes=5,
+            outputs=LabelOutputComponent(num_top_classes=10,
                                          type='auto',
                                          label='Likely ImageNet Classes'),
             # (Union[str, List[Union[str, OutputComponent]]]) -

@@ -30,16 +30,45 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
 
     @wraps(f)
     def decor_func_w_dict_io(*args, **kwargs):
-        if is_method_with_self and (len(args) == 2) and (not kwargs):
-            self, d = args
+        from ..model.models import Workflow
 
-            if isinstance(d, dict):
-                d['result'] = f(self, **{k: v for k, v in d.items()
-                                         if k in arg_spec.args})
-                return d
+        if is_method_with_self:
+            self = args[0]
+
+            if isinstance(self, Workflow):
+                assert not kwargs, \
+                    ValueError('*** H1ST GRAPHS DO NOT TAKE KWARGS ***')
+
+                if (len(args) == 2) and isinstance(args[1], dict):
+                    d = args[1]
+
+                else:
+                    non_self_args = args[1:]
+                    n_non_self_args = len(non_self_args)
+
+                    assert n_non_self_args <= len(self.args), \
+                        ValueError(
+                            f'*** NO. OF PROVIDED ARGS {non_self_args}'
+                            f'EXCEEDS NO. OF EXPECTED ARGS {self.args} ***')
+
+                    d = dict(zip(self.args[:n_non_self_args], non_self_args))
+
+                print(f'*** {self}({d}) ***')
+                return f(self, d)
+
+            elif (len(args) == 2) and (not kwargs):
+                d = args[1]
+
+                if isinstance(d, dict):
+                    d['result'] = f(self, **{k: v for k, v in d.items()
+                                             if k in arg_spec.args})
+                    return d
+
+                else:
+                    return f(self, d)
 
             else:
-                return f(self, d)
+                return f(*args, **kwargs)
 
         elif (len(args) == 1) and (not kwargs):
             d = args[0]

@@ -10,8 +10,17 @@ from .models import (
 )
 
 
+class H1stModelAdmin(ModelAdmin):
+    readonly_fields = ('gradio_interactive_ui',)
+
+    def gradio_interactive_ui(self, obj):
+        return (None
+                if obj.gradio_ui is NotImplemented
+                else f'h1st/models/{obj.name_or_uuid}/ui')
+
+
 @register(GoogleCloudTranslationServiceModel, site=site)
-class GoogleCloudTranslationServiceModelAdmin(ModelAdmin):
+class GoogleCloudTranslationServiceModelAdmin(H1stModelAdmin):
     show_full_result_count = False
 
     @silk_profile(
@@ -29,7 +38,7 @@ class GoogleCloudTranslationServiceModelAdmin(ModelAdmin):
 
 
 @register(GoogleTranslateServiceModel, site=site)
-class GoogleTranslateServiceModelAdmin(ModelAdmin):
+class GoogleTranslateServiceModelAdmin(H1stModelAdmin):
     show_full_result_count = False
 
     @silk_profile(
@@ -46,7 +55,7 @@ class GoogleTranslateServiceModelAdmin(ModelAdmin):
 
 
 @register(PreTrainedKerasImageNetClassifier, site=site)
-class PreTrainedKerasImageNetClassifierAdmin(ModelAdmin):
+class PreTrainedKerasImageNetClassifierAdmin(H1stModelAdmin):
     show_full_result_count = False
 
     @silk_profile(

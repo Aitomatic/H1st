@@ -60,11 +60,13 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
                 d = args[1]
 
                 if isinstance(d, dict):
-                    d['result'] = f(self, **{k: v for k, v in d.items()
-                                             if k in arg_spec.args})
+                    _d = {k: v for k, v in d.items() if k in arg_spec.args}
+                    print(f'*** {self}(**{_d}) ***')
+                    d['result'] = f(self, **_d)
                     return d
 
                 else:
+                    print(f'*** {self}({d}) ***')
                     return f(self, d)
 
             else:

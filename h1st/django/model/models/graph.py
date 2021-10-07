@@ -1,6 +1,8 @@
+from abc import abstractmethod
+
 from h1st.h1flow.h1flow import Graph as CoreH1stWorkflow
 
-from ...util import PGSQL_IDENTIFIER_MAX_LEN
+from ...util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ..apps import H1stModelModuleConfig
 
 from .base import H1stModel
@@ -18,6 +20,12 @@ class Workflow(H1stModel, CoreH1stWorkflow):
 
         default_related_name = 'h1st_workflows'
 
+    @property
+    @abstractmethod
+    def args(self) -> tuple[str]:
+        raise NotImplementedError
+
+    @enable_dict_io
     def predict(self, *args, **kwargs):
         return CoreH1stWorkflow.predict(self, *args, **kwargs)
 

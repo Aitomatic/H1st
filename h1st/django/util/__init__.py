@@ -53,7 +53,7 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
 
                     d = dict(zip(self.args[:n_non_self_args], non_self_args))
 
-                print(f'*** {self}({d}) ***')
+                print(f'*** {self} .__call__( {d} ) ***')
                 return f(self, d)
 
             elif (len(args) == 2) and (not kwargs):
@@ -61,12 +61,14 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
 
                 if isinstance(d, dict):
                     _d = {k: v for k, v in d.items() if k in arg_spec.args}
-                    print(f'*** {self}(**{_d}) ***')
+                    print(f'*** {self} .__call__( ' +
+                          ', '.join(f'{k}={v}' for k, v in _d.items()) +
+                          ' ) ***')
                     d['result'] = f(self, **_d)
                     return d
 
                 else:
-                    print(f'*** {self}({d}) ***')
+                    print(f'*** {self} .__call__( {d} ) ***')
                     return f(self, d)
 
             else:

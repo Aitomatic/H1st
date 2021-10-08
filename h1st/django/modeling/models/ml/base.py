@@ -3,7 +3,7 @@ from abc import abstractmethod
 from django.db.models.fields import CharField
 
 from ....util import PGSQL_IDENTIFIER_MAX_LEN, import_obj
-from ...apps import H1stModelModuleConfig
+from ...apps import H1stAIModelingModuleConfig
 from ..base import H1stModel
 
 
@@ -58,8 +58,8 @@ class MLModel(H1stModel):
         verbose_name = 'H1st ML Model'
         verbose_name_plural = 'H1st ML Models'
 
-        db_table = \
-            f"{H1stModelModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIModelingModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -100,8 +100,8 @@ class PyLoadablePreTrainedMLModel(MLModel):
         verbose_name = 'H1st Python-Loadable Pre-Trained ML Model'
         verbose_name_plural = 'H1st Python-Loadable Pre-Trained ML Models'
 
-        db_table = \
-            f"{H1stModelModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIModelingModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 

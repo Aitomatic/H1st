@@ -6,12 +6,12 @@ from django.db.models.fields.related import ForeignKey
 
 from json.decoder import JSONDecoder
 
-from ..model.models import H1stModel
+from ..modeling.models import H1stModel
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
 from ..util.git import get_git_repo_head_commit_hash
 from ..util.models import _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
 from ..util.pip import get_python_dependencies
-from .apps import H1stTrustModuleConfig
+from .apps import H1stAITrustVaultModuleConfig
 
 
 class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
@@ -165,8 +165,8 @@ class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
         verbose_name = 'Decision'
         verbose_name_plural = 'Decisions'
 
-        db_table = \
-            f"{H1stTrustModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAITrustVaultModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -259,8 +259,8 @@ class ModelEvalMetricsSet(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
         verbose_name = 'Model Evaluation Metrics Set'
         verbose_name_plural = 'Model Evaluation Metrics Sets'
 
-        db_table = \
-            f"{H1stTrustModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAITrustVaultModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 

@@ -26,14 +26,14 @@ from rest_framework_filters.backends import \
 
 from silk.profiling.profiler import silk_profile
 
-from ....data.util import \
+from ....data_mgmt.util import \
     load_data_set_pointers_as_json, \
     save_numpy_arrays_and_pandas_dfs_as_data_set_pointers
 from ...models import Model, Workflow
 from .filters import ModelFilter
 from .queries import MODEL_REST_API_QUERY_SET
 from .serializers import H1stModelSerializer
-from ....trust.models import Decision
+from ....trust_vault.models import Decision
 from ....util.views import LookUpByUUIDorNameMixin
 
 

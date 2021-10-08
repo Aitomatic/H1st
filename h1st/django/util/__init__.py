@@ -30,7 +30,7 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
 
     @wraps(f)
     def decor_func_w_dict_io(*args, **kwargs):
-        from ..model.models import Workflow
+        from ..modeling.models import Workflow
 
         if is_method_with_self:
             self = args[0]

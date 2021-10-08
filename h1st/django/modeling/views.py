@@ -6,10 +6,12 @@ from django.http.response import HttpResponseRedirect, Http404, JsonResponse
 
 from gradio.interface import Interface
 
-from ..data.util import (load_data_set_pointers_as_json,
-                         save_numpy_arrays_and_pandas_dfs_as_data_set_pointers)
+from ..data_mgmt.util import (
+    load_data_set_pointers_as_json,
+    save_numpy_arrays_and_pandas_dfs_as_data_set_pointers
+)
 from .models import Model
-from ..trust.models import Decision
+from ..trust_vault.models import Decision
 
 
 def launch_gradio_ui(request, model_name_or_uuid: str):

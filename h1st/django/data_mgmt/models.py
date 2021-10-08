@@ -19,7 +19,7 @@ from ..util.models import (
     _ModelWithUUIDPK,
     _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
 )
-from .apps import H1stDataModuleConfig
+from .apps import H1stAIDataManagementModuleConfig
 
 
 class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
@@ -72,7 +72,8 @@ class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
         verbose_name = 'Data Schema'
         verbose_name_plural = 'Data Schemas'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -137,7 +138,8 @@ class DataSet(PolymorphicModel,
         verbose_name = 'Data Set'
         verbose_name_plural = 'Data Sets'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -178,7 +180,8 @@ class JSONDataSet(DataSet):
         verbose_name = 'JSON Data Set'
         verbose_name_plural = 'JSON Data Sets'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_')
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -216,7 +219,8 @@ class NumPyArray(JSONDataSet):
         verbose_name = 'NumPy Array'
         verbose_name_plural = 'NumPy Arrays'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -236,7 +240,8 @@ class PandasDataFrame(JSONDataSet):
         verbose_name = 'Pandas DataFrame'
         verbose_name_plural = 'Pandas DataFrames'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -286,7 +291,8 @@ class TextDataSet(DataSet):
         verbose_name = 'Text Data Set'
         verbose_name_plural = 'Text Data Sets'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -351,7 +357,8 @@ class CSVDataSet(_FileStoredDataSet):
         verbose_name = 'CSV Data Set'
         verbose_name_plural = 'CSV Data Sets'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -376,7 +383,8 @@ class ParquetDataSet(_FileStoredDataSet):
         verbose_name = 'Parquet Data Set'
         verbose_name_plural = 'Parquet Data Sets'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -404,7 +412,8 @@ class TFRecordDataSet(_FileStoredDataSet):
         verbose_name = 'TFRecord Data Set'
         verbose_name_plural = 'TFRecord Data Sets'
 
-        db_table = f"{H1stDataModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 

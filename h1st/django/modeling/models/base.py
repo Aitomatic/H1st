@@ -11,7 +11,7 @@ from h1st.model.model import Model as CoreH1stModel
 
 from ...util import PGSQL_IDENTIFIER_MAX_LEN
 from ...util.models import _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
-from ..apps import H1stModelModuleConfig
+from ..apps import H1stAIModelingModuleConfig
 
 
 class Model(PolymorphicModel,
@@ -44,8 +44,8 @@ class Model(PolymorphicModel,
         verbose_name = 'H1st Model'
         verbose_name_plural = 'H1st Models'
 
-        db_table = \
-            f"{H1stModelModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIModelingModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 

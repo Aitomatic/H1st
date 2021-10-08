@@ -11,7 +11,7 @@ from gradio.outputs import Textbox as TextBoxOutputComponent
 from typing import Sequence, Union
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
-from ....apps import H1stModelModuleConfig
+from ....apps import H1stAIModelingModuleConfig
 from .. import CloudServiceModel
 
 
@@ -20,8 +20,8 @@ class GoogleCloudTranslationServiceModel(CloudServiceModel):
         verbose_name = 'Google Cloud Translation Service Model'
         verbose_name_plural = 'Google Cloud Translation Service Models'
 
-        db_table = \
-            f"{H1stModelModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIModelingModuleConfig.label}_'
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -45,8 +45,8 @@ class GoogleTranslateServiceModel(CloudServiceModel):
         verbose_name = 'Google Translate Service Model'
         verbose_name_plural = 'Google Translate Service Models'
 
-        db_table = \
-            f"{H1stModelModuleConfig.label}_{__qualname__.split('.')[0]}"
+        db_table = (f'{H1stAIModelingModuleConfig.label}_
+                    f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 

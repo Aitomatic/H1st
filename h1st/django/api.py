@@ -43,7 +43,7 @@ __all__ = (
 )
 
 
-from .data.api import (
+from .data_mgmt.api import (
     DataSchema,
     DataSet,
     JSONDataSet,
@@ -54,7 +54,7 @@ from .data.api import (
     TFRecordDataSet,
 )
 
-from .model.api import (
+from .modeling.api import (
     Model, H1stModel,
 
     CloudServiceModel, H1stCloudServiceModel,
@@ -85,6 +85,6 @@ from .model.api import (
     Graph, H1stGraph, Workflow, H1stWorkflow,
 )
 
-from .trust.api import Decision, ModelEvalMetricsSet
+from .trust_vault.api import Decision, ModelEvalMetricsSet
 
 from .util.config import config_app

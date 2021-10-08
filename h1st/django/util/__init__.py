@@ -9,10 +9,23 @@ __all__ = (
 from functools import wraps
 from importlib import import_module
 from inspect import getfullargspec, isfunction, ismethod
+from logging import Formatter, getLogger, StreamHandler, DEBUG
+from sys import stdout
 from typing import Any, Callable, TypeVar
 
 
 PGSQL_IDENTIFIER_MAX_LEN: int = 63
+
+
+STDOUT_HANDLER = StreamHandler(stream=stdout)
+
+STDOUT_HANDLER.setFormatter(
+    Formatter(fmt='%(asctime)s   %(levelname)s   %(name)s:\n%(message)s\n',
+              datefmt='%Y-%m-%d %H:%M'))
+
+LOGGER = getLogger(name=__name__)
+LOGGER.setLevel(level=DEBUG)
+LOGGER.addHandler(STDOUT_HANDLER)
 
 
 def dir_path_with_slash(path: str) -> str:
@@ -53,7 +66,8 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
 
                     d = dict(zip(self.args[:n_non_self_args], non_self_args))
 
-                print(f'*** {self} .__call__( {d} ) ***')
+                LOGGER.info(msg=f'{self} .__call__( {d} )')
+
                 return f(self, d)
 
             elif (len(args) == 2) and (not kwargs):
@@ -61,14 +75,18 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
 
                 if isinstance(d, dict):
                     _d = {k: v for k, v in d.items() if k in arg_spec.args}
-                    print(f'*** {self} .__call__( ' +
-                          ', '.join(f'{k}={v}' for k, v in _d.items()) +
-                          ' ) ***')
+
+                    LOGGER.info(f'{self} .__call__( ' +
+                                ', '.join(f'{k}={v}' for k, v in _d.items()) +
+                                ' )')
+
                     d['result'] = f(self, **_d)
+
                     return d
 
                 else:
-                    print(f'*** {self} .__call__( {d} ) ***')
+                    LOGGER.info(msg=f'{self} .__call__( {d} )')
+
                     return f(self, d)
 
             else:

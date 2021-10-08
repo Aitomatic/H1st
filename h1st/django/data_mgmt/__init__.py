@@ -1,1 +1,2 @@
-default_app_config = 'h1st.django.data.apps.H1stDataModuleConfig'
+default_app_config = \
+    'h1st.django.data_mgmt.apps.H1stAIDataManagementModuleConfig'

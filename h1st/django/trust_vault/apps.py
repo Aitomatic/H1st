@@ -1,13 +1,13 @@
 from django.apps.config import AppConfig
 
 
-class H1stTrustModuleConfig(AppConfig):
+class H1stAITrustVaultModuleConfig(AppConfig):
     # AppConfig.name
     # Full Python path to the application, e.g. 'django.contrib.admin'.
     # This attribute defines which application the configuration applies to.
     # It must be set in all AppConfig subclasses.
     # It must be unique across a Django project.
-    name = 'h1st.django.trust_vault_vault'
+    name = 'h1st.django.trust_vault'
 
     # AppConfig.label
     # Short name for the application, e.g. 'admin'
@@ -21,7 +21,7 @@ class H1stTrustModuleConfig(AppConfig):
     # AppConfig.verbose_name
     # Human-readable name for the application, e.g. “Administration”.
     # This attribute defaults to label.title().
-    verbose_name = 'Human-First AI: Trust Vault'
+    verbose_name = 'H1st AI Trust Vault'
 
     # AppConfig.path
     # Filesystem path to the application directory,

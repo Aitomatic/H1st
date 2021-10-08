@@ -1,13 +1,13 @@
 from django.apps.config import AppConfig
 
 
-class H1stDataModuleConfig(AppConfig):
+class H1stAIDataManagementModuleConfig(AppConfig):
     # AppConfig.name
     # Full Python path to the application, e.g. 'django.contrib.admin'.
     # This attribute defines which application the configuration applies to.
     # It must be set in all AppConfig subclasses.
     # It must be unique across a Django project.
-    name = 'h1st.django.data_mgmt_mgmt'
+    name = 'h1st.django.data_mgmt'
 
     # AppConfig.label
     # Short name for the application, e.g. 'admin'

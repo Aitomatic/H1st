@@ -1,6 +1,7 @@
+from uuid import UUID
+
 from numpy import floating, integer, isnan, isreal, isscalar, ndarray
 from pandas import DataFrame
-from uuid import UUID
 
 from .models import DataSet, NumPyArray, PandasDataFrame
 
@@ -20,9 +21,7 @@ def load_data_set_pointers_as_json(data):
         except ValueError:
             uuid = None
 
-        return DataSet.objects.get(uuid=uuid).json \
-            if uuid \
-          else data
+        return DataSet.objects.get(uuid=uuid).json if uuid else data
 
     else:
         return data
@@ -38,14 +37,15 @@ def save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(data):
                 for i in data]
 
     elif isinstance(data, ndarray):
-        return str(NumPyArray.objects.create(
-                    dtype=str(data.dtype),
-                    json=save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(
-                            data.tolist())).uuid)
+        return str(
+            NumPyArray.objects.create(
+                dtype=str(data.dtype),
+                json=save_numpy_arrays_and_pandas_dfs_as_data_set_pointers(
+                    data.tolist())).uuid)
 
     elif isinstance(data, DataFrame):
-        return str(PandasDataFrame.objects.create(
-                    json=PandasDataFrame.jsonize(data)).uuid)
+        return str(PandasDataFrame.objects.create(json=(PandasDataFrame
+                                                        .jsonize(data))).uuid)
 
     elif isscalar(data):
         if isreal(data) and isnan(data):

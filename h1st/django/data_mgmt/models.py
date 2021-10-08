@@ -180,7 +180,7 @@ class JSONDataSet(DataSet):
         verbose_name = 'JSON Data Set'
         verbose_name_plural = 'JSON Data Sets'
 
-        db_table = (f'{H1stAIDataManagementModuleConfig.label}_')
+        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
                     f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')

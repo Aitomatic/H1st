@@ -45,7 +45,7 @@ class GoogleTranslateServiceModel(CloudServiceModel):
         verbose_name = 'Google Translate Service Model'
         verbose_name_plural = 'Google Translate Service Models'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_
+        db_table = (f'{H1stAIModelingModuleConfig.label}_'
                     f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')

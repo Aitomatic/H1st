@@ -7,7 +7,7 @@ class H1stTrustModuleConfig(AppConfig):
     # This attribute defines which application the configuration applies to.
     # It must be set in all AppConfig subclasses.
     # It must be unique across a Django project.
-    name = 'h1st.django.trust'
+    name = 'h1st.django.trust_vault_vault'
 
     # AppConfig.label
     # Short name for the application, e.g. 'admin'

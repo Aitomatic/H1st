@@ -7,7 +7,7 @@ class H1stModelModuleConfig(AppConfig):
     # This attribute defines which application the configuration applies to.
     # It must be set in all AppConfig subclasses.
     # It must be unique across a Django project.
-    name = 'h1st.django.model'
+    name = 'h1st.django.modeling'
 
     # AppConfig.label
     # Short name for the application, e.g. 'admin'

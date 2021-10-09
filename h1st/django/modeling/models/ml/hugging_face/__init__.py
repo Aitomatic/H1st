@@ -1,3 +1,6 @@
+__all__ = 'PreTrainedHuggingFaceTransformer',
+
+
 from .....util import PGSQL_IDENTIFIER_MAX_LEN
 from ....apps import H1stAIModelingModuleConfig
 

@@ -1,6 +1,9 @@
-from ....util import PGSQL_IDENTIFIER_MAX_LEN
-from ...apps import H1stAIModelingModuleConfig
-from .base import H1stMLModel
+__all__ = 'TFModel',
+
+
+from .....util import PGSQL_IDENTIFIER_MAX_LEN
+from ....apps import H1stAIModelingModuleConfig
+from ..base import H1stMLModel
 
 
 class TFModel(H1stMLModel):

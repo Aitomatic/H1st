@@ -1,3 +1,6 @@
+__all__ = 'KerasModel',
+
+
 import os
 
 import h5py

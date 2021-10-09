@@ -5,6 +5,7 @@ __all__ = (
     'SKLModel', 'H1stSKLModel',
 
     'TFModel', 'H1stTFModel',
+    'PreTrainedTFHubTransformer', 'H1stPreTrainedTFHubTransformer',
 
     'KerasModel', 'H1stKerasModel',
 
@@ -27,6 +28,9 @@ from .base import (MLModel, H1stMLModel,
 from .skl import SKLModel, H1stSKLModel
 
 from .tf import TFModel, H1stTFModel
+from .tf.pre_trained.tf_hub import \
+    PreTrainedTFHubTransformer, H1stPreTrainedTFHubTransformer
+
 from .keras import KerasModel, H1stKerasModel
 from .keras.pre_trained.image_classification import \
     PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier

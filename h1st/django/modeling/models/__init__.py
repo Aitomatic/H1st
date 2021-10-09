@@ -15,6 +15,7 @@ __all__ = (
     'SKLModel', 'H1stSKLModel',
 
     'TFModel', 'H1stTFModel',
+    'PreTrainedTFHubTransformer', 'H1stPreTrainedTFHubTransformer',
 
     'KerasModel', 'H1stKerasModel',
 
@@ -49,6 +50,7 @@ from .ml import (
     SKLModel, H1stSKLModel,
 
     TFModel, H1stTFModel,
+    PreTrainedTFHubTransformer, H1stPreTrainedTFHubTransformer,
 
     KerasModel, H1stKerasModel,
     PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier,

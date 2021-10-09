@@ -27,6 +27,9 @@ __all__ = (
     'PreTrainedHuggingFaceTransformer',
     'H1stPreTrainedHuggingFaceTransformer',
 
+    'PreTrainedHuggingFaceImageClassifier',
+    'H1stPreTrainedHuggingFaceImageClassifier',
+
     'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow',
 )
 
@@ -54,6 +57,9 @@ from ..models import (
     PreTrainedTorchImageNetClassifier, H1stPreTrainedTorchImageNetClassifier,
 
     PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
+
+    PreTrainedHuggingFaceImageClassifier,
+    H1stPreTrainedHuggingFaceImageClassifier,
 
     Graph, H1stGraph, Workflow, H1stWorkflow,
 )

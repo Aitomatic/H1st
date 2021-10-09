@@ -18,6 +18,9 @@ __all__ = (
     'H1stPreTrainedTorchImageNetClassifier',
 
     'PreTrainedHuggingFaceTransformer', 'H1stPreTrainedHuggingFaceTransformer',
+
+    'PreTrainedHuggingFaceImageClassifier',
+    'H1stPreTrainedHuggingFaceImageClassifier',
 )
 
 
@@ -44,4 +47,7 @@ from .torch import (
 
 from .hugging_face import (
     PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
+
+    PreTrainedHuggingFaceImageClassifier,
+    H1stPreTrainedHuggingFaceImageClassifier,
 )

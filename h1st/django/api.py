@@ -26,11 +26,12 @@ __all__ = (
     'TFModel', 'H1stTFModel',
 
     'KerasModel', 'H1stKerasModel',
-
     'PreTrainedKerasImageNetClassifier',
     'H1stPreTrainedKerasImageNetClassifier',
 
     'TorchModel', 'H1stTorchModel',
+    'PreTrainedTorchImageNetClassifier',
+    'H1stPreTrainedTorchImageNetClassifier',
 
     'PreTrainedHuggingFaceTransformer',
     'H1stPreTrainedHuggingFaceTransformer',
@@ -73,11 +74,10 @@ from .modeling.api import (
     TFModel, H1stTFModel,
 
     KerasModel, H1stKerasModel,
-
-    PreTrainedKerasImageNetClassifier,
-    H1stPreTrainedKerasImageNetClassifier,
+    PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier,
 
     TorchModel, H1stTorchModel,
+    PreTrainedTorchImageNetClassifier, H1stPreTrainedTorchImageNetClassifier,
 
     PreTrainedHuggingFaceTransformer,
     H1stPreTrainedHuggingFaceTransformer,

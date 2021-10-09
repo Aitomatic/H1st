@@ -1,59 +1,62 @@
-__all__ = ('Model', 'H1stModel',
+__all__ = (
+    'Model', 'H1stModel',
 
-           'CloudServiceModel', 'H1stCloudServiceModel',
+    'CloudServiceModel', 'H1stCloudServiceModel',
 
-           'GoogleCloudTranslationServiceModel',
-           'H1stGoogleCloudTranslationServiceModel',
+    'GoogleCloudTranslationServiceModel',
+    'H1stGoogleCloudTranslationServiceModel',
 
-           'GoogleTranslateServiceModel',
-           'H1stGoogleTranslateServiceModel',
+    'GoogleTranslateServiceModel',
+    'H1stGoogleTranslateServiceModel',
 
-           'MLModel', 'H1stMLModel',
-           'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
+    'MLModel', 'H1stMLModel',
+    'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
 
-           'SKLModel', 'H1stSKLModel',
+    'SKLModel', 'H1stSKLModel',
 
-           'TFModel', 'H1stTFModel',
+    'TFModel', 'H1stTFModel',
 
-           'KerasModel', 'H1stKerasModel',
+    'KerasModel', 'H1stKerasModel',
 
-           'PreTrainedKerasImageNetClassifier',
-           'H1stPreTrainedKerasImageNetClassifier',
+    'PreTrainedKerasImageNetClassifier',
+    'H1stPreTrainedKerasImageNetClassifier',
 
-           'TorchModel', 'H1stTorchModel',
+    'TorchModel', 'H1stTorchModel',
 
-           'PreTrainedHuggingFaceTransformer',
-           'H1stPreTrainedHuggingFaceTransformer',
+    'PreTrainedTorchImageNetClassifier',
+    'H1stPreTrainedTorchImageNetClassifier',
 
-           'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow')
+    'PreTrainedHuggingFaceTransformer',
+    'H1stPreTrainedHuggingFaceTransformer',
+
+    'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow',
+)
 
 
 from .base import Model, H1stModel
 
-from .cloud_svc import (CloudServiceModel, H1stCloudServiceModel,
+from .cloud_svc import (
+    CloudServiceModel, H1stCloudServiceModel,
 
-                        GoogleCloudTranslationServiceModel,
-                        H1stGoogleCloudTranslationServiceModel,
+    GoogleCloudTranslationServiceModel, H1stGoogleCloudTranslationServiceModel,
+    GoogleTranslateServiceModel, H1stGoogleTranslateServiceModel,
+)
 
-                        GoogleTranslateServiceModel,
-                        H1stGoogleTranslateServiceModel,
-                        )
+from .ml import (
+    MLModel, H1stMLModel,
+    PyLoadablePreTrainedMLModel, H1stPyLoadablePreTrainedMLModel,
 
-from .ml import (MLModel, H1stMLModel,
-                 PyLoadablePreTrainedMLModel, H1stPyLoadablePreTrainedMLModel,
+    SKLModel, H1stSKLModel,
 
-                 SKLModel, H1stSKLModel,
+    TFModel, H1stTFModel,
 
-                 TFModel, H1stTFModel,
+    KerasModel, H1stKerasModel,
+    PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier,
 
-                 KerasModel, H1stKerasModel,
+    TorchModel, H1stTorchModel,
+    PreTrainedTorchImageNetClassifier, H1stPreTrainedTorchImageNetClassifier,
 
-                 PreTrainedKerasImageNetClassifier,
-                 H1stPreTrainedKerasImageNetClassifier,
-
-                 TorchModel, H1stTorchModel,
-
-                 PreTrainedHuggingFaceTransformer,
-                 H1stPreTrainedHuggingFaceTransformer)
+    PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
+)
 
 from .graph import Graph, H1stGraph, Workflow, H1stWorkflow

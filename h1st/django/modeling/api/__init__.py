@@ -16,16 +16,17 @@ __all__ = (
     'TFModel', 'H1stTFModel',
 
     'KerasModel', 'H1stKerasModel',
-
     'PreTrainedKerasImageNetClassifier',
     'H1stPreTrainedKerasImageNetClassifier',
 
     'TorchModel', 'H1stTorchModel',
+    'PreTrainedTorchImageNetClassifier',
+    'H1stPreTrainedTorchImageNetClassifier',
 
     'PreTrainedHuggingFaceTransformer',
     'H1stPreTrainedHuggingFaceTransformer',
 
-    'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow'
+    'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow',
 )
 
 
@@ -45,12 +46,12 @@ from ..models import (
     TFModel, H1stTFModel,
 
     KerasModel, H1stKerasModel,
-
     PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier,
 
     TorchModel, H1stTorchModel,
+    PreTrainedTorchImageNetClassifier, H1stPreTrainedTorchImageNetClassifier,
 
     PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
 
-    Graph, H1stGraph, Workflow, H1stWorkflow
+    Graph, H1stGraph, Workflow, H1stWorkflow,
 )

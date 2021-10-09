@@ -1,19 +1,23 @@
-__all__ = ('MLModel', 'H1stMLModel',
-           'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
+__all__ = (
+    'MLModel', 'H1stMLModel',
+    'PyLoadablePreTrainedMLModel', 'H1stPyLoadablePreTrainedMLModel',
 
-           'SKLModel', 'H1stSKLModel',
+    'SKLModel', 'H1stSKLModel',
 
-           'TFModel', 'H1stTFModel',
+    'TFModel', 'H1stTFModel',
 
-           'KerasModel', 'H1stKerasModel',
+    'KerasModel', 'H1stKerasModel',
 
-           'PreTrainedKerasImageNetClassifier',
-           'H1stPreTrainedKerasImageNetClassifier',
+    'PreTrainedKerasImageNetClassifier',
+    'H1stPreTrainedKerasImageNetClassifier',
 
-           'TorchModel', 'H1stTorchModel',
+    'TorchModel', 'H1stTorchModel',
 
-           'PreTrainedHuggingFaceTransformer',
-           'H1stPreTrainedHuggingFaceTransformer')
+    'PreTrainedTorchImageNetClassifier',
+    'H1stPreTrainedTorchImageNetClassifier',
+
+    'PreTrainedHuggingFaceTransformer', 'H1stPreTrainedHuggingFaceTransformer',
+)
 
 
 from .base import (MLModel, H1stMLModel,
@@ -28,6 +32,8 @@ from .keras.pre_trained.image_classification import \
     PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier
 
 from .torch import TorchModel, H1stTorchModel
+from .torch.pre_trained.image_classification import \
+    PreTrainedTorchImageNetClassifier, H1stPreTrainedTorchImageNetClassifier
 
 from .hugging_face import (PreTrainedHuggingFaceTransformer,
                            H1stPreTrainedHuggingFaceTransformer)

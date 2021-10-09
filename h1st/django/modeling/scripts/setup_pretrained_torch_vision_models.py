@@ -88,18 +88,18 @@ MODEL_SPECS = [
 ]
 
 
-def full_qualname(obj):
+def fullqualname(obj):
     return f'{obj.__module__}.{obj.__qualname__}'
 
 
 def run():
     model_name_prefix = f'{PreTrainedTorchImageNetClassifier.__name__}-'
 
-    for torch_model_class, global_url in tqdm(MODEL_SPECS):
+    for torch_model_loader, global_url in tqdm(MODEL_SPECS):
         print(PreTrainedTorchImageNetClassifier.objects.update_or_create(
-            name=model_name_prefix + torch_model_class.__name__,
+            name=model_name_prefix + torch_model_loader.__name__,
             defaults=dict(
-                py_loader_module_and_qualname=full_qualname(torch_model_class),
+                py_loader_module_and_qualname=fullqualname(torch_model_loader),
                 artifact_global_url=global_url,
                 artifact_local_path=('~/.cache/torch/hub/checkpoints/' +
                                      Path(global_url).name)))[0])

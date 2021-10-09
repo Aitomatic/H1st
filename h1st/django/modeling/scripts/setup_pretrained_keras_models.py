@@ -185,20 +185,20 @@ MODEL_SPECS = [
 ]
 
 
-def full_qualname(obj):
+def fullqualname(obj):
     return f'{obj.__module__}.{obj.__qualname__}'
 
 
 def run():
     model_name_prefix = f'{PreTrainedKerasImageNetClassifier.__name__}-'
 
-    for keras_model_class, preprocessor, img_dim_size, \
+    for keras_model_loader, preprocessor, img_dim_size, \
             global_url, local_file_name in tqdm(MODEL_SPECS):
         print(PreTrainedKerasImageNetClassifier.objects.update_or_create(
-            name=model_name_prefix + keras_model_class.__name__,
+            name=model_name_prefix + keras_model_loader.__name__,
             defaults=dict(
-                py_loader_module_and_qualname=full_qualname(keras_model_class),
-                preprocessor_module_and_qualname=full_qualname(preprocessor),
+                py_loader_module_and_qualname=fullqualname(keras_model_loader),
+                preprocessor_module_and_qualname=fullqualname(preprocessor),
                 artifact_global_url=global_url,
                 artifact_local_path=f'~/.keras/models/{local_file_name}',
                 params=dict(img_dim_size=img_dim_size)))[0])

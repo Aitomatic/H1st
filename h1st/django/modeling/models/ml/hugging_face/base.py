@@ -1,4 +1,5 @@
-__all__ = 'PreTrainedHuggingFaceTransformer',
+__all__ = ('PreTrainedHuggingFaceTransformer',
+           'H1stPreTrainedHuggingFaceTransformer')
 
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN

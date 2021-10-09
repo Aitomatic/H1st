@@ -27,17 +27,21 @@ from .base import (MLModel, H1stMLModel,
 
 from .skl import SKLModel, H1stSKLModel
 
-from .tf import TFModel, H1stTFModel
-from .tf.pre_trained.tf_hub import \
-    PreTrainedTFHubTransformer, H1stPreTrainedTFHubTransformer
+from .tf import (
+    TFModel, H1stTFModel,
+    PreTrainedTFHubTransformer, H1stPreTrainedTFHubTransformer,
+)
 
-from .keras import KerasModel, H1stKerasModel
-from .keras.pre_trained.image_classification import \
-    PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier
+from .keras import (
+    KerasModel, H1stKerasModel,
+    PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier,
+)
 
-from .torch import TorchModel, H1stTorchModel
-from .torch.pre_trained.image_classification import \
+from .torch import (
+    TorchModel, H1stTorchModel,
     PreTrainedTorchImageNetClassifier, H1stPreTrainedTorchImageNetClassifier
+)
 
-from .hugging_face import (PreTrainedHuggingFaceTransformer,
-                           H1stPreTrainedHuggingFaceTransformer)
+from .hugging_face import (
+    PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
+)

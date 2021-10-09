@@ -1,4 +1,4 @@
-__all__ = 'KerasModel',
+__all__ = 'KerasModel', 'H1stKerasModel'
 
 
 import os

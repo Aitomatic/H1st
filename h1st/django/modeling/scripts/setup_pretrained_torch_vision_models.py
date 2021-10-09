@@ -101,5 +101,7 @@ def run():
             defaults=dict(
                 py_loader_module_and_qualname=fullqualname(torch_model_loader),
                 artifact_global_url=global_url,
-                artifact_local_path=('~/.cache/torch/hub/checkpoints/' +
-                                     Path(global_url).name)))[0])
+                artifact_local_path=(Path('~/.cache/torch/hub/checkpoints') /
+                                     Path(global_url).name),
+                params=dict(__init__=dict(pretrained=True,
+                                          progress=True))))[0])

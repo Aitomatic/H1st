@@ -1,4 +1,4 @@
-__all__ = 'TFModel',
+__all__ = 'TFModel', 'H1stTFModel'
 
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN

@@ -10,8 +10,8 @@ from ..base import PyLoadablePreTrainedMLModel
 
 class PreTrainedHuggingFaceTransformer(PyLoadablePreTrainedMLModel):
     class Meta(PyLoadablePreTrainedMLModel.Meta):
-        verbose_name = 'H1st Pre-Trained Hugging Face Transformer'
-        verbose_name_plural = 'H1st Pre-Trained Hugging Face Transformers'
+        verbose_name = 'Pre-Trained Hugging Face Transformer'
+        verbose_name_plural = 'Pre-Trained Hugging Face Transformers'
 
         db_table = (f'{H1stAIModelingModuleConfig.label}_'
                     f"{__qualname__.split('.')[0]}")

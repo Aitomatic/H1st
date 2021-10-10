@@ -48,7 +48,7 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
             fn=self.predict,
             # (Callable) - the function to wrap an interface around.
 
-            inputs=[ImageInputComponent(shape=(224, 224),
+            inputs=[ImageInputComponent(shape=None,
                                         image_mode='RGB',
                                         invert_colors=False,
                                         source='upload',

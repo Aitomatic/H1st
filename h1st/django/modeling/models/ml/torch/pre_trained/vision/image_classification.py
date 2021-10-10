@@ -9,26 +9,27 @@ from gradio.outputs import Label as LabelOutputComponent
 import numpy
 from PIL import Image
 
-from ......util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
-from .....apps import H1stAIModelingModuleConfig
-from ...base import H1stPyLoadablePreTrainedMLModel
+from .......util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
+from ......apps import H1stAIModelingModuleConfig
+from ....base import H1stPyLoadablePreTrainedMLModel
 
 
 InputImageDataType = Union[str, BytesIO, Image.Image, numpy.ndarray]
 OutputImageClassificationType = dict[str, float]
 
 
-class PreTrainedTorchImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
+class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
     class Meta(H1stPyLoadablePreTrainedMLModel.Meta):
-        verbose_name = 'Pre-Trained Torch ImageNet Classifier'
-        verbose_name_plural = 'Pre-Trained Torch ImageNet Classifiers'
+        verbose_name = 'Pre-Trained Torch Vision ImageNet Classifier'
+        verbose_name_plural = 'Pre-Trained Torch Vision ImageNet Classifiers'
 
         db_table = (f'{H1stAIModelingModuleConfig.label}_'
                     f"{__qualname__.split('.')[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_pretrained_torch_imagenet_classifiers'
+        default_related_name = \
+            'h1st_pretrained_torch_vision_imagenet_classifiers'
 
     @enable_dict_io
     def predict(self,
@@ -197,4 +198,5 @@ class PreTrainedTorchImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
 
 # alias
-H1stPreTrainedTorchImageNetClassifier = PreTrainedTorchImageNetClassifier
+H1stPreTrainedTorchVisionImageNetClassifier = \
+    PreTrainedTorchVisionImageNetClassifier

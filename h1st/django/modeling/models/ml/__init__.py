@@ -14,8 +14,8 @@ __all__ = (
 
     'TorchModel', 'H1stTorchModel',
 
-    'PreTrainedTorchImageNetClassifier',
-    'H1stPreTrainedTorchImageNetClassifier',
+    'PreTrainedTorchVisionImageNetClassifier',
+    'H1stPreTrainedTorchVisionImageNetClassifier',
 
     'PreTrainedHuggingFaceTransformer', 'H1stPreTrainedHuggingFaceTransformer',
 
@@ -42,7 +42,8 @@ from .keras import (
 
 from .torch import (
     TorchModel, H1stTorchModel,
-    PreTrainedTorchImageNetClassifier, H1stPreTrainedTorchImageNetClassifier
+    PreTrainedTorchVisionImageNetClassifier,
+    H1stPreTrainedTorchVisionImageNetClassifier,
 )
 
 from .hugging_face import (

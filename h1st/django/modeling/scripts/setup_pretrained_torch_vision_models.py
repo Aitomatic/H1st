@@ -36,7 +36,7 @@ from torchvision.models.vgg import (vgg11, vgg11_bn, vgg13, vgg13_bn,
 from tqdm import tqdm
 
 from ...util import fullqualname
-from ..models import PreTrainedTorchImageNetClassifier
+from ..models import PreTrainedTorchVisionImageNetClassifier
 
 
 MODEL_SPECS = [
@@ -90,10 +90,10 @@ MODEL_SPECS = [
 
 
 def run():
-    model_name_prefix = f'{PreTrainedTorchImageNetClassifier.__name__}-'
+    model_name_prefix = f'{PreTrainedTorchVisionImageNetClassifier.__name__}-'
 
     for torch_model_loader, global_url in tqdm(MODEL_SPECS):
-        print(PreTrainedTorchImageNetClassifier.objects.update_or_create(
+        print(PreTrainedTorchVisionImageNetClassifier.objects.update_or_create(
             name=model_name_prefix + torch_model_loader.__name__,
             defaults=dict(
                 py_loader_module_and_qualname=fullqualname(torch_model_loader),

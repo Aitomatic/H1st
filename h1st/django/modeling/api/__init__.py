@@ -21,8 +21,8 @@ __all__ = (
     'H1stPreTrainedKerasImageNetClassifier',
 
     'TorchModel', 'H1stTorchModel',
-    'PreTrainedTorchImageNetClassifier',
-    'H1stPreTrainedTorchImageNetClassifier',
+    'PreTrainedTorchVisionImageNetClassifier',
+    'H1stPreTrainedTorchVisionImageNetClassifier',
 
     'PreTrainedHuggingFaceTransformer',
     'H1stPreTrainedHuggingFaceTransformer',
@@ -54,7 +54,8 @@ from ..models import (
     PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier,
 
     TorchModel, H1stTorchModel,
-    PreTrainedTorchImageNetClassifier, H1stPreTrainedTorchImageNetClassifier,
+    PreTrainedTorchVisionImageNetClassifier,
+    H1stPreTrainedTorchVisionImageNetClassifier,
 
     PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
 

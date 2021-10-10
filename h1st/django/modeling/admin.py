@@ -6,7 +6,7 @@ from silk.profiling.profiler import silk_profile
 
 from .models import (
     GoogleCloudTranslationServiceModel, GoogleTranslateServiceModel,
-    PreTrainedKerasImageNetClassifier, PreTrainedTorchImageNetClassifier,
+    PreTrainedKerasImageNetClassifier, PreTrainedTorchVisionImageNetClassifier,
     PreTrainedHuggingFaceTransformer,
 )
 
@@ -73,20 +73,19 @@ class PreTrainedKerasImageNetClassifierAdmin(H1stModelAdmin):
         return super().changelist_view(*args, **kwargs)
 
 
-@register(PreTrainedTorchImageNetClassifier, site=site)
-class PreTrainedTorchImageNetClassifierAdmin(H1stModelAdmin):
+@register(PreTrainedTorchVisionImageNetClassifier, site=site)
+class PreTrainedTorchVisionImageNetClassifierAdmin(H1stModelAdmin):
     show_full_result_count = False
 
     @silk_profile(
         name=(f'{__module__}: '
-              f'{PreTrainedTorchImageNetClassifier._meta.verbose_name}'))
+              f'{PreTrainedTorchVisionImageNetClassifier._meta.verbose_name}'))
     def changeform_view(self, *args, **kwargs):
         return super().changeform_view(*args, **kwargs)
 
     @silk_profile(
-        name=(f'{__module__}: '
-              f'{PreTrainedTorchImageNetClassifier._meta.verbose_name_plural}')
-    )
+        f'{__module__}: '
+        f'{PreTrainedTorchVisionImageNetClassifier._meta.verbose_name_plural}')
     def changelist_view(self, *args, **kwargs):
         return super().changelist_view(*args, **kwargs)
 

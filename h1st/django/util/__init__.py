@@ -2,6 +2,7 @@ __all__ = (
     'PGSQL_IDENTIFIER_MAX_LEN',
     'dir_path_with_slash',
     'enable_dict_io',
+    'fullqualname',
     'import_obj',
 )
 
@@ -107,6 +108,10 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
             return f(*args, **kwargs)
 
     return decor_func_w_dict_io
+
+
+def fullqualname(obj):
+    return f'{obj.__module__}.{obj.__qualname__}'
 
 
 def import_obj(module_and_qualname: str):

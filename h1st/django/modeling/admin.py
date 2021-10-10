@@ -103,7 +103,6 @@ class PreTrainedHuggingFaceTransformerAdmin(H1stModelAdmin):
 
     @silk_profile(
         name=(f'{__module__}: '
-              f'{PreTrainedHuggingFaceTransformer._meta.verbose_name_plural}')
-    )
+              f'{PreTrainedHuggingFaceTransformer._meta.verbose_name_plural}'))
     def changelist_view(self, *args, **kwargs):
         return super().changelist_view(*args, **kwargs)

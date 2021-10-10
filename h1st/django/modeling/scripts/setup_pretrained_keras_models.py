@@ -65,6 +65,7 @@ from tensorflow.python.keras.applications.xception import (
 
 from tqdm import tqdm
 
+from ...util import fullqualname
 from ..models import PreTrainedKerasImageNetClassifier
 
 
@@ -183,10 +184,6 @@ MODEL_SPECS = [
      XCEPTION_URL,
      'xception_weights_tf_dim_ordering_tf_kernels.h5')
 ]
-
-
-def fullqualname(obj):
-    return f'{obj.__module__}.{obj.__qualname__}'
 
 
 def run():

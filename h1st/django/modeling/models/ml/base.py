@@ -37,8 +37,8 @@ class MLModel(H1stModel):
 
             max_length=255,
 
-            null=False,
-            blank=False,
+            null=True,
+            blank=True,
             choices=None,
             db_column=None,
             db_index=True,

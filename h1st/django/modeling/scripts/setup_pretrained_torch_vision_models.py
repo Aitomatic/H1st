@@ -35,6 +35,7 @@ from torchvision.models.vgg import (vgg11, vgg11_bn, vgg13, vgg13_bn,
 
 from tqdm import tqdm
 
+from ...util import fullqualname
 from ..models import PreTrainedTorchImageNetClassifier
 
 
@@ -86,10 +87,6 @@ MODEL_SPECS = [
     (vgg19, vgg_urls[vgg19.__name__]),
     (vgg19_bn, vgg_urls[vgg19_bn.__name__]),
 ]
-
-
-def fullqualname(obj):
-    return f'{obj.__module__}.{obj.__qualname__}'
 
 
 def run():

@@ -1,3 +1,5 @@
+from django.db.models.fields import TextField
+
 from ...util import PGSQL_IDENTIFIER_MAX_LEN
 from ..apps import H1stAIDataManagementModuleConfig
 from .base import DataSet

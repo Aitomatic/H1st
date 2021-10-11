@@ -5,6 +5,7 @@ __all__ = ('DataSchema',
            'PandasDataFrame',
            'ParquetDataSet',
            'CSVDataSet',
+           'TFRecordDataSet',
            'TextDataSet',
            )
 
@@ -15,4 +16,5 @@ from .numpy import NumPyArray
 from .pandas import PandasDataFrame
 from .parquet import ParquetDataSet
 from .csv import CSVDataSet
+from .tfrecord import TFRecordDataSet
 from .text import TextDataSet

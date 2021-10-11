@@ -1,6 +1,7 @@
 from json.decoder import JSONDecoder
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models.fields.json import JSONField
 
 import numpy
 

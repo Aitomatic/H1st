@@ -14,12 +14,12 @@ from polymorphic.models import PolymorphicModel
 import numpy
 import pandas
 
-from ..util import PGSQL_IDENTIFIER_MAX_LEN, dir_path_with_slash
-from ..util.models import (
+from ...util import PGSQL_IDENTIFIER_MAX_LEN, dir_path_with_slash
+from ...util.models import (
     _ModelWithUUIDPK,
     _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
 )
-from .apps import H1stAIDataManagementModuleConfig
+from ..apps import H1stAIDataManagementModuleConfig
 
 
 class DataSchema(PolymorphicModel, _ModelWithUUIDPK):

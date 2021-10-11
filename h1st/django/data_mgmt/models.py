@@ -209,8 +209,30 @@ class DataSet(PolymorphicModel,
 
         default_related_name = 'data_sets'
 
+    @property
+    def _path_repr(self) -> str:
+        global_url_repr = ((dir_path_with_slash(self.global_url)
+                            if self.path_is_dir
+                            else self.global_url)
+                           if self.global_url
+                           else None)
+
+        local_path_repr = ((dir_path_with_slash(self.local_path)
+                            if self.path_is_dir
+                            else self.local_path)
+                           if self.local_path
+                           else None)
+
+        return ((f' @ {global_url_repr} (local: {local_path_repr})'
+                 if local_path_repr
+                 else f' @ {global_url_repr}')
+                if global_url_repr
+                else (f' @ {local_path_repr}'
+                      if local_path_repr
+                      else ''))
+
     def __str__(self) -> str:
-        return f'{type(self).__name__} #{self.uuid}'
+        return f'{type(self).__name__} #{self.uuid}{self._path_repr}'
 
     def load(self):
         raise NotImplementedError
@@ -366,58 +388,8 @@ class TextDataSet(DataSet):
         return self.text
 
 
-class _FileStoredDataSet(DataSet):
-    path = \
-        CharField(
-            verbose_name='Data Set Path/URL',
-            help_text='Data Set Path/URL',
-
-            max_length=255,
-
-            null=False,
-            blank=False,
-            choices=None,
-            db_column=None,
-            db_index=True,
-            db_tablespace=None,
-            default=None,
-            editable=True,
-            # error_messages=None,
-            primary_key=False,
-            unique=False,
-            unique_for_date=None, unique_for_month=None, unique_for_year=None,
-            # validators=None
-        )
-
-    is_dir = \
-        BooleanField(
-            verbose_name='Data Set Path/URL is Directory?',
-            help_text='Data Set Path/URL is Directory?',
-            null=False,
-            blank=False,
-            choices=None,
-            db_column=None,
-            db_index=True,
-            db_tablespace=None,
-            default=False,
-            editable=True,
-            # error_messages=None,
-            primary_key=False,
-            unique=False,
-            unique_for_date=None, unique_for_month=None, unique_for_year=None,
-            # validators=None
-        )
-
+class CSVDataSet(DataSet):
     class Meta(DataSet.Meta):
-        abstract = True
-
-    def __str__(self) -> str:
-        return f'{type(self).__name__} #{self.uuid} @ ' \
-            f'{dir_path_with_slash(self.path) if self.is_dir else self.path}'
-
-
-class CSVDataSet(_FileStoredDataSet):
-    class Meta(_FileStoredDataSet.Meta):
         verbose_name = 'CSV Data Set'
         verbose_name_plural = 'CSV Data Sets'
 
@@ -442,8 +414,8 @@ class CSVDataSet(_FileStoredDataSet):
         return self.to_pandas()
 
 
-class ParquetDataSet(_FileStoredDataSet):
-    class Meta(_FileStoredDataSet.Meta):
+class ParquetDataSet(DataSet):
+    class Meta(DataSet.Meta):
         verbose_name = 'Parquet Data Set'
         verbose_name_plural = 'Parquet Data Sets'
 
@@ -471,8 +443,8 @@ class ParquetDataSet(_FileStoredDataSet):
         return self.to_pandas()
 
 
-class TFRecordDataSet(_FileStoredDataSet):
-    class Meta(_FileStoredDataSet.Meta):
+class TFRecordDataSet(DataSet):
+    class Meta(DataSet.Meta):
         verbose_name = 'TFRecord Data Set'
         verbose_name_plural = 'TFRecord Data Sets'
 

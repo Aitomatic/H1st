@@ -13,8 +13,31 @@ from .json import JSONDataSet
 class NumPyArray(JSONDataSet):
     dtype = \
         JSONField(
-            verbose_name='Data Type(s)',
-            help_text='Data Type(s)',
+            verbose_name='Numpy Array Data Type(s)',
+            help_text='Numpy Array Data Type(s)',
+
+            encoder=DjangoJSONEncoder,
+            decoder=JSONDecoder,
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=False,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    shape = \
+        JSONField(
+            verbose_name='Numpy Array Shape',
+            help_text='Numpy Array Shape',
 
             encoder=DjangoJSONEncoder,
             decoder=JSONDecoder,

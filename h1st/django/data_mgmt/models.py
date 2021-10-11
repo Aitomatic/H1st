@@ -219,8 +219,8 @@ class DataSet(PolymorphicModel,
 class JSONDataSet(DataSet):
     in_db_json = \
         JSONField(
-            verbose_name='JSON Data Content',
-            help_text='JSON Data Content',
+            verbose_name='In-Database JSON Data Content',
+            help_text='In-Database JSON Data Content',
 
             encoder=DjangoJSONEncoder,
             decoder=JSONDecoder,

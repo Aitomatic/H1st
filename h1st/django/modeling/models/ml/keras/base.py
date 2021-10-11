@@ -26,7 +26,7 @@ class KerasModel(H1stMLModel):
     def load(self):
         artifact_local_path = os.path.expanduser(path=self.artifact_local_path)
 
-        self._native_obj = \
+        self.native_model_obj = \
             load_model(filepath=(h5py.File(name=artifact_local_path, mode='r')
                                  if artifact_local_path.endswith('.h5')
                                  else artifact_local_path),

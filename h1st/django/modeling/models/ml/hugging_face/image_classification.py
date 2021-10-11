@@ -39,8 +39,8 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
         self.load()
 
         return {i['label']: i['score']
-                for i in self._native_obj(images=image_or_images,
-                                          top_k=n_labels)}
+                for i in self.native_model_obj(images=image_or_images,
+                                               top_k=n_labels)}
 
     @property
     def gradio_ui(self) -> Interface:

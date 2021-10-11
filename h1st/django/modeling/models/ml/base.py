@@ -52,7 +52,7 @@ class MLModel(H1stModel):
             # validators=None
         )
 
-    _native_obj = None
+    native_model_obj = None
 
     class Meta(H1stModel.Meta):
         verbose_name = 'H1st ML Model'
@@ -70,7 +70,7 @@ class MLModel(H1stModel):
         raise NotImplementedError
 
     def unload(self):
-        self._native_obj = None
+        self.native_model_obj = None
 
 
 class PyLoadablePreTrainedMLModel(MLModel):
@@ -116,8 +116,8 @@ class PyLoadablePreTrainedMLModel(MLModel):
         return ({} if self.params is None else self.params).get('__init__', {})
 
     def load(self):
-        if not self._native_obj:
-            self._native_obj = self.loader(**self.init_params)
+        if not self.native_model_obj:
+            self.native_model_obj = self.loader(**self.init_params)
 
 
 # alias

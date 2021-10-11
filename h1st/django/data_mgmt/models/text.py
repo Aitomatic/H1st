@@ -6,10 +6,10 @@ from .base import DataSet
 
 
 class TextDataSet(DataSet):
-    text = \
+    in_db_text = \
         TextField(
-            verbose_name='Text',
-            help_text='Text',
+            verbose_name='In-Database Text Data Content',
+            help_text='In-Database Text Data Content',
 
             null=True,
             blank=True,
@@ -38,4 +38,4 @@ class TextDataSet(DataSet):
         default_related_name = 'text_data_sets'
 
     def load(self):
-        return self.text
+        return self.in_db_text

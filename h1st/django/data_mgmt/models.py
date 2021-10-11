@@ -153,7 +153,7 @@ class DataSet(PolymorphicModel,
 
 
 class JSONDataSet(DataSet):
-    json = \
+    in_db_json = \
         JSONField(
             verbose_name='JSON Data Content',
             help_text='JSON Data Content',
@@ -188,7 +188,7 @@ class JSONDataSet(DataSet):
         default_related_name = 'json_data_sets'
 
     def load(self):
-        return self.json
+        return self.in_db_json
 
 
 class NumPyArray(JSONDataSet):
@@ -227,7 +227,7 @@ class NumPyArray(JSONDataSet):
         default_related_name = 'numpy_arrays'
 
     def load(self):
-        return numpy.array(object=self.json,
+        return numpy.array(object=self.in_db_json,
                            dtype=self.dtype,
                            copy=False,
                            order='K',
@@ -263,7 +263,7 @@ class PandasDataFrame(JSONDataSet):
                                      storage_options=None))
 
     def load(self):
-        return pandas.DataFrame(**self.json)
+        return pandas.DataFrame(**self.in_db_json)
 
 
 class TextDataSet(DataSet):

@@ -1,22 +1,22 @@
-from ..models import (
-    DataSchema,
-    DataSet,
-    JSONDataSet,
-    NumPyArray,
-    PandasDataFrame,
-    CSVDataSet,
-    ParquetDataSet,
-    TFRecordDataSet
-)
+__all__ = ('DataSchema',
+           'DataSet',
+           'JSONDataSet',
+           'NumPyArray',
+           'PandasDataFrame',
+           'ParquetDataSet',
+           'CSVDataSet',
+           'TFRecordDataSet',
+           'TextDataSet',
+           )
 
 
-__all__ = [
-    'DataSchema',
-    'DataSet',
-    'JSONDataSet',
-    'NumPyArray',
-    'PandasDataFrame',
-    'CSVDataSet',
-    'ParquetDataSet',
-    'TFRecordDataSet'
-]
+from ..models import (DataSchema,
+                      DataSet,
+                      JSONDataSet,
+                      NumPyArray,
+                      PandasDataFrame,
+                      ParquetDataSet,
+                      CSVDataSet,
+                      TFRecordDataSet,
+                      TextDataSet,
+                      )

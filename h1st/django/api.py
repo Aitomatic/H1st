@@ -4,9 +4,10 @@ __all__ = (
     'JSONDataSet',
     'NumPyArray',
     'PandasDataFrame',
-    'CSVDataSet',
     'ParquetDataSet',
+    'CSVDataSet',
     'TFRecordDataSet',
+    'TextDataSet',
 
     'Model', 'H1stModel',
 
@@ -48,16 +49,16 @@ __all__ = (
 )
 
 
-from .data_mgmt.api import (
-    DataSchema,
-    DataSet,
-    JSONDataSet,
-    NumPyArray,
-    PandasDataFrame,
-    CSVDataSet,
-    ParquetDataSet,
-    TFRecordDataSet,
-)
+from .data_mgmt.api import (DataSchema,
+                            DataSet,
+                            JSONDataSet,
+                            NumPyArray,
+                            PandasDataFrame,
+                            ParquetDataSet,
+                            CSVDataSet,
+                            TFRecordDataSet,
+                            TextDataSet,
+                            )
 
 from .modeling.api import (
     Model, H1stModel,

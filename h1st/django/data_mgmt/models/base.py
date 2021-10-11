@@ -1,6 +1,7 @@
 __all__ = 'DataSchema', 'DataSet'
 
 
+from abc import abstractmethod
 from json.decoder import JSONDecoder
 
 from django.core.serializers.json import DjangoJSONEncoder
@@ -193,6 +194,8 @@ class DataSet(PolymorphicModel,
             # validators=None
         )
 
+    native_data_obj = None
+
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
         verbose_name = 'Data Set'
         verbose_name_plural = 'Data Sets'
@@ -229,5 +232,9 @@ class DataSet(PolymorphicModel,
     def __str__(self) -> str:
         return f'{type(self).__name__} #{self.uuid}{self._path_repr}'
 
+    @abstractmethod
     def load(self):
         raise NotImplementedError
+
+    def unload(self):
+        self.native_data_obj = None

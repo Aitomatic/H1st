@@ -8,6 +8,7 @@ __all__ = (
     'CSVDataSet',
     'TFRecordDataSet',
     'TextDataSet',
+    'LiveDataSource',
 
     'Model', 'H1stModel',
 
@@ -58,6 +59,7 @@ from .data_mgmt.api import (DataSchema,
                             CSVDataSet,
                             TFRecordDataSet,
                             TextDataSet,
+                            LiveDataSource,
                             )
 
 from .modeling.api import (

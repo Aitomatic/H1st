@@ -7,6 +7,7 @@ __all__ = ('DataSchema',
            'CSVDataSet',
            'TFRecordDataSet',
            'TextDataSet',
+           'LiveDataSource',
            )
 
 
@@ -19,4 +20,5 @@ from ..models import (DataSchema,
                       CSVDataSet,
                       TFRecordDataSet,
                       TextDataSet,
+                      LiveDataSource,
                       )

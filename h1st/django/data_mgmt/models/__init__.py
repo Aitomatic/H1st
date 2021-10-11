@@ -7,6 +7,7 @@ __all__ = ('DataSchema',
            'CSVDataSet',
            'TFRecordDataSet',
            'TextDataSet',
+           'LiveDataSource',
            )
 
 
@@ -18,3 +19,4 @@ from .parquet import ParquetDataSet
 from .csv import CSVDataSet
 from .tfrecord import TFRecordDataSet
 from .text import TextDataSet
+from .live import LiveDataSource

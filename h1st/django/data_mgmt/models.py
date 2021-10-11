@@ -134,6 +134,70 @@ class DataSet(PolymorphicModel,
             # validators=None
         )
 
+    global_url = \
+        CharField(
+            verbose_name='Data Set Global URL',
+            help_text='Data Set Global URL',
+
+            max_length=255,
+
+            null=True,
+            blank=True,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    local_path = \
+        CharField(
+            verbose_name='Data Set Local Path',
+            help_text='Data Set Local Path',
+
+            max_length=255,
+
+            null=True,
+            blank=True,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=None,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
+    path_is_dir = \
+        BooleanField(
+            verbose_name='Data Set Path/URL is Directory?',
+            help_text='Data Set Path/URL is Directory?',
+
+            null=False,
+            blank=False,
+            choices=None,
+            db_column=None,
+            db_index=True,
+            db_tablespace=None,
+            default=False,
+            editable=True,
+            # error_messages=None,
+            primary_key=False,
+            unique=False,
+            unique_for_date=None, unique_for_month=None, unique_for_year=None,
+            # validators=None
+        )
+
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
         verbose_name = 'Data Set'
         verbose_name_plural = 'Data Sets'

@@ -115,6 +115,7 @@ Pillow = '^8.3.2'
 # Pillow-SIMD = '^7.0.0'   # complex to install
 'Ruamel.YAML' = '^0.17.16'
 PSUtil = '^5.8.0'
+Python-DotEnv = '^0.19.1'
 Requests = '^2.26.0'
 Tqdm = '^4.62.3'
 

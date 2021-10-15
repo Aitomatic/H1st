@@ -1,4 +1,6 @@
-from .base import PreTrainedHuggingFaceTransformer
+__all__ = ('PreTrainedHuggingFaceImageClassifier',
+           'H1stPreTrainedHuggingFaceImageClassifier')
+
 
 from typing import Sequence, Union
 
@@ -11,6 +13,7 @@ from PIL.Image import Image
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stAIModelingModuleConfig
+from .base import PreTrainedHuggingFaceTransformer
 
 
 InputImageDataType = Union[str, Image]

@@ -2,8 +2,6 @@ __all__ = ('PreTrainedHuggingFaceTextClassifier',
            'H1stPreTrainedHuggingFaceTextClassifier')
 
 
-from .base import PreTrainedHuggingFaceTransformer
-
 from typing import Sequence, Union
 
 from gradio.interface import Interface
@@ -12,6 +10,7 @@ from gradio.outputs import Label as LabelOutputComponent
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stAIModelingModuleConfig
+from .base import PreTrainedHuggingFaceTransformer
 
 
 TextClassificationOutputType = dict[str, float]

@@ -2,8 +2,6 @@ __all__ = ('PreTrainedHuggingFaceTokenClassifier',
            'H1stPreTrainedHuggingFaceTokenClassifier')
 
 
-from .base import PreTrainedHuggingFaceTransformer
-
 from typing import Sequence, Union
 
 from gradio.interface import Interface
@@ -12,6 +10,7 @@ from gradio.outputs import JSON as JSONOutputComponent   # noqa: N811
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stAIModelingModuleConfig
+from .base import PreTrainedHuggingFaceTransformer
 
 
 TokenClassificationOutputType = list[dict]

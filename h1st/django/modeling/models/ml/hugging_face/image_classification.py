@@ -36,13 +36,17 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
                 n_labels: int = 5) \
             -> Union[OutputImageClassificationType,
                      Sequence[OutputImageClassificationType]]:
+        single_img = isinstance(image_or_images, (str, Image))
+
+        if (not single_img) and (not isinstance(image_or_images, list)):
+            image_or_images = list(image_or_images)
+
         self.load()
 
-        output = self.native_model_obj(images=image_or_images,
-                                       top_k=n_labels)
+        output = self.native_model_obj(images=image_or_images, top_k=n_labels)
 
         return ({i['label']: i['score'] for i in output}
-                if isinstance(image_or_images, (str, Image))
+                if single_img
                 else [{i['label']: i['score'] for i in result}
                       for result in output])
 

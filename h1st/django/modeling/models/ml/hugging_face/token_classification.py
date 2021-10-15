@@ -8,7 +8,7 @@ from typing import Sequence, Union
 
 from gradio.interface import Interface
 from gradio.inputs import Textbox as TextboxInputComponent
-from gradio.outputs import JSON as JSONOutputComponent
+from gradio.outputs import JSON as JSONOutputComponent   # noqa: N811
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stAIModelingModuleConfig
@@ -33,13 +33,18 @@ class PreTrainedHuggingFaceTokenClassifier(PreTrainedHuggingFaceTransformer):
     def predict(self, text_or_texts: Union[str, Sequence[str]]) \
             -> Union[TokenClassificationOutputType,
                      Sequence[TokenClassificationOutputType]]:
+        single_text = isinstance(text_or_texts, str)
+
+        if (not single_text) and (not isinstance(text_or_texts, list)):
+            text_or_texts = list(text_or_texts)
+
         self.load()
 
         output = self.native_model_obj(inputs=text_or_texts)
 
         return ([{k: (float(v) if k == 'score' else v) for k, v in d.items()}
                  for d in output]
-                if isinstance(text_or_texts, str)
+                if single_text
                 else [[{k: (float(v) if k == 'score' else v)
                         for k, v in d.items()}
                        for d in result]

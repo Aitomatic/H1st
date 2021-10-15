@@ -33,6 +33,11 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
     def predict(self, text_or_texts: Union[str, Sequence[str]]) \
             -> Union[TextClassificationOutputType,
                      Sequence[TextClassificationOutputType]]:
+        single_text = isinstance(text_or_texts, str)
+
+        if (not single_text) and (not isinstance(text_or_texts, list)):
+            text_or_texts = list(text_or_texts)
+
         self.load()
 
         output = self.native_model_obj(text_or_texts,
@@ -40,7 +45,7 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
                                        function_to_apply=None)
 
         return ({i['label']: i['score'] for i in output[0]}
-                if isinstance(text_or_texts, str)
+                if single_text
                 else [{i['label']: i['score'] for i in result}
                       for result in output])
 

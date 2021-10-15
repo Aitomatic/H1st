@@ -33,6 +33,7 @@ TorchText = '^0.10.1'
 TorchVision = '^0.10.1'
 
 Transformers = '^4.11.2'
+TIMM = '^0.4.12'   # for Object Detection
 
 # HYPER-PARAMETER TUNING
 Bayesian-Optimization = '^1.2.0'

@@ -42,6 +42,9 @@ __all__ = (
     'PreTrainedHuggingFaceImageClassifier',
     'H1stPreTrainedHuggingFaceImageClassifier',
 
+    'PreTrainedHuggingFaceObjectDetector',
+    'H1stPreTrainedHuggingFaceObjectDetector',
+
     'PreTrainedHuggingFaceTextClassifier',
     'H1stPreTrainedHuggingFaceTextClassifier',
 
@@ -99,6 +102,9 @@ from .modeling.api import (
 
     PreTrainedHuggingFaceImageClassifier,
     H1stPreTrainedHuggingFaceImageClassifier,
+
+    PreTrainedHuggingFaceObjectDetector,
+    H1stPreTrainedHuggingFaceObjectDetector,
 
     PreTrainedHuggingFaceTextClassifier,
     H1stPreTrainedHuggingFaceTextClassifier,

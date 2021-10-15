@@ -40,6 +40,10 @@ class PreTrainedHuggingFaceObjectDetector(PreTrainedHuggingFaceTransformer):
                 threshold: float = 0.9) \
             -> Union[OutputObjectDetectionType,
                      Sequence[OutputObjectDetectionType]]:
+        if not (isinstance(image_or_images, (str, Image)) or
+                isinstance(image_or_images, list)):
+            image_or_images = list(image_or_images)
+
         self.load()
 
         return self.native_model_obj(inputs=image_or_images,   # images=?

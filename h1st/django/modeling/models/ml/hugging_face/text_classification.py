@@ -34,7 +34,7 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
                      Sequence[TextClassificationOutputType]]:
         single_text = isinstance(text_or_texts, str)
 
-        if (not single_text) and (not isinstance(text_or_texts, list)):
+        if not (single_text or isinstance(text_or_texts, list)):
             text_or_texts = list(text_or_texts)
 
         self.load()

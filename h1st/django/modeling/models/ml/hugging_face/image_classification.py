@@ -41,7 +41,7 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
                      Sequence[OutputImageClassificationType]]:
         single_img = isinstance(image_or_images, (str, Image))
 
-        if (not single_img) and (not isinstance(image_or_images, list)):
+        if not (single_img or isinstance(image_or_images, list)):
             image_or_images = list(image_or_images)
 
         self.load()

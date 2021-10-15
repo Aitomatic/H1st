@@ -45,6 +45,9 @@ __all__ = (
     'PreTrainedHuggingFaceTextClassifier',
     'H1stPreTrainedHuggingFaceTextClassifier',
 
+    'PreTrainedHuggingFaceTokenClassifier',
+    'H1stPreTrainedHuggingFaceTokenClassifier',
+
     'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow',
 
     'Decision', 'ModelEvalMetricsSet',
@@ -99,6 +102,9 @@ from .modeling.api import (
 
     PreTrainedHuggingFaceTextClassifier,
     H1stPreTrainedHuggingFaceTextClassifier,
+
+    PreTrainedHuggingFaceTokenClassifier,
+    H1stPreTrainedHuggingFaceTokenClassifier,
 
     Graph, H1stGraph, Workflow, H1stWorkflow,
 )

@@ -33,6 +33,9 @@ __all__ = (
     'PreTrainedHuggingFaceImageClassifier',
     'H1stPreTrainedHuggingFaceImageClassifier',
 
+    'PreTrainedHuggingFaceTextClassifier',
+    'H1stPreTrainedHuggingFaceTextClassifier',
+
     'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow',
 )
 
@@ -59,12 +62,17 @@ from .ml import (
     PreTrainedKerasImageNetClassifier, H1stPreTrainedKerasImageNetClassifier,
 
     TorchModel, H1stTorchModel,
-    PreTrainedTorchVisionImageNetClassifier, H1stPreTrainedTorchVisionImageNetClassifier,
+
+    PreTrainedTorchVisionImageNetClassifier,
+    H1stPreTrainedTorchVisionImageNetClassifier,
 
     PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
 
     PreTrainedHuggingFaceImageClassifier,
     H1stPreTrainedHuggingFaceImageClassifier,
+
+    PreTrainedHuggingFaceTextClassifier,
+    H1stPreTrainedHuggingFaceTextClassifier,
 )
 
 from .graph import Graph, H1stGraph, Workflow, H1stWorkflow

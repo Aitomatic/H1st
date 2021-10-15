@@ -30,6 +30,9 @@ __all__ = (
     'PreTrainedHuggingFaceImageClassifier',
     'H1stPreTrainedHuggingFaceImageClassifier',
 
+    'PreTrainedHuggingFaceTextClassifier',
+    'H1stPreTrainedHuggingFaceTextClassifier',
+
     'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow',
 )
 
@@ -61,6 +64,9 @@ from ..models import (
 
     PreTrainedHuggingFaceImageClassifier,
     H1stPreTrainedHuggingFaceImageClassifier,
+
+    PreTrainedHuggingFaceTextClassifier,
+    H1stPreTrainedHuggingFaceTextClassifier,
 
     Graph, H1stGraph, Workflow, H1stWorkflow,
 )

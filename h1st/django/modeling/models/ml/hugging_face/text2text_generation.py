@@ -39,22 +39,18 @@ class PreTrainedHuggingFaceText2TextGenerator(
             -> Union[dict, list[dict]]:
         single_text = isinstance(text_or_texts, str)
 
-        if single_text:
-            text_or_texts = [text_or_texts]
-
-        elif not isinstance(text_or_texts, list):
+        if not (single_text or isinstance(text_or_texts, list)):
             text_or_texts = list(text_or_texts)
 
         self.load()
 
         output = self.native_model_obj(
-            *text_or_texts,
+            text_or_texts,
             return_tensors=return_tensors,
             return_text=return_text,
             clean_up_tokenization_spaces=clean_up_tokenization_spaces,
             truncation=None,
             **generate_kwargs)
-        print(output)
 
         if return_tensors:
             return ((output[0]['generated_token_ids']['output_ids']

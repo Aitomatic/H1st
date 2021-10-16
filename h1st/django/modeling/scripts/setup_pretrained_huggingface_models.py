@@ -7,6 +7,7 @@ from ..models import (
     PreTrainedHuggingFaceTextClassifier,
     PreTrainedHuggingFaceTextGenerator,
     PreTrainedHuggingFaceText2TextGenerator,
+    PreTrainedHuggingFaceTextSummarizer,
     PreTrainedHuggingFaceTokenClassifier,
 )
 
@@ -65,6 +66,23 @@ def run():
                                           use_fast=True,
                                           use_auth_token=None,
                                           model_kwargs={}))))[0])
+    print(
+        PreTrainedHuggingFaceTextClassifier.objects.update_or_create(
+            name='PreTrained-HuggingFace-Sentiment-Analyzer',
+            defaults=dict(
+                py_loader_module_and_qualname=fullqualname(pipeline),
+                artifact_global_url=None,
+                artifact_local_path=None,
+                params=dict(__init__=dict(task='sentiment-analysis',
+                                          model=None,
+                                          config=None,
+                                          tokenizer=None,
+                                          feature_extractor=None,
+                                          framework=None,
+                                          revision=None,
+                                          use_fast=True,
+                                          use_auth_token=None,
+                                          model_kwargs={}))))[0])
 
     print(
         PreTrainedHuggingFaceTextGenerator.objects.update_or_create(
@@ -103,13 +121,13 @@ def run():
                                           model_kwargs={}))))[0])
 
     print(
-        PreTrainedHuggingFaceTextClassifier.objects.update_or_create(
-            name='PreTrained-HuggingFace-Sentiment-Analyzer',
+        PreTrainedHuggingFaceTextSummarizer.objects.update_or_create(
+            name='PreTrained-HuggingFace-Text-Summarizer',
             defaults=dict(
                 py_loader_module_and_qualname=fullqualname(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
-                params=dict(__init__=dict(task='sentiment-analysis',
+                params=dict(__init__=dict(task='summarization',
                                           model=None,
                                           config=None,
                                           tokenizer=None,

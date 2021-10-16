@@ -54,6 +54,9 @@ __all__ = (
     'PreTrainedHuggingFaceText2TextGenerator',
     'H1stPreTrainedHuggingFaceText2TextGenerator',
 
+    'PreTrainedHuggingFaceTextSummarizer',
+    'H1stPreTrainedHuggingFaceTextSummarizer',
+
     'PreTrainedHuggingFaceTokenClassifier',
     'H1stPreTrainedHuggingFaceTokenClassifier',
 
@@ -120,6 +123,9 @@ from .modeling.api import (
 
     PreTrainedHuggingFaceText2TextGenerator,
     H1stPreTrainedHuggingFaceText2TextGenerator,
+
+    PreTrainedHuggingFaceTextSummarizer,
+    H1stPreTrainedHuggingFaceTextSummarizer,
 
     PreTrainedHuggingFaceTokenClassifier,
     H1stPreTrainedHuggingFaceTokenClassifier,

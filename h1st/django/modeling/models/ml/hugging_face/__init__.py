@@ -7,6 +7,9 @@ __all__ = (
     'PreTrainedHuggingFaceObjectDetector',
     'H1stPreTrainedHuggingFaceObjectDetector',
 
+    'PreTrainedHuggingFaceSpeechRecognizer',
+    'H1stPreTrainedHuggingFaceSpeechRecognizer',
+
     'PreTrainedHuggingFaceTextClassifier',
     'H1stPreTrainedHuggingFaceTextClassifier',
 
@@ -33,6 +36,8 @@ from .image_classification import (PreTrainedHuggingFaceImageClassifier,
                                    H1stPreTrainedHuggingFaceImageClassifier)
 from .object_detection import (PreTrainedHuggingFaceObjectDetector,
                                H1stPreTrainedHuggingFaceObjectDetector)
+from .speech_recognition import (PreTrainedHuggingFaceSpeechRecognizer,
+                                 H1stPreTrainedHuggingFaceSpeechRecognizer)
 from .text_classification import (PreTrainedHuggingFaceTextClassifier,
                                   H1stPreTrainedHuggingFaceTextClassifier)
 from .text_generation import (PreTrainedHuggingFaceTextGenerator,

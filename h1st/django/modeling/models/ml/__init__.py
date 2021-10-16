@@ -25,6 +25,9 @@ __all__ = (
     'PreTrainedHuggingFaceObjectDetector',
     'H1stPreTrainedHuggingFaceObjectDetector',
 
+    'PreTrainedHuggingFaceSpeechRecognizer',
+    'H1stPreTrainedHuggingFaceSpeechRecognizer',
+
     'PreTrainedHuggingFaceTextClassifier',
     'H1stPreTrainedHuggingFaceTextClassifier',
 
@@ -75,6 +78,9 @@ from .hugging_face import (
 
     PreTrainedHuggingFaceObjectDetector,
     H1stPreTrainedHuggingFaceObjectDetector,
+
+    PreTrainedHuggingFaceSpeechRecognizer,
+    H1stPreTrainedHuggingFaceSpeechRecognizer,
 
     PreTrainedHuggingFaceTextClassifier,
     H1stPreTrainedHuggingFaceTextClassifier,

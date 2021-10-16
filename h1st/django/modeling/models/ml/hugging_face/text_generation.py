@@ -47,7 +47,7 @@ class PreTrainedHuggingFaceTextGenerator(PreTrainedHuggingFaceTransformer):
         self.load()
 
         output = self.native_model_obj(
-            text_or_texts,
+            text_inputs=text_or_texts,
             return_tensors=return_tensors,
             return_text=return_text,
             return_full_text=return_full_text,

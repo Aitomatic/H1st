@@ -30,6 +30,9 @@ __all__ = (
     'PreTrainedHuggingFaceTransformer',
     'H1stPreTrainedHuggingFaceTransformer',
 
+    'PreTrainedHuggingFaceAudioClassifier',
+    'H1stPreTrainedHuggingFaceAudioClassifier',
+
     'PreTrainedHuggingFaceImageClassifier',
     'H1stPreTrainedHuggingFaceImageClassifier',
 
@@ -88,6 +91,9 @@ from .ml import (
     H1stPreTrainedTorchVisionImageNetClassifier,
 
     PreTrainedHuggingFaceTransformer, H1stPreTrainedHuggingFaceTransformer,
+
+    PreTrainedHuggingFaceAudioClassifier,
+    H1stPreTrainedHuggingFaceAudioClassifier,
 
     PreTrainedHuggingFaceImageClassifier,
     H1stPreTrainedHuggingFaceImageClassifier,

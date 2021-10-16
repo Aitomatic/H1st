@@ -39,6 +39,9 @@ __all__ = (
     'PreTrainedHuggingFaceTransformer',
     'H1stPreTrainedHuggingFaceTransformer',
 
+    'PreTrainedHuggingFaceAudioClassifier',
+    'H1stPreTrainedHuggingFaceAudioClassifier',
+
     'PreTrainedHuggingFaceImageClassifier',
     'H1stPreTrainedHuggingFaceImageClassifier',
 
@@ -114,6 +117,9 @@ from .modeling.api import (
 
     PreTrainedHuggingFaceTransformer,
     H1stPreTrainedHuggingFaceTransformer,
+
+    PreTrainedHuggingFaceAudioClassifier,
+    H1stPreTrainedHuggingFaceAudioClassifier,
 
     PreTrainedHuggingFaceImageClassifier,
     H1stPreTrainedHuggingFaceImageClassifier,

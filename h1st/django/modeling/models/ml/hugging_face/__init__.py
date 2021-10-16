@@ -1,6 +1,9 @@
 __all__ = (
     'PreTrainedHuggingFaceTransformer', 'H1stPreTrainedHuggingFaceTransformer',
 
+    'PreTrainedHuggingFaceAudioClassifier',
+    'H1stPreTrainedHuggingFaceAudioClassifier',
+
     'PreTrainedHuggingFaceImageClassifier',
     'H1stPreTrainedHuggingFaceImageClassifier',
 
@@ -32,6 +35,8 @@ __all__ = (
 
 from .base import (PreTrainedHuggingFaceTransformer,
                    H1stPreTrainedHuggingFaceTransformer)
+from .audio_classification import (PreTrainedHuggingFaceAudioClassifier,
+                                   H1stPreTrainedHuggingFaceAudioClassifier)
 from .image_classification import (PreTrainedHuggingFaceImageClassifier,
                                    H1stPreTrainedHuggingFaceImageClassifier)
 from .object_detection import (PreTrainedHuggingFaceObjectDetector,

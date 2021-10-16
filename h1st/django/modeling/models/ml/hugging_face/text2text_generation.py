@@ -14,6 +14,9 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+Text2TextGenerationOutputType = Union[str, list[int]]
+
+
 class PreTrainedHuggingFaceText2TextGenerator(
         PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
@@ -36,7 +39,8 @@ class PreTrainedHuggingFaceText2TextGenerator(
                 return_text: bool = True,
                 clean_up_tokenization_spaces: bool = True,
                 **generate_kwargs) \
-            -> Union[dict, list[dict]]:
+            -> Union[Text2TextGenerationOutputType,
+                     list[Text2TextGenerationOutputType]]:
         single_text = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):

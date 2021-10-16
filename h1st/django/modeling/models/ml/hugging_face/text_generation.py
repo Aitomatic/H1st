@@ -14,6 +14,9 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+TextGenerationOutputType = Union[str, list[int]]
+
+
 class PreTrainedHuggingFaceTextGenerator(PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
         verbose_name = 'Pre-Trained Hugging Face Text Generator'
@@ -35,7 +38,7 @@ class PreTrainedHuggingFaceTextGenerator(PreTrainedHuggingFaceTransformer):
                 clean_up_tokenization_spaces: bool = True,
                 prefix: Optional[str] = None,
                 **generate_kwargs) \
-            -> Union[dict, list[dict]]:
+            -> Union[TextGenerationOutputType, list[TextGenerationOutputType]]:
         single_text = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
@@ -63,7 +66,7 @@ class PreTrainedHuggingFaceTextGenerator(PreTrainedHuggingFaceTransformer):
 
             return (output[0]['generated_text']
                     if single_text
-                    else [result['generated_text'] for result in output])
+                    else [result[0]['generated_text'] for result in output])
 
         else:
             assert return_text, \
@@ -71,7 +74,7 @@ class PreTrainedHuggingFaceTextGenerator(PreTrainedHuggingFaceTransformer):
 
             return (output[0]['generated_text']
                     if single_text
-                    else [result['generated_text'] for result in output])
+                    else [result[0]['generated_text'] for result in output])
 
     @property
     def gradio_ui(self) -> Interface:

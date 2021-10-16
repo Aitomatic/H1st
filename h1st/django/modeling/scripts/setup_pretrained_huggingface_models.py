@@ -5,6 +5,7 @@ from ..models import (
     PreTrainedHuggingFaceImageClassifier,
     PreTrainedHuggingFaceObjectDetector,
     PreTrainedHuggingFaceTextClassifier,
+    PreTrainedHuggingFaceTextGenerator,
     PreTrainedHuggingFaceText2TextGenerator,
     PreTrainedHuggingFaceTokenClassifier,
 )
@@ -55,6 +56,24 @@ def run():
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='text-classification',
+                                          model=None,
+                                          config=None,
+                                          tokenizer=None,
+                                          feature_extractor=None,
+                                          framework=None,
+                                          revision=None,
+                                          use_fast=True,
+                                          use_auth_token=None,
+                                          model_kwargs={}))))[0])
+
+    print(
+        PreTrainedHuggingFaceTextGenerator.objects.update_or_create(
+            name='PreTrained-HuggingFace-Text-Generator',
+            defaults=dict(
+                py_loader_module_and_qualname=fullqualname(pipeline),
+                artifact_global_url=None,
+                artifact_local_path=None,
+                params=dict(__init__=dict(task='text-generation',
                                           model=None,
                                           config=None,
                                           tokenizer=None,

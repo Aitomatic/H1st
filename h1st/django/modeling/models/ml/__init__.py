@@ -28,6 +28,9 @@ __all__ = (
     'PreTrainedHuggingFaceTextClassifier',
     'H1stPreTrainedHuggingFaceTextClassifier',
 
+    'PreTrainedHuggingFaceTextGenerator',
+    'H1stPreTrainedHuggingFaceTextGenerator',
+
     'PreTrainedHuggingFaceText2TextGenerator',
     'H1stPreTrainedHuggingFaceText2TextGenerator',
 
@@ -69,6 +72,9 @@ from .hugging_face import (
 
     PreTrainedHuggingFaceTextClassifier,
     H1stPreTrainedHuggingFaceTextClassifier,
+
+    PreTrainedHuggingFaceTextGenerator,
+    H1stPreTrainedHuggingFaceTextGenerator,
 
     PreTrainedHuggingFaceText2TextGenerator,
     H1stPreTrainedHuggingFaceText2TextGenerator,

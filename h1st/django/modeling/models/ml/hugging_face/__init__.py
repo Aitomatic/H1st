@@ -21,6 +21,9 @@ __all__ = (
 
     'PreTrainedHuggingFaceTokenClassifier',
     'H1stPreTrainedHuggingFaceTokenClassifier',
+
+    'PreTrainedHuggingFaceTranslator',
+    'H1stPreTrainedHuggingFaceTranslator',
 )
 
 
@@ -40,3 +43,5 @@ from .text_summarization import (PreTrainedHuggingFaceTextSummarizer,
                                  H1stPreTrainedHuggingFaceTextSummarizer)
 from .token_classification import (PreTrainedHuggingFaceTokenClassifier,
                                    H1stPreTrainedHuggingFaceTokenClassifier)
+from .translation import (PreTrainedHuggingFaceTranslator,
+                          H1stPreTrainedHuggingFaceTranslator)

@@ -39,6 +39,9 @@ __all__ = (
 
     'PreTrainedHuggingFaceTokenClassifier',
     'H1stPreTrainedHuggingFaceTokenClassifier',
+
+    'PreTrainedHuggingFaceTranslator',
+    'H1stPreTrainedHuggingFaceTranslator',
 )
 
 
@@ -87,4 +90,7 @@ from .hugging_face import (
 
     PreTrainedHuggingFaceTokenClassifier,
     H1stPreTrainedHuggingFaceTokenClassifier,
+
+    PreTrainedHuggingFaceTranslator,
+    H1stPreTrainedHuggingFaceTranslator,
 )

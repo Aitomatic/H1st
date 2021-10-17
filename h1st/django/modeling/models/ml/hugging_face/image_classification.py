@@ -16,8 +16,8 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
-InputImageDataType = Union[str, Image]
-OutputImageClassificationType = dict[str, float]
+ImageClassificationInputType = Union[str, Image]
+ImageClassificationOutputType = dict[str, float]
 
 
 class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
@@ -34,11 +34,11 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
 
     @enable_dict_io
     def predict(self,
-                image_or_images: Union[InputImageDataType,
-                                       Sequence[InputImageDataType]],
+                image_or_images: Union[ImageClassificationInputType,
+                                       Sequence[ImageClassificationInputType]],
                 n_labels: int = 5) \
-            -> Union[OutputImageClassificationType,
-                     Sequence[OutputImageClassificationType]]:
+            -> Union[ImageClassificationOutputType,
+                     Sequence[ImageClassificationOutputType]]:
         single_img = isinstance(image_or_images, (str, Image))
 
         if not (single_img or isinstance(image_or_images, list)):

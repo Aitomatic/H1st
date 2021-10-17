@@ -61,10 +61,10 @@ class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
             **generate_kwargs)
 
         if return_tensors:
-            return ((output[0]['translated_token_ids']['output_ids']
+            return ((output[0]['translation_token_ids']['output_ids']
                      .flatten().tolist())
                     if single_text
-                    else [(result['translated_token_ids']['output_ids']
+                    else [(result['translation_token_ids']['output_ids']
                            .flatten().tolist())
                           for result in output])
 
@@ -72,9 +72,9 @@ class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
             assert return_text, \
                 '*** EITHER return_tensors OR return_text MUST BE TRUE ***'
 
-            return (output[0]['translated_text']
+            return (output[0]['translation_text']
                     if single_text
-                    else [result['translated_text'] for result in output])
+                    else [result['translation_text'] for result in output])
 
     @property
     def gradio_ui(self) -> Interface:

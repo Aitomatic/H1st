@@ -13,6 +13,7 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+TokenClassificationInputType = str
 TokenClassificationOutputType = list[dict]
 
 
@@ -29,7 +30,9 @@ class PreTrainedHuggingFaceTokenClassifier(PreTrainedHuggingFaceTransformer):
         default_related_name = 'h1st_pretrained_hugging_face_token_classifiers'
 
     @enable_dict_io
-    def predict(self, text_or_texts: Union[str, Sequence[str]]) \
+    def predict(self,
+                text_or_texts: Union[TokenClassificationInputType,
+                                     Sequence[TokenClassificationInputType]]) \
             -> Union[TokenClassificationOutputType,
                      Sequence[TokenClassificationOutputType]]:
         single_text = isinstance(text_or_texts, str)
@@ -56,11 +59,13 @@ class PreTrainedHuggingFaceTokenClassifier(PreTrainedHuggingFaceTransformer):
             # (Callable) - the function to wrap an interface around.
 
             inputs=TextboxInputComponent(lines=10,
-                                         placeholder='Text',
+                                         placeholder=('Text from which '
+                                                      'to Recognize Tokens'),
                                          default='',
                                          numeric=False,
                                          type='str',
-                                         label='Text'),
+                                         label=('Text from which '
+                                                'to Recognize Tokens')),
             # (Union[str, List[Union[str, InputComponent]]]) -
             # a single Gradio input component,
             # or list of Gradio input components.

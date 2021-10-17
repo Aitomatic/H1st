@@ -17,6 +17,7 @@ from .base import PreTrainedHuggingFaceTransformer
 
 
 AudioClassificationInputType = Union[numpy.ndarray, str]
+AudioClassificationOutputType = dict[str, float]
 
 
 class PreTrainedHuggingFaceAudioClassifier(PreTrainedHuggingFaceTransformer):
@@ -37,7 +38,8 @@ class PreTrainedHuggingFaceAudioClassifier(PreTrainedHuggingFaceTransformer):
                     Union[AudioClassificationInputType,
                           Sequence[AudioClassificationInputType]],
                 n_labels: int = 5) \
-            -> Union[str, list[str]]:
+            -> Union[AudioClassificationOutputType,
+                     list[AudioClassificationOutputType]]:
         single_audio = isinstance(audio_or_audios, (numpy.ndarray, str))
 
         if not (single_audio or isinstance(audio_or_audios, list)):
@@ -56,7 +58,7 @@ class PreTrainedHuggingFaceAudioClassifier(PreTrainedHuggingFaceTransformer):
     def gradio_ui(self) -> Interface:
         def _predict(sampling_rate_and_double_channel_audio_array:
                      tuple[int, numpy.ndarray],
-                     n_labels: int = 5) -> str:
+                     n_labels: int = 5) -> dict[str, float]:
             sampling_rate, double_channel_audio_array = \
                 sampling_rate_and_double_channel_audio_array
 

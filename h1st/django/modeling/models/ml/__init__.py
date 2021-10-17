@@ -31,8 +31,14 @@ __all__ = (
     'PreTrainedHuggingFaceObjectDetector',
     'H1stPreTrainedHuggingFaceObjectDetector',
 
+    'PreTrainedHuggingFaceQuestionAnswerer',
+    'H1stPreTrainedHuggingFaceQuestionAnswerer',
+
     'PreTrainedHuggingFaceSpeechRecognizer',
     'H1stPreTrainedHuggingFaceSpeechRecognizer',
+
+    'PreTrainedHuggingFaceTableQuestionAnswerer',
+    'H1stPreTrainedHuggingFaceTableQuestionAnswerer',
 
     'PreTrainedHuggingFaceTextClassifier',
     'H1stPreTrainedHuggingFaceTextClassifier',
@@ -94,8 +100,14 @@ from .hugging_face import (
     PreTrainedHuggingFaceObjectDetector,
     H1stPreTrainedHuggingFaceObjectDetector,
 
+    PreTrainedHuggingFaceQuestionAnswerer,
+    H1stPreTrainedHuggingFaceQuestionAnswerer,
+
     PreTrainedHuggingFaceSpeechRecognizer,
     H1stPreTrainedHuggingFaceSpeechRecognizer,
+
+    PreTrainedHuggingFaceTableQuestionAnswerer,
+    H1stPreTrainedHuggingFaceTableQuestionAnswerer,
 
     PreTrainedHuggingFaceTextClassifier,
     H1stPreTrainedHuggingFaceTextClassifier,

@@ -13,8 +13,14 @@ __all__ = (
     'PreTrainedHuggingFaceObjectDetector',
     'H1stPreTrainedHuggingFaceObjectDetector',
 
+    'PreTrainedHuggingFaceQuestionAnswerer',
+    'H1stPreTrainedHuggingFaceQuestionAnswerer',
+
     'PreTrainedHuggingFaceSpeechRecognizer',
     'H1stPreTrainedHuggingFaceSpeechRecognizer',
+
+    'PreTrainedHuggingFaceTableQuestionAnswerer',
+    'H1stPreTrainedHuggingFaceTableQuestionAnswerer',
 
     'PreTrainedHuggingFaceTextClassifier',
     'H1stPreTrainedHuggingFaceTextClassifier',
@@ -49,8 +55,13 @@ from .mask_filling import (PreTrainedHuggingFaceMaskFiller,
                            H1stPreTrainedHuggingFaceMaskFiller)
 from .object_detection import (PreTrainedHuggingFaceObjectDetector,
                                H1stPreTrainedHuggingFaceObjectDetector)
+from .question_answering import (PreTrainedHuggingFaceQuestionAnswerer,
+                                 H1stPreTrainedHuggingFaceQuestionAnswerer)
 from .speech_recognition import (PreTrainedHuggingFaceSpeechRecognizer,
                                  H1stPreTrainedHuggingFaceSpeechRecognizer)
+from .table_question_answering import (
+    PreTrainedHuggingFaceTableQuestionAnswerer,
+    H1stPreTrainedHuggingFaceTableQuestionAnswerer)
 from .text_classification import (PreTrainedHuggingFaceTextClassifier,
                                   H1stPreTrainedHuggingFaceTextClassifier)
 from .text_generation import (PreTrainedHuggingFaceTextGenerator,

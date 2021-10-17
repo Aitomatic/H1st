@@ -13,6 +13,7 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+TextClassificationInputType = str
 TextClassificationOutputType = dict[str, float]
 
 
@@ -29,7 +30,9 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
         default_related_name = 'h1st_pretrained_hugging_face_text_classifiers'
 
     @enable_dict_io
-    def predict(self, text_or_texts: Union[str, Sequence[str]]) \
+    def predict(self,
+                text_or_texts: Union[TextClassificationInputType,
+                                     Sequence[TextClassificationInputType]]) \
             -> Union[TextClassificationOutputType,
                      Sequence[TextClassificationOutputType]]:
         single_text = isinstance(text_or_texts, str)

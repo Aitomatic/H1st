@@ -63,6 +63,9 @@ __all__ = (
     'PreTrainedHuggingFaceTranslator',
     'H1stPreTrainedHuggingFaceTranslator',
 
+    'PreTrainedHuggingFaceZeroShotClassifier',
+    'H1stPreTrainedHuggingFaceZeroShotClassifier',
+
     'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow',
 )
 
@@ -127,6 +130,9 @@ from .ml import (
 
     PreTrainedHuggingFaceTranslator,
     H1stPreTrainedHuggingFaceTranslator,
+
+    PreTrainedHuggingFaceZeroShotClassifier,
+    H1stPreTrainedHuggingFaceZeroShotClassifier,
 )
 
 from .graph import Graph, H1stGraph, Workflow, H1stWorkflow

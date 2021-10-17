@@ -51,6 +51,9 @@ __all__ = (
 
     'PreTrainedHuggingFaceTranslator',
     'H1stPreTrainedHuggingFaceTranslator',
+
+    'PreTrainedHuggingFaceZeroShotClassifier',
+    'H1stPreTrainedHuggingFaceZeroShotClassifier',
 )
 
 
@@ -111,4 +114,7 @@ from .hugging_face import (
 
     PreTrainedHuggingFaceTranslator,
     H1stPreTrainedHuggingFaceTranslator,
+
+    PreTrainedHuggingFaceZeroShotClassifier,
+    H1stPreTrainedHuggingFaceZeroShotClassifier,
 )

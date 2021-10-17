@@ -33,6 +33,9 @@ __all__ = (
 
     'PreTrainedHuggingFaceTranslator',
     'H1stPreTrainedHuggingFaceTranslator',
+
+    'PreTrainedHuggingFaceZeroShotClassifier',
+    'H1stPreTrainedHuggingFaceZeroShotClassifier',
 )
 
 
@@ -60,3 +63,6 @@ from .token_classification import (PreTrainedHuggingFaceTokenClassifier,
                                    H1stPreTrainedHuggingFaceTokenClassifier)
 from .translation import (PreTrainedHuggingFaceTranslator,
                           H1stPreTrainedHuggingFaceTranslator)
+from .zero_shot_classification import (
+    PreTrainedHuggingFaceZeroShotClassifier,
+    H1stPreTrainedHuggingFaceZeroShotClassifier)

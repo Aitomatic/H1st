@@ -17,6 +17,7 @@ from .base import PreTrainedHuggingFaceTransformer
 
 
 SpeechRecognitionInputType = Union[numpy.ndarray, str]
+SpeechRecognitionOutputType = str
 
 
 class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
@@ -37,7 +38,8 @@ class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
                 speech_or_speeches:
                     Union[SpeechRecognitionInputType,
                           Sequence[SpeechRecognitionInputType]]) \
-            -> Union[str, list[str]]:
+            -> Union[SpeechRecognitionOutputType,
+                     list[SpeechRecognitionOutputType]]:
         single_speech = isinstance(speech_or_speeches, (numpy.ndarray, str))
 
         if not (single_speech or isinstance(speech_or_speeches, list)):

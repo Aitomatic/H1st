@@ -2,6 +2,7 @@ __all__ = ('PreTrainedHuggingFaceSpeechRecognizer',
            'H1stPreTrainedHuggingFaceSpeechRecognizer')
 
 
+from tempfile import NamedTemporaryFile
 from typing import Sequence, Union
 
 from gradio.interface import Interface
@@ -52,20 +53,15 @@ class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
 
     @property
     def gradio_ui(self) -> Interface:
-        def _predict(sampling_rate_and_double_channel_audio_array:
-                     tuple[int, numpy.ndarray]) -> str:
-            sampling_rate, double_channel_audio_array = \
-                sampling_rate_and_double_channel_audio_array
-
-            return self.predict(double_channel_audio_array[:, 0]
-                                .astype(numpy.float32))
+        def _predict(speech_file: NamedTemporaryFile) -> str:
+            return self.predict(speech_or_speeches=speech_file.name)
 
         return Interface(
             fn=_predict,
             # (Callable) - the function to wrap an interface around.
 
             inputs=AudioInputComponent(source='microphone',
-                                       type='numpy',
+                                       type='file',
                                        label='Recorded Speech to Transcribe',
                                        optional=False),
             # (Union[str, List[Union[str, InputComponent]]]) -

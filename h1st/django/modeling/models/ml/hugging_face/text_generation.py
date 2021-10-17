@@ -14,6 +14,7 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+TextGenerationInputType = str
 TextGenerationOutputType = Union[str, list[int]]
 
 
@@ -31,7 +32,8 @@ class PreTrainedHuggingFaceTextGenerator(PreTrainedHuggingFaceTransformer):
 
     @enable_dict_io
     def predict(self,
-                text_or_texts: Union[str, Sequence[str]],
+                text_or_texts: Union[TextGenerationInputType,
+                                     Sequence[TextGenerationInputType]],
                 return_tensors: bool = False,
                 return_text: bool = True,
                 return_full_text: bool = True,

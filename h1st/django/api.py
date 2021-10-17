@@ -45,6 +45,9 @@ __all__ = (
     'PreTrainedHuggingFaceImageClassifier',
     'H1stPreTrainedHuggingFaceImageClassifier',
 
+    'PreTrainedHuggingFaceMaskFiller',
+    'H1stPreTrainedHuggingFaceMaskFiller',
+
     'PreTrainedHuggingFaceObjectDetector',
     'H1stPreTrainedHuggingFaceObjectDetector',
 
@@ -124,6 +127,9 @@ from .modeling.api import (
     PreTrainedHuggingFaceImageClassifier,
     H1stPreTrainedHuggingFaceImageClassifier,
 
+    PreTrainedHuggingFaceMaskFiller,
+    H1stPreTrainedHuggingFaceMaskFiller,
+
     PreTrainedHuggingFaceObjectDetector,
     H1stPreTrainedHuggingFaceObjectDetector,
 
@@ -148,8 +154,7 @@ from .modeling.api import (
     PreTrainedHuggingFaceTranslator,
     H1stPreTrainedHuggingFaceTranslator,
 
-    Graph, H1stGraph, Workflow, H1stWorkflow,
-)
+    Graph, H1stGraph, Workflow, H1stWorkflow)
 
 from .trust_vault.api import Decision, ModelEvalMetricsSet
 

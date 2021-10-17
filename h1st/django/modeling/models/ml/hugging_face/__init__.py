@@ -7,6 +7,9 @@ __all__ = (
     'PreTrainedHuggingFaceImageClassifier',
     'H1stPreTrainedHuggingFaceImageClassifier',
 
+    'PreTrainedHuggingFaceMaskFiller',
+    'H1stPreTrainedHuggingFaceMaskFiller',
+
     'PreTrainedHuggingFaceObjectDetector',
     'H1stPreTrainedHuggingFaceObjectDetector',
 
@@ -39,6 +42,8 @@ from .audio_classification import (PreTrainedHuggingFaceAudioClassifier,
                                    H1stPreTrainedHuggingFaceAudioClassifier)
 from .image_classification import (PreTrainedHuggingFaceImageClassifier,
                                    H1stPreTrainedHuggingFaceImageClassifier)
+from .mask_filling import (PreTrainedHuggingFaceMaskFiller,
+                           H1stPreTrainedHuggingFaceMaskFiller)
 from .object_detection import (PreTrainedHuggingFaceObjectDetector,
                                H1stPreTrainedHuggingFaceObjectDetector)
 from .speech_recognition import (PreTrainedHuggingFaceSpeechRecognizer,

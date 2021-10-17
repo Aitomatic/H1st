@@ -16,7 +16,8 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
-TextSummarizationOutputType = Union[str, list[int]]
+TranslationInputType = str
+TranslationOutputType = Union[str, list[int]]
 
 
 class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
@@ -33,15 +34,16 @@ class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
 
     @enable_dict_io
     def predict(self,
-                text_or_texts: Union[str, Sequence[str]],
+                text_or_texts: Union[TranslationInputType,
+                                     Sequence[TranslationInputType]],
                 return_tensors: bool = False,
                 return_text: bool = True,
                 clean_up_tokenization_spaces: bool = True,
                 src_lang: Optional[str] = None,
                 tgt_lang: Optional[str] = None,
                 **generate_kwargs) \
-            -> Union[TextSummarizationOutputType,
-                     list[TextSummarizationOutputType]]:
+            -> Union[TranslationOutputType,
+                     list[TranslationOutputType]]:
         single_text = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):

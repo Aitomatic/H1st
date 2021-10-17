@@ -14,6 +14,7 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+TextSummarizationInputType = str
 TextSummarizationOutputType = Union[str, list[int]]
 
 
@@ -31,7 +32,8 @@ class PreTrainedHuggingFaceTextSummarizer(PreTrainedHuggingFaceTransformer):
 
     @enable_dict_io
     def predict(self,
-                text_or_texts: Union[str, Sequence[str]],
+                text_or_texts: Union[TextSummarizationInputType,
+                                     Sequence[TextSummarizationInputType]],
                 return_text: bool = True,
                 return_tensors: bool = False,
                 clean_up_tokenization_spaces: bool = True,

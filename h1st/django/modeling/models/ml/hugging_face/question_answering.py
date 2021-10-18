@@ -2,13 +2,11 @@ __all__ = ('PreTrainedHuggingFaceQuestionAnswerer',
            'H1stPreTrainedHuggingFaceQuestionAnswerer')
 
 
-from typing import Sequence, Union
-
 from gradio.interface import Interface
 from gradio.inputs import (Textbox as TextboxInputComponent,
-                           Dataframe as DataframeInputComponent,
+                           Number as NumberInputComponent,
                            Checkbox as CheckboxInputComponent)
-from gradio.outputs import Label as LabelOutputComponent
+from gradio.outputs import JSON as JSONOutputComponent   # noqa: N811
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stAIModelingModuleConfig
@@ -34,68 +32,69 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
 
     @enable_dict_io
     def predict(self,
-                text_or_texts:
-                    Union[QuestionAnswerInputType,
-                          Sequence[QuestionAnswerInputType]],
-                candidate_labels: list[str],
-                hypothesis_template: str = 'This example is {}.',
-                multi_label: bool = False) \
-            -> Union[QuestionAnswerOutputType,
-                     list[QuestionAnswerOutputType]]:
-        single_text = isinstance(text_or_texts, str)
-
-        if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts = list(text_or_texts)
-
+                question: str, context: str, top_k: int = 1,
+                doc_stride: int = 128,
+                max_answer_len: int = 15,
+                max_seq_len: int = 384,
+                max_question_len: int = 64,
+                handle_impossible_answer: bool = False):
         self.load()
 
-        output = self.native_model_obj(sequences=text_or_texts,
-                                       candidate_labels=candidate_labels,
-                                       hypothesis_template=hypothesis_template,
-                                       multi_label=multi_label)
-
-        return (dict(zip(output['labels'], output['scores']))
-                if single_text
-                else [dict(zip(result['labels'], result['scores']))
-                      for result in output])
+        return self.native_model_obj(
+            question=question, context=context, top_k=top_k,
+            doc_stride=doc_stride,
+            max_answer_len=max_answer_len,
+            max_seq_len=max_seq_len,
+            max_question_len=max_question_len,
+            handle_impossible_answer=handle_impossible_answer)
 
     @property
     def gradio_ui(self) -> Interface:
         return Interface(
-            fn=lambda text, candidate_labels, hypothesis_tpl, multi_labels:
-                self.predict(text_or_texts=text,
-                             candidate_labels=[s
-                                               for s in candidate_labels
-                                               if s],
-                             hypothesis_template=hypothesis_tpl,
-                             multi_label=multi_labels),
+            fn=lambda question, context, top_k,
+            doc_stride, max_answer_len, max_seq_len,
+            max_question_len, handle_impossible_answer:
+                self.predict(
+                    question=question, context=context,
+                    top_k=int(top_k),
+                    doc_stride=int(doc_stride),
+                    max_answer_len=int(max_answer_len),
+                    max_seq_len=int(max_seq_len),
+                    max_question_len=int(max_question_len),
+                    handle_impossible_answer=handle_impossible_answer),
             # (Callable) - the function to wrap an interface around.
 
-            inputs=[TextboxInputComponent(lines=10,
-                                          placeholder='Text to Classify',
+            inputs=[TextboxInputComponent(lines=2,
+                                          placeholder='Question',
                                           default='',
                                           numeric=False,
                                           type='str',
-                                          label='Text to Classify'),
+                                          label='Question'),
 
-                    DataframeInputComponent(headers=None,
-                                            row_count=10,
-                                            col_count=1,
-                                            datatype='str',
-                                            col_width=100,
-                                            default=None,
-                                            type='array',
-                                            label='Candidate Labels'),
-
-                    TextboxInputComponent(lines=1,
-                                          placeholder='Hypothesis Format',
-                                          default='This example is {}.',
+                    TextboxInputComponent(lines=10,
+                                          placeholder='Context',
+                                          default='',
                                           numeric=False,
                                           type='str',
-                                          label='Hypothesis Format'),
+                                          label='Context'),
+
+                    NumberInputComponent(default=1,
+                                         label='Top K'),
+
+                    NumberInputComponent(default=128,
+                                         label='Doc Stride'),
+
+                    NumberInputComponent(default=15,
+                                         label='Max Answer Length'),
+
+                    NumberInputComponent(default=384,
+                                         label='Max Sequence Length'),
+
+                    NumberInputComponent(default=64,
+                                         label='Max Question Length'),
 
                     CheckboxInputComponent(default=False,
-                                           label='Multi-Label?')],
+                                           label='Handle Impossible Answer?')],
 
             # (Union[str, List[Union[str, InputComponent]]]) -
             # a single Gradio input component,
@@ -105,9 +104,7 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
             # The number of input components should match
             # the number of parameters in fn.
 
-            outputs=LabelOutputComponent(num_top_classes=10,
-                                         type='auto',
-                                         label='Label Probabilities'),
+            outputs=JSONOutputComponent(label='Likely Answer(s)'),
             # (Union[str, List[Union[str, OutputComponent]]]) -
             # a single Gradio output component,
             # or list of Gradio output components.
@@ -175,7 +172,7 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
             # if provided, appears above the input and output components.
 
             description=('A pre-trained Hugging Face model '
-                         'for zero-shot classification'),
+                         'for extractive question answering'),
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 

@@ -2,6 +2,8 @@ __all__ = ('PreTrainedHuggingFaceQuestionAnswerer',
            'H1stPreTrainedHuggingFaceQuestionAnswerer')
 
 
+from typing import Sequence, Union
+
 from gradio.interface import Interface
 from gradio.inputs import (Textbox as TextboxInputComponent,
                            Number as NumberInputComponent,
@@ -32,12 +34,21 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
 
     @enable_dict_io
     def predict(self,
-                question: str, context: str, top_k: int = 1,
+                question: Union[str, Sequence[str]],
+                context: Union[str, Sequence[str]],
+                top_k: int = 1,
                 doc_stride: int = 128,
                 max_answer_len: int = 15,
                 max_seq_len: int = 384,
                 max_question_len: int = 64,
-                handle_impossible_answer: bool = False):
+                handle_impossible_answer: bool = False) -> Union[dict,
+                                                                 list[dict]]:
+        if not isinstance(question, (str, list)):
+            question = list(question)
+
+        if not isinstance(context, (str, list)):
+            context = list(context)
+
         self.load()
 
         return self.native_model_obj(

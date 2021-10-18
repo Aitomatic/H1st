@@ -16,7 +16,7 @@ from .base import PreTrainedHuggingFaceTransformer
 
 
 QuestionAnswerInputType = str
-QuestionAnswerOutputType = dict[str, float]
+QuestionAnswerOutputType = dict
 
 
 class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
@@ -34,15 +34,17 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
 
     @enable_dict_io
     def predict(self,
-                question: Union[str, Sequence[str]],
-                context: Union[str, Sequence[str]],
+                question: Union[QuestionAnswerInputType,
+                                Sequence[QuestionAnswerInputType]],
+                context: Union[QuestionAnswerInputType,
+                               Sequence[QuestionAnswerInputType]],
                 top_k: int = 1,
                 doc_stride: int = 128,
                 max_answer_len: int = 15,
                 max_seq_len: int = 384,
                 max_question_len: int = 64,
-                handle_impossible_answer: bool = False) -> Union[dict,
-                                                                 list[dict]]:
+                handle_impossible_answer: bool = False) \
+            -> Union[QuestionAnswerOutputType, list[QuestionAnswerOutputType]]:
         if not isinstance(question, (str, list)):
             question = list(question)
 

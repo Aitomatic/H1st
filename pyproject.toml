@@ -36,6 +36,7 @@ Transformers = '^4.11.3'
 FFMPEG = '^1.4'
 SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
+Torch-Scatter = '^2.0.8'   # Table Question Answering
 
 # HYPER-PARAMETER TUNING
 Bayesian-Optimization = '^1.2.0'

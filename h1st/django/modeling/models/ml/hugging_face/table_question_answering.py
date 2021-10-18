@@ -5,18 +5,20 @@ __all__ = ('PreTrainedHuggingFaceTableQuestionAnswerer',
 from typing import Sequence, Union
 
 from gradio.interface import Interface
-from gradio.inputs import (Textbox as TextboxInputComponent,
-                           Dataframe as DataframeInputComponent,
+from gradio.inputs import (Dataframe as DataframeInputComponent,
+                           Textbox as TextboxInputComponent,
                            Checkbox as CheckboxInputComponent)
-from gradio.outputs import Label as LabelOutputComponent
+from gradio.outputs import JSON as JSONOutputComponent   # noqa: N811
+
+from pandas import DataFrame
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
-TableQuestionAnswerInputType = str
-TableQuestionAnswerOutputType = dict[str, float]
+TableQuestionAnswerInputType = Union[dict, DataFrame]
+TableQuestionAnswerOutputType = dict
 
 
 class PreTrainedHuggingFaceTableQuestionAnswerer(
@@ -36,68 +38,51 @@ class PreTrainedHuggingFaceTableQuestionAnswerer(
 
     @enable_dict_io
     def predict(self,
-                text_or_texts:
-                    Union[TableQuestionAnswerInputType,
-                          Sequence[TableQuestionAnswerInputType]],
-                candidate_labels: list[str],
-                hypothesis_template: str = 'This example is {}.',
-                multi_label: bool = False) \
+                table: TableQuestionAnswerInputType,
+                queries: Union[str, Sequence[str]],
+                sequential: bool = False,
+                padding: Union[bool, str] = False,
+                truncation: Union[bool, str] = False) \
             -> Union[TableQuestionAnswerOutputType,
                      list[TableQuestionAnswerOutputType]]:
-        single_text = isinstance(text_or_texts, str)
-
-        if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts = list(text_or_texts)
-
         self.load()
 
-        output = self.native_model_obj(sequences=text_or_texts,
-                                       candidate_labels=candidate_labels,
-                                       hypothesis_template=hypothesis_template,
-                                       multi_label=multi_label)
-
-        return (dict(zip(output['labels'], output['scores']))
-                if single_text
-                else [dict(zip(result['labels'], result['scores']))
-                      for result in output])
+        return self.native_model_obj(table=table, query=queries,
+                                     sequential=sequential,
+                                     padding=padding, truncation=truncation)
 
     @property
     def gradio_ui(self) -> Interface:
         return Interface(
-            fn=lambda text, candidate_labels, hypothesis_tpl, multi_labels:
-                self.predict(text_or_texts=text,
-                             candidate_labels=[s
-                                               for s in candidate_labels
-                                               if s],
-                             hypothesis_template=hypothesis_tpl,
-                             multi_label=multi_labels),
+            fn=self.predict,
             # (Callable) - the function to wrap an interface around.
 
-            inputs=[TextboxInputComponent(lines=10,
-                                          placeholder='Text to Classify',
+            inputs=[DataframeInputComponent(headers=['science', 'technology',
+                                                     'engineering', 'art',
+                                                     'math'],
+                                            row_count=10,
+                                            col_count=5,
+                                            datatype='number',
+                                            col_width=50,
+                                            default=None,
+                                            type='pandas',
+                                            label='Data Table'),
+
+                    TextboxInputComponent(lines=1,
+                                          placeholder='Query',
                                           default='',
                                           numeric=False,
                                           type='str',
-                                          label='Text to Classify'),
-
-                    DataframeInputComponent(headers=None,
-                                            row_count=10,
-                                            col_count=1,
-                                            datatype='str',
-                                            col_width=100,
-                                            default=None,
-                                            type='array',
-                                            label='Candidate Labels'),
-
-                    TextboxInputComponent(lines=1,
-                                          placeholder='Hypothesis Format',
-                                          default='This example is {}.',
-                                          numeric=False,
-                                          type='str',
-                                          label='Hypothesis Format'),
+                                          label='Query'),
 
                     CheckboxInputComponent(default=False,
-                                           label='Multi-Label?')],
+                                           label='Sequential?'),
+
+                    CheckboxInputComponent(default=False,
+                                           label='Padding?'),
+
+                    CheckboxInputComponent(default=False,
+                                           label='Truncation?')],
 
             # (Union[str, List[Union[str, InputComponent]]]) -
             # a single Gradio input component,
@@ -107,9 +92,7 @@ class PreTrainedHuggingFaceTableQuestionAnswerer(
             # The number of input components should match
             # the number of parameters in fn.
 
-            outputs=LabelOutputComponent(num_top_classes=10,
-                                         type='auto',
-                                         label='Label Probabilities'),
+            outputs=JSONOutputComponent(label='Likely Answer(s)'),
             # (Union[str, List[Union[str, OutputComponent]]]) -
             # a single Gradio output component,
             # or list of Gradio output components.
@@ -177,7 +160,7 @@ class PreTrainedHuggingFaceTableQuestionAnswerer(
             # if provided, appears above the input and output components.
 
             description=('A pre-trained Hugging Face model '
-                         'for zero-shot classification'),
+                         'for table question answering'),
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 

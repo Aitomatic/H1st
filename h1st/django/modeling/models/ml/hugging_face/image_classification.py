@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceImageClassifier',
 
 from typing import Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import (Image as ImageInputComponent,
                            Slider as SliderInputComponent)
@@ -38,7 +40,7 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
                                        Sequence[ImageClassificationInputType]],
                 n_labels: int = 5) \
             -> Union[ImageClassificationOutputType,
-                     Sequence[ImageClassificationOutputType]]:
+                     list[ImageClassificationOutputType]]:
         single_img = isinstance(image_or_images, (str, Image))
 
         if not (single_img or isinstance(image_or_images, list)):
@@ -53,10 +55,10 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
                 else [{i['label']: i['score'] for i in result}
                       for result in output])
 
-    @property
-    def gradio_ui(self) -> Interface:
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         return Interface(
-            fn=self.predict,
+            fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
 
             inputs=[ImageInputComponent(shape=None,
@@ -138,9 +140,11 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

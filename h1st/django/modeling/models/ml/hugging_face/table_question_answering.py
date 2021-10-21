@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceTableQuestionAnswerer',
 
 from typing import Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import (Dataframe as DataframeInputComponent,
                            Textbox as TextboxInputComponent,
@@ -51,10 +53,10 @@ class PreTrainedHuggingFaceTableQuestionAnswerer(
                                      sequential=sequential,
                                      padding=padding, truncation=truncation)
 
-    @property
-    def gradio_ui(self) -> Interface:
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         return Interface(
-            fn=self.predict,
+            fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
 
             inputs=[DataframeInputComponent(headers=['science', 'technology',
@@ -149,9 +151,11 @@ class PreTrainedHuggingFaceTableQuestionAnswerer(
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

@@ -5,6 +5,7 @@ from django.db.models.fields.json import JSONField
 
 from polymorphic.models import PolymorphicModel
 
+from django_plotly_dash import DjangoDash
 from gradio.interface import Interface
 
 from h1st.model.model import Model as CoreH1stModel
@@ -50,6 +51,10 @@ class Model(PolymorphicModel,
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'h1st_models'
+
+    @property
+    def dash_ui(self) -> DjangoDash:
+        return NotImplemented
 
     @property
     def gradio_ui(self) -> Interface:

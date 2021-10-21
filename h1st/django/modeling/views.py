@@ -15,10 +15,10 @@ from ..trust_vault.models import Decision
 
 
 def launch_gradio_ui(request, model_name_or_uuid: str):
-    _model_subclasses_by_name = Model.subclasses_by_name
+    model_subclasses_by_name = Model.subclasses_by_name
 
-    if model_name_or_uuid in _model_subclasses_by_name:
-        model = _model_subclasses_by_name[model_name_or_uuid]
+    if model_name_or_uuid in model_subclasses_by_name:
+        model = model_subclasses_by_name[model_name_or_uuid]
 
         model_names_or_uuids = model.names_or_uuids
 

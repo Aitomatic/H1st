@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceMaskFiller',
 
 from typing import Optional, Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import (Textbox as TextboxInputComponent,
                            Dataframe as DataframeInputComponent,
@@ -53,17 +55,19 @@ class PreTrainedHuggingFaceMaskFiller(PreTrainedHuggingFaceTransformer):
                 else [{i['token_str']: i['score'] for i in result}
                       for result in output])
 
-    @property
-    def gradio_ui(self) -> Interface:
-        def _predict(text: str,
+    @classproperty
+    def gradio_ui(cls) -> Interface:
+        def _predict(self,
+                     text: str,
                      targets: Optional[list[str]] = None,
                      n_labels: int = 5) -> dict[str, float]:
             if targets:
                 targets = [s for s in targets if s]
 
-            return self.predict(text_or_texts=text,
-                                targets=targets if targets else None,
-                                n_labels=n_labels)
+            return cls.predict(self,
+                               text_or_texts=text,
+                               targets=targets if targets else None,
+                               n_labels=n_labels)
 
         return Interface(
             fn=_predict,
@@ -155,9 +159,11 @@ class PreTrainedHuggingFaceMaskFiller(PreTrainedHuggingFaceTransformer):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

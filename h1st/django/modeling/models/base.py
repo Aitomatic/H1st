@@ -60,6 +60,10 @@ class Model(PolymorphicModel,
     def gradio_ui(self) -> Interface:
         return NotImplemented
 
+    @property
+    def streamlit_ui(self):
+        return NotImplemented
+
 
 # aliases
 H1stModel = Model

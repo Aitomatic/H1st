@@ -182,14 +182,14 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
                 if self.name
                 else f'{type(self).__name__} #{self.uuid}')
 
+    @property
+    def name_or_uuid(self) -> str:
+        return self.name if self.name else self.uuid
+
     @classproperty
     def names_or_uuids(cls) -> list[str]:   # noqa: N805
         return [(name if name else uuid)
                 for name, uuid in cls.objects.values_list('name', 'uuid')]
-
-    @property
-    def name_or_uuid(self) -> str:
-        return self.name if self.name else self.uuid
 
     @classmethod
     def get_by_name_or_uuid(cls, name_or_uuid: Union[str, UUID]) \

@@ -43,7 +43,7 @@ class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                                        Sequence[InputImageDataType]],
                 n_labels: int = 5) \
             -> Union[OutputImageClassificationType,
-                     Sequence[OutputImageClassificationType]]:
+                     list[OutputImageClassificationType]]:
         return ...
 
     @classproperty

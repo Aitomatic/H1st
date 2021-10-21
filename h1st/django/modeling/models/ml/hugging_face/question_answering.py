@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceQuestionAnswerer',
 
 from typing import Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import (Textbox as TextboxInputComponent,
                            Number as NumberInputComponent,
@@ -61,20 +63,20 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
             max_question_len=max_question_len,
             handle_impossible_answer=handle_impossible_answer)
 
-    @property
-    def gradio_ui(self) -> Interface:
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         return Interface(
-            fn=lambda question, context, top_k,
+            fn=lambda self, question, context, top_k,
             doc_stride, max_answer_len, max_seq_len,
             max_question_len, handle_impossible_answer:
-                self.predict(
-                    question=question, context=context,
-                    top_k=int(top_k),
-                    doc_stride=int(doc_stride),
-                    max_answer_len=int(max_answer_len),
-                    max_seq_len=int(max_seq_len),
-                    max_question_len=int(max_question_len),
-                    handle_impossible_answer=handle_impossible_answer),
+                cls.predict(self,
+                            question=question, context=context,
+                            top_k=int(top_k),
+                            doc_stride=int(doc_stride),
+                            max_answer_len=int(max_answer_len),
+                            max_seq_len=int(max_seq_len),
+                            max_question_len=int(max_question_len),
+                            handle_impossible_answer=handle_impossible_answer),
             # (Callable) - the function to wrap an interface around.
 
             inputs=[TextboxInputComponent(lines=2,
@@ -174,9 +176,11 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

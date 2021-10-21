@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceTextGenerator',
 
 from typing import Optional, Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import (Textbox as TextboxInputComponent,
                            Checkbox as CheckboxInputComponent)
@@ -78,10 +80,10 @@ class PreTrainedHuggingFaceTextGenerator(PreTrainedHuggingFaceTransformer):
                     if single_text
                     else [result[0]['generated_text'] for result in output])
 
-    @property
-    def gradio_ui(self) -> Interface:
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         return Interface(
-            fn=self.predict,
+            fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
 
             inputs=[TextboxInputComponent(lines=10,
@@ -174,9 +176,11 @@ class PreTrainedHuggingFaceTextGenerator(PreTrainedHuggingFaceTransformer):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

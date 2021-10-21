@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceObjectDetector',
 
 from typing import Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import (Image as ImageInputComponent,
                            Slider as SliderInputComponent)
@@ -49,12 +51,13 @@ class PreTrainedHuggingFaceObjectDetector(PreTrainedHuggingFaceTransformer):
         return self.native_model_obj(inputs=image_or_images,   # images=?
                                      threshold=threshold)
 
-    @property
-    def gradio_ui(self) -> Interface:
-        def _predict(img: Image, threshold: float = 0.9) \
+    @classproperty
+    def gradio_ui(cls) -> Interface:
+        def _predict(self, img: Image, threshold: float = 0.9) \
                 -> tuple[Image, tuple[str, int, int, int, int]]:
-            detected_objs = self.predict(image_or_images=img,
-                                         threshold=threshold)
+            detected_objs = cls.predict(self,
+                                        image_or_images=img,
+                                        threshold=threshold)
 
             bounding_boxes = []
             for i in detected_objs:
@@ -154,9 +157,11 @@ class PreTrainedHuggingFaceObjectDetector(PreTrainedHuggingFaceTransformer):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

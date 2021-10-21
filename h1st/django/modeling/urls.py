@@ -21,7 +21,7 @@ urlpatterns = [
     path(route='<str:model_name_or_uuid>/exec/',
          view=ModelExecAPIView.as_view()),
 
-    path(route='<str:model_name_or_uuid>/ui/',
+    path(route='<str:model_class_or_instance_name_or_uuid>/gradio/',
          view=launch_gradio_ui),
 
     path(route='<str:model_name_or_uuid>/<str:json_input_data>/',

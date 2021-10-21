@@ -16,26 +16,29 @@ from .models import Model
 from ..trust_vault.models import Decision
 
 
-def launch_gradio_ui(request, model_name_or_uuid: str) \
+def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
         -> Union[HttpResponse, Http404]:
     model_subclasses_by_name = Model.subclasses_by_name
 
-    if model_name_or_uuid in model_subclasses_by_name:
-        model = model_subclasses_by_name[model_name_or_uuid]
+    if model_class_or_instance_name_or_uuid in model_subclasses_by_name:
+        model = model_subclasses_by_name[model_class_or_instance_name_or_uuid]
 
         model_names_or_uuids = model.names_or_uuids
 
         if not model_names_or_uuids:
-            return Http404(
-                f'MODEL CLASS "{model_name_or_uuid}" HAS NO INSTANCES ***')
+            return Http404('*** MODEL CLASS ' +
+                           model_class_or_instance_name_or_uuid +
+                           ' HAS NO INSTANCES ***')
 
     else:
         try:
-            model = Model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
+            model = Model.get_by_name_or_uuid(
+                name_or_uuid=model_class_or_instance_name_or_uuid)
 
         except Model.DoesNotExist:
-            return Http404(
-                f'*** MODEL INSTANCE "{model_name_or_uuid}" NOT FOUND ***')
+            return Http404('*** MODEL INSTANCE ' +
+                           model_class_or_instance_name_or_uuid +
+                           ' NOT FOUND ***')
 
         model_names_or_uuids = model.names_or_uuids
 

@@ -1,9 +1,14 @@
+__all__ = 'Model', 'H1stModel'
+
+
+from collections.abc import Generator
 from json.decoder import JSONDecoder
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.fields.json import JSONField
 from django.utils.functional import classproperty
 
+from polymorphic.base import PolymorphicModelBase
 from polymorphic.models import PolymorphicModel
 
 from django_plotly_dash import DjangoDash
@@ -13,7 +18,7 @@ from gradio.outputs import JSON as JSONOutputComponent
 
 from h1st.model.model import Model as CoreH1stModel
 
-from ...util import PGSQL_IDENTIFIER_MAX_LEN
+from ...util import PGSQL_IDENTIFIER_MAX_LEN, fullqualname
 from ...util.models import _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
 from ..apps import H1stAIModelingModuleConfig
 
@@ -54,6 +59,32 @@ class Model(PolymorphicModel,
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name = 'h1st_models'
+
+    @classproperty
+    def _subclasses(cls) -> Generator[PolymorphicModelBase, None, None]:
+        for s in cls.__subclasses__():
+            yield s
+            yield from s._subclasses
+
+    @classproperty
+    def subclasses(cls) -> list[PolymorphicModelBase]:
+        return list(cls._subclasses)
+
+    @classproperty
+    def subclass_names(cls) -> list[str]:
+        return [s.__name__ for s in cls._subclasses]
+
+    @classproperty
+    def subclasses_by_name(cls) -> dict[str, PolymorphicModelBase]:
+        return {s.__name__: s for s in cls._subclasses}
+
+    @classproperty
+    def subclass_full_qual_names(cls) -> list[str]:
+        return [fullqualname(s) for s in cls._subclasses]
+
+    @classproperty
+    def subclasses_by_full_qual_name(cls) -> dict[str, PolymorphicModelBase]:
+        return {fullqualname(s): s for s in cls._subclasses}
 
     @classproperty
     def dash_ui(cls) -> DjangoDash:

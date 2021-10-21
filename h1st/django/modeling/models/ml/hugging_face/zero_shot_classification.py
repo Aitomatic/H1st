@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceZeroShotClassifier',
 
 from typing import Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import (Textbox as TextboxInputComponent,
                            Dataframe as DataframeInputComponent,
@@ -60,16 +62,15 @@ class PreTrainedHuggingFaceZeroShotClassifier(
                 else [dict(zip(result['labels'], result['scores']))
                       for result in output])
 
-    @property
-    def gradio_ui(self) -> Interface:
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         return Interface(
-            fn=lambda text, candidate_labels, hypothesis_tpl, multi_labels:
-                self.predict(text_or_texts=text,
-                             candidate_labels=[s
-                                               for s in candidate_labels
-                                               if s],
-                             hypothesis_template=hypothesis_tpl,
-                             multi_label=multi_labels),
+            fn=lambda self, text, candidates, hypothesis_tpl, multi_labels:
+                cls.predict(self,
+                            text_or_texts=text,
+                            candidate_labels=[s for s in candidates if s],
+                            hypothesis_template=hypothesis_tpl,
+                            multi_label=multi_labels),
             # (Callable) - the function to wrap an interface around.
 
             inputs=[TextboxInputComponent(lines=10,
@@ -165,9 +166,11 @@ class PreTrainedHuggingFaceZeroShotClassifier(
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

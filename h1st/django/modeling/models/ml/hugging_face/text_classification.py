@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceTextClassifier',
 
 from typing import Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import Textbox as TextboxInputComponent
 from gradio.outputs import Label as LabelOutputComponent
@@ -51,10 +53,10 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
                 else [{i['label']: i['score'] for i in result}
                       for result in output])
 
-    @property
-    def gradio_ui(self) -> Interface:
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         return Interface(
-            fn=self.predict,
+            fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
 
             inputs=TextboxInputComponent(lines=10,
@@ -130,9 +132,11 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

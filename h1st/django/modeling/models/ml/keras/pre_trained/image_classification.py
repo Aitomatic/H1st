@@ -2,6 +2,7 @@ from io import BytesIO
 from typing import Sequence, Union
 
 from django.db.models.fields import CharField
+from django.utils.functional import classproperty
 
 from gradio.interface import Interface
 from gradio.inputs import (Image as ImageInputComponent,
@@ -124,20 +125,18 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
         return decoded_preds[0] if single_img else decoded_preds
 
-    @property
-    def gradio_ui(self) -> Interface:
-        img_dim_size = self.img_dim_size
-
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         return Interface(
-            fn=self.predict,
+            fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
 
-            inputs=[ImageInputComponent(shape=(img_dim_size, img_dim_size),
+            inputs=[ImageInputComponent(shape=None,
                                         image_mode='RGB',
                                         invert_colors=False,
                                         source='upload',
                                         tool='editor',
-                                        type='numpy',
+                                        type='pil',
                                         label='Upload an Image to Classify',
                                         optional=False),
 
@@ -217,7 +216,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

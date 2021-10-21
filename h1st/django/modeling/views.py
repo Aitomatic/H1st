@@ -8,8 +8,7 @@ from gradio.interface import Interface
 
 from ..data_mgmt.util import (
     load_data_set_pointers_as_json,
-    save_numpy_arrays_and_pandas_dfs_as_data_set_pointers
-)
+    save_numpy_arrays_and_pandas_dfs_as_data_set_pointers)
 from .models import Model
 from ..trust_vault.models import Decision
 
@@ -17,17 +16,17 @@ from ..trust_vault.models import Decision
 def launch_gradio_ui(request, model_name_or_uuid: str):
     model = Model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
 
-    interface = model.gradio_ui
+    gradio_interface = model.gradio_ui
 
-    if interface is NotImplemented:
+    if gradio_interface is NotImplemented:
         return Http404(f'{type(model).__name__} does not implement Gradio UI')
 
     else:
-        assert isinstance(interface, Interface), \
-            TypeError(f'*** {interface} NOT A GRADIO INTERFACE ***')
+        assert isinstance(gradio_interface, Interface), \
+            TypeError(f'*** {gradio_interface} NOT A GRADIO INTERFACE ***')
 
-        _, _, share_url = \
-            interface.launch(
+        _gradio_app, _gradio_path_to_local_server, gradio_share_url = \
+            gradio_interface.launch(
                 inline=False,
                 # (bool) - whether to display in the interface inline
                 # on python notebooks.
@@ -58,7 +57,7 @@ def launch_gradio_ui(request, model_name_or_uuid: str):
                 private_endpoint=None,
                 prevent_thread_lock=False)
 
-        return HttpResponseRedirect(redirect_to=share_url)
+        return HttpResponseRedirect(redirect_to=gradio_share_url)
 
 
 def exec_on_json_input_data(request, model_name_or_uuid: str, json_input_data):

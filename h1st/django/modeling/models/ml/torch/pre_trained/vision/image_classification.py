@@ -1,5 +1,11 @@
+__all__ = ('PreTrainedTorchVisionImageNetClassifier',
+           'H1stPreTrainedTorchVisionImageNetClassifier')
+
+
 from io import BytesIO
 from typing import Sequence, Union
+
+from django.utils.functional import classproperty
 
 from gradio.interface import Interface
 from gradio.inputs import (Image as ImageInputComponent,
@@ -40,15 +46,13 @@ class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                      Sequence[OutputImageClassificationType]]:
         return ...
 
-    @property
-    def gradio_ui(self) -> Interface:
-        img_dim_size = self.img_dim_size
-
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         return Interface(
-            fn=self.predict,
+            fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
 
-            inputs=[ImageInputComponent(shape=(img_dim_size, img_dim_size),
+            inputs=[ImageInputComponent(shape=None,
                                         image_mode='RGB',
                                         invert_colors=False,
                                         source='upload',

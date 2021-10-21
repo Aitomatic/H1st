@@ -1,11 +1,11 @@
-from inspect import getsource, isclass
+from inspect import getsource
 import json
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import HttpResponseRedirect, Http404, JsonResponse
 
-from gradio.interface import Interface
 from gradio.inputs import Dropdown
+from gradio.interface import Interface
 
 from ..data_mgmt.util import (
     load_data_set_pointers_as_json,
@@ -15,70 +15,82 @@ from ..trust_vault.models import Decision
 
 
 def launch_gradio_ui(request, model_name_or_uuid: str):
-    model = Model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
+    _model_subclasses_by_name = Model.subclasses_by_name
 
-    gradio_interface = model.gradio_ui
-
-    if gradio_interface is NotImplemented:
-        return Http404(f'{type(model).__name__} does not implement Gradio UI')
-
-    else:
-        assert isinstance(gradio_interface, Interface), \
-            TypeError(f'*** {gradio_interface} NOT A GRADIO INTERFACE ***')
+    if model_name_or_uuid in _model_subclasses_by_name:
+        model = _model_subclasses_by_name[model_name_or_uuid]
 
         model_names_or_uuids = model.names_or_uuids
 
-        f = gradio_interface.predict.pop()
-        assert not gradio_interface.predict, \
-            f'*** {gradio_interface.predict} NOT EMPTY LIST ***'
-        gradio_interface.predict.append(
-            lambda model_name_or_uuid, *args:
-            f(model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid),
-              *args)
-        )
+        if not model_names_or_uuids:
+            return Http404(
+                f'MODEL CLASS "{model_name_or_uuid}" HAS NO INSTANCES ***')
 
-        gradio_interface.input_components.insert(
-            0,
-            Dropdown(choices=model_names_or_uuids,
-                     type='value',
-                     default=(model_names_or_uuids[0]
-                              if isclass(model)
-                              else model.name_or_uuid),
-                     label='H1st Model Name or UUID'))
+    else:
+        try:
+            model = Model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
 
-        _gradio_app, _gradio_path_to_local_server, gradio_share_url = \
-            gradio_interface.launch(
-                inline=False,
-                # (bool) - whether to display in the interface inline
-                # on python notebooks.
+        except Model.DoesNotExist:
+            return Http404(
+                f'*** MODEL INSTANCE "{model_name_or_uuid}" NOT FOUND ***')
 
-                inbrowser=True,
-                # (bool) - whether to automatically launch the interface
-                # in a new tab on the default browser.
+        model_names_or_uuids = model.names_or_uuids
 
-                share=True,
-                # (bool) - whether to create a publicly shareable link
-                # from your computer for the interface.
+    gradio_interface = model.gradio_ui
+    assert isinstance(gradio_interface, Interface), \
+        TypeError(f'*** {gradio_interface} NOT A GRADIO INTERFACE ***')
 
-                debug=False,
-                # (bool) - if True, and the interface was launched
-                # from Google Colab, prints the errors in the cell output.
+    assert isinstance(gradio_interface.predict, list), \
+        TypeError(f'*** {gradio_interface.predict} NOT A LIST ***')
+    f = gradio_interface.predict.pop()
+    assert not gradio_interface.predict, \
+        ValueError(f'*** {gradio_interface.predict} NOT AN EMPTY LIST ***')
+    gradio_interface.predict.append(
+        lambda model_name_or_uuid, *args:
+        f(model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid), *args))
 
-                auth=None,
-                # (Callable, Union[Tuple[str, str], List[Tuple[str, str]]]) -
-                # If provided, username and password
-                # (or list of username-password tuples)
-                # required to access interface.
-                # Can also provide function that takes username and password
-                # and returns True if valid login.
+    gradio_interface.input_components.insert(
+        0,
+        Dropdown(choices=model_names_or_uuids,
+                 type='value',
+                 default=(model_names_or_uuids[0]
+                          if issubclass(model, Model)
+                          else model.name_or_uuid),
+                 label='H1st Model Name or UUID'))
 
-                auth_message=None,
-                # (str) - If provided, HTML message provided on login page.
+    _gradio_app, _gradio_path_to_local_server, gradio_share_url = \
+        gradio_interface.launch(
+            inline=False,
+            # (bool) - whether to display in the interface inline
+            # on python notebooks.
 
-                private_endpoint=None,
-                prevent_thread_lock=False)
+            inbrowser=True,
+            # (bool) - whether to automatically launch the interface
+            # in a new tab on the default browser.
 
-        return HttpResponseRedirect(redirect_to=gradio_share_url)
+            share=True,
+            # (bool) - whether to create a publicly shareable link
+            # from your computer for the interface.
+
+            debug=False,
+            # (bool) - if True, and the interface was launched
+            # from Google Colab, prints the errors in the cell output.
+
+            auth=None,
+            # (Callable, Union[Tuple[str, str], List[Tuple[str, str]]]) -
+            # If provided, username and password
+            # (or list of username-password tuples)
+            # required to access interface.
+            # Can also provide function that takes username and password
+            # and returns True if valid login.
+
+            auth_message=None,
+            # (str) - If provided, HTML message provided on login page.
+
+            private_endpoint=None,
+            prevent_thread_lock=False)
+
+    return HttpResponseRedirect(redirect_to=gradio_share_url)
 
 
 def exec_on_json_input_data(request, model_name_or_uuid: str, json_input_data):

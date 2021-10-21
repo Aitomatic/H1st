@@ -7,7 +7,7 @@ from typing import Sequence, Union
 from gradio.interface import Interface
 from gradio.inputs import (Image as ImageInputComponent,
                            Slider as SliderInputComponent)
-from gradio.outputs import (Image as ImageOutputComponent,   # noqa: N811
+from gradio.outputs import (Image as ImageOutputComponent,
                             JSON as JSONOutputComponent)
 
 from PIL.Image import Image

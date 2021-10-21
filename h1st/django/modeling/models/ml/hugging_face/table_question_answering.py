@@ -8,7 +8,7 @@ from gradio.interface import Interface
 from gradio.inputs import (Dataframe as DataframeInputComponent,
                            Textbox as TextboxInputComponent,
                            Checkbox as CheckboxInputComponent)
-from gradio.outputs import JSON as JSONOutputComponent   # noqa: N811
+from gradio.outputs import JSON as JSONOutputComponent
 
 from pandas import DataFrame
 

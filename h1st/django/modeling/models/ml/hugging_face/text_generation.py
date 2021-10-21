@@ -7,7 +7,7 @@ from typing import Optional, Sequence, Union
 from gradio.interface import Interface
 from gradio.inputs import (Textbox as TextboxInputComponent,
                            Checkbox as CheckboxInputComponent)
-from gradio.outputs import JSON as JSONOutputComponent   # noqa: N811
+from gradio.outputs import JSON as JSONOutputComponent
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stAIModelingModuleConfig

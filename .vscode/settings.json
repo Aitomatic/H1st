@@ -34,7 +34,7 @@
 
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Args": [
-    "--ignore=F821,W504",
+    "--ignore=F821,N805,N811,W504",
   ],
 
   "python.linting.mypyEnabled": false,

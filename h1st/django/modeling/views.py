@@ -1,8 +1,10 @@
 from inspect import getsource
 import json
+from typing import Union
 
 from django.core.serializers.json import DjangoJSONEncoder
-from django.http.response import HttpResponseRedirect, Http404, JsonResponse
+from django.http.response import (HttpResponse, Http404,
+                                  HttpResponseRedirect, JsonResponse)
 
 from gradio.inputs import Dropdown
 from gradio.interface import Interface
@@ -14,7 +16,8 @@ from .models import Model
 from ..trust_vault.models import Decision
 
 
-def launch_gradio_ui(request, model_name_or_uuid: str):
+def launch_gradio_ui(request, model_name_or_uuid: str) \
+        -> Union[HttpResponse, Http404]:
     model_subclasses_by_name = Model.subclasses_by_name
 
     if model_name_or_uuid in model_subclasses_by_name:

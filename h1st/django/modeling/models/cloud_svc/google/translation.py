@@ -1,3 +1,7 @@
+from typing import Sequence, Union
+
+from django.utils.functional import classproperty
+
 from google.cloud import translate_v2 as translate
 
 from googletrans.client import Translator
@@ -7,8 +11,6 @@ from gradio.interface import Interface
 from gradio.inputs import (Textbox as TextBoxInputComponent,
                            Dropdown as DropDownInputComponent)
 from gradio.outputs import Textbox as TextBoxOutputComponent
-
-from typing import Sequence, Union
 
 from .....util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io
 from ....apps import H1stAIModelingModuleConfig
@@ -68,12 +70,12 @@ class GoogleTranslateServiceModel(CloudServiceModel):
                 else [self.client.translate(text=text, dest=dest, src=src).text
                       for text in text_or_texts])
 
-    @property
-    def gradio_ui(self) -> Interface:
+    @classproperty
+    def gradio_ui(cls) -> Interface:
         languages = tuple(LANGUAGES.values())
 
         return Interface(
-            fn=self.predict,
+            fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
 
             inputs=[TextBoxInputComponent(lines=10,
@@ -156,9 +158,11 @@ class GoogleTranslateServiceModel(CloudServiceModel):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

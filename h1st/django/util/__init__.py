@@ -1,5 +1,6 @@
 __all__ = (
     'PGSQL_IDENTIFIER_MAX_LEN',
+    'LOGGER',
     'dir_path_with_slash',
     'enable_dict_io',
     'full_qual_name',

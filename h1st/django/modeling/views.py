@@ -1,10 +1,11 @@
-from inspect import getsource
+from inspect import getsource, isclass
 import json
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import HttpResponseRedirect, Http404, JsonResponse
 
 from gradio.interface import Interface
+from gradio.inputs import Dropdown
 
 from ..data_mgmt.util import (
     load_data_set_pointers_as_json,
@@ -24,6 +25,26 @@ def launch_gradio_ui(request, model_name_or_uuid: str):
     else:
         assert isinstance(gradio_interface, Interface), \
             TypeError(f'*** {gradio_interface} NOT A GRADIO INTERFACE ***')
+
+        model_names_or_uuids = model.names_or_uuids
+
+        f = gradio_interface.predict.pop()
+        assert not gradio_interface.predict, \
+            f'*** {gradio_interface.predict} NOT EMPTY LIST ***'
+        gradio_interface.predict.append(
+            lambda model_name_or_uuid, *args:
+            f(model.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid),
+              *args)
+        )
+
+        gradio_interface.input_components.insert(
+            0,
+            Dropdown(choices=model_names_or_uuids,
+                     type='value',
+                     default=(model_names_or_uuids[0]
+                              if isclass(model)
+                              else model.name_or_uuid),
+                     label='H1st Model Name or UUID'))
 
         _gradio_app, _gradio_path_to_local_server, gradio_share_url = \
             gradio_interface.launch(

@@ -4,6 +4,8 @@ __all__ = ('PreTrainedHuggingFaceAudioClassifier',
 
 from typing import Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import (Audio as AudioInputComponent,
                            Slider as SliderInputComponent)
@@ -54,15 +56,17 @@ class PreTrainedHuggingFaceAudioClassifier(PreTrainedHuggingFaceTransformer):
                 else [{i['label']: i['score'] for i in result}
                       for result in output])
 
-    @property
-    def gradio_ui(self) -> Interface:
-        def _predict(sampling_rate_and_double_channel_audio_array:
+    @classproperty
+    def gradio_ui(cls) -> Interface:
+        def _predict(self,
+                     sampling_rate_and_double_channel_audio_array:
                      tuple[int, numpy.ndarray],
                      n_labels: int = 5) -> dict[str, float]:
             sampling_rate, double_channel_audio_array = \
                 sampling_rate_and_double_channel_audio_array
 
-            return self.predict(
+            return cls.predict(
+                self,
                 audio_or_audios=(double_channel_audio_array[:, 0]
                                  .astype(numpy.float32)),
                 n_labels=n_labels)

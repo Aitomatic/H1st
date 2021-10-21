@@ -18,8 +18,8 @@ from .....apps import H1stAIModelingModuleConfig
 from ...base import H1stPyLoadablePreTrainedMLModel
 
 
-InputImageDataType = Union[str, BytesIO, Image.Image, numpy.ndarray]
-OutputImageClassificationType = dict[str, float]
+ImageClassificationInputType = Union[str, BytesIO, Image.Image, numpy.ndarray]
+ImageClassificationOutputType = dict[str, float]
 
 
 class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
@@ -60,7 +60,8 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
     def img_dim_size(self):
         return self.params['img_dim_size']
 
-    def image_to_4d_array(self, image: InputImageDataType) -> numpy.ndarray:
+    def image_to_4d_array(self, image: ImageClassificationInputType) \
+            -> numpy.ndarray:
         # if file-like or string file path, then load from file
         if isinstance(image, (str, BytesIO)):
             image = Image.open(fp=image, mode='r', formats=None)
@@ -90,11 +91,11 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
     @enable_dict_io
     def predict(self,
-                image_or_images: Union[InputImageDataType,
-                                       Sequence[InputImageDataType]],
+                image_or_images: Union[ImageClassificationInputType,
+                                       Sequence[ImageClassificationInputType]],
                 n_labels: int = 5) \
-            -> Union[OutputImageClassificationType,
-                     Sequence[OutputImageClassificationType]]:
+            -> Union[ImageClassificationOutputType,
+                     list[ImageClassificationOutputType]]:
         single_img = isinstance(image_or_images, (str, BytesIO,
                                                   Image.Image,
                                                   numpy.ndarray))
@@ -142,7 +143,8 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
                     SliderInputComponent(minimum=3, maximum=10, step=1,
                                          default=5,
-                                         label='No. of Labels to Return')],
+                                         label=('No. of ImageNet Labels '
+                                                'to Return'))],
             # (Union[str, List[Union[str, InputComponent]]]) -
             # a single Gradio input component,
             # or list of Gradio input components.
@@ -153,7 +155,7 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
             outputs=LabelOutputComponent(num_top_classes=10,
                                          type='auto',
-                                         label='Likely ImageNet Classes'),
+                                         label='Likely ImageNet Labels'),
             # (Union[str, List[Union[str, OutputComponent]]]) -
             # a single Gradio output component,
             # or list of Gradio output components.
@@ -210,9 +212,11 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

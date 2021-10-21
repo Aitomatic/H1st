@@ -1,3 +1,7 @@
+__all__ = ('PreTrainedKerasImageNetClassifier',
+           'H1stPreTrainedKerasImageNetClassifier')
+
+
 from io import BytesIO
 from typing import Sequence, Union
 

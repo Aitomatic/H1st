@@ -5,6 +5,7 @@ from uuid import UUID, uuid4
 
 from django.db.models.base import Model
 from django.db.models.fields import CharField, UUIDField
+from django.utils.functional import classproperty
 
 from model_utils.models import TimeStampedModel
 
@@ -180,6 +181,11 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
         return (f'{type(self).__name__} "{self.name}"'
                 if self.name
                 else f'{type(self).__name__} #{self.uuid}')
+
+    @classproperty
+    def names_or_uuids(cls) -> list[str]:   # noqa: N805
+        return [(name if name else uuid)
+                for name, uuid in cls.objects.values_list('name', 'uuid')]
 
     @property
     def name_or_uuid(self) -> str:

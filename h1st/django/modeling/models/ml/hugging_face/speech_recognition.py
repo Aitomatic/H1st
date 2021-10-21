@@ -5,6 +5,8 @@ __all__ = ('PreTrainedHuggingFaceSpeechRecognizer',
 from tempfile import NamedTemporaryFile
 from typing import Sequence, Union
 
+from django.utils.functional import classproperty
+
 from gradio.interface import Interface
 from gradio.inputs import Audio as AudioInputComponent
 from gradio.outputs import Textbox as TextboxOutputComponent
@@ -53,10 +55,10 @@ class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
                 if single_speech
                 else [result['text'] for result in output])
 
-    @property
-    def gradio_ui(self) -> Interface:
-        def _predict(speech_file: NamedTemporaryFile) -> str:
-            return self.predict(speech_or_speeches=speech_file.name)
+    @classproperty
+    def gradio_ui(cls) -> Interface:
+        def _predict(self, speech_file: NamedTemporaryFile) -> str:
+            return cls.predict(self, speech_or_speeches=speech_file.name)
 
         return Interface(
             fn=_predict,
@@ -132,9 +134,11 @@ class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

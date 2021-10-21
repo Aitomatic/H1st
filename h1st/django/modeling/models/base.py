@@ -55,8 +55,8 @@ class Model(PolymorphicModel,
 
         default_related_name = 'h1st_models'
 
-    @property
-    def dash_ui(self) -> DjangoDash:
+    @classproperty
+    def dash_ui(cls) -> DjangoDash:
         return NotImplemented
 
     @classproperty
@@ -210,8 +210,8 @@ class Model(PolymorphicModel,
             # Required for longer inference times (> 1min) to prevent timeout.
         )
 
-    @property
-    def streamlit_ui(self):
+    @classproperty
+    def streamlit_ui(cls):
         return NotImplemented
 
 

@@ -131,9 +131,11 @@ class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 

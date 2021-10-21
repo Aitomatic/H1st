@@ -8,7 +8,6 @@ from polymorphic.models import PolymorphicModel
 
 from django_plotly_dash import DjangoDash
 from gradio.interface import Interface
-from gradio.inputs import Dropdown as DropdownInputComponent
 from gradio.outputs import JSON as JSONOutputComponent
 
 from h1st.model.model import Model as CoreH1stModel
@@ -61,19 +60,11 @@ class Model(PolymorphicModel,
 
     @classproperty
     def gradio_ui(cls) -> Interface:
-        model_names_or_uuids = cls.names_or_uuids
-
         return Interface(
-            fn=lambda model_name_or_uuid, *args:
-                cls.get_by_name_or_uuid(name_or_uuid=model_name_or_uuid)
-                .predict(*args),
+            fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
 
-            inputs=[DropdownInputComponent(choices=model_names_or_uuids,
-                                           type='value',
-                                           default=model_names_or_uuids[0],
-                                           label='H1st Model Name or UUID'),
-                    ],
+            inputs=[],
             # (Union[str, List[Union[str, InputComponent]]]) -
             # a single Gradio input component,
             # or list of Gradio input components.

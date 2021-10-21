@@ -7,6 +7,7 @@ from django.utils.functional import classproperty
 from polymorphic.models import PolymorphicModel
 
 from django_plotly_dash import DjangoDash
+
 from gradio.interface import Interface
 from gradio.outputs import JSON as JSONOutputComponent
 

@@ -139,9 +139,11 @@ class Model(PolymorphicModel,
             theme='default',
             # (str) - Theme to use - one of
             # - "default",
-            # - "compact",
-            # - "huggingface", or
-            # - "darkhuggingface".
+            # - "huggingface",
+            # - "grass",
+            # - "peach".
+            # Add "dark" prefix, e.g. "darkpeach" or "darkdefault"
+            # for darktheme.
 
             repeat_outputs_per_model=True,
 
@@ -149,7 +151,7 @@ class Model(PolymorphicModel,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 
-            description='A Keras model trained to classify ImageNet data',
+            description='A H1st Model',
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 

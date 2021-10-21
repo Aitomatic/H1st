@@ -1,6 +1,6 @@
 from transformers.pipelines import pipeline
 
-from ...util import fullqualname
+from ...util import full_qual_name
 from ..models import (
     PreTrainedHuggingFaceAudioClassifier,
     PreTrainedHuggingFaceImageClassifier,
@@ -24,7 +24,7 @@ def run():
         PreTrainedHuggingFaceAudioClassifier.objects.update_or_create(
             name='PreTrained-HuggingFace-Audio-Classifier',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='audio-classification',
@@ -42,7 +42,7 @@ def run():
         PreTrainedHuggingFaceImageClassifier.objects.update_or_create(
             name='PreTrained-HuggingFace-Image-Classifier',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='image-classification',
@@ -60,7 +60,7 @@ def run():
         PreTrainedHuggingFaceMaskFiller.objects.update_or_create(
             name='PreTrained-HuggingFace-Mask-Filler',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='fill-mask',
@@ -78,7 +78,7 @@ def run():
         PreTrainedHuggingFaceObjectDetector.objects.update_or_create(
             name='PreTrained-HuggingFace-Object-Detector',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='object-detection',
@@ -96,7 +96,7 @@ def run():
         PreTrainedHuggingFaceQuestionAnswerer.objects.update_or_create(
             name='PreTrained-HuggingFace-Question-Answerer',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='question-answering',
@@ -114,7 +114,7 @@ def run():
         PreTrainedHuggingFaceSpeechRecognizer.objects.update_or_create(
             name='PreTrained-HuggingFace-Speech-Recognizer',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='automatic-speech-recognition',
@@ -132,7 +132,7 @@ def run():
         PreTrainedHuggingFaceTableQuestionAnswerer.objects.update_or_create(
             name='PreTrained-HuggingFace-Table-Question-Answerer',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='table-question-answering',
@@ -150,7 +150,7 @@ def run():
         PreTrainedHuggingFaceTextClassifier.objects.update_or_create(
             name='PreTrained-HuggingFace-Text-Classifier',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='text-classification',
@@ -167,7 +167,7 @@ def run():
         PreTrainedHuggingFaceTextClassifier.objects.update_or_create(
             name='PreTrained-HuggingFace-Sentiment-Analyzer',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='sentiment-analysis',
@@ -185,7 +185,7 @@ def run():
         PreTrainedHuggingFaceTextGenerator.objects.update_or_create(
             name='PreTrained-HuggingFace-Text-Generator',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='text-generation',
@@ -203,7 +203,7 @@ def run():
         PreTrainedHuggingFaceText2TextGenerator.objects.update_or_create(
             name='PreTrained-HuggingFace-Text2Text-Generator',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='text2text-generation',
@@ -221,7 +221,7 @@ def run():
         PreTrainedHuggingFaceTextSummarizer.objects.update_or_create(
             name='PreTrained-HuggingFace-Text-Summarizer',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='summarization',
@@ -239,7 +239,7 @@ def run():
         PreTrainedHuggingFaceTokenClassifier.objects.update_or_create(
             name='PreTrained-HuggingFace-Token-Classifier',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='token-classification',
@@ -256,7 +256,7 @@ def run():
         PreTrainedHuggingFaceTokenClassifier.objects.update_or_create(
             name='PreTrained-HuggingFace-Named-Entity-Recognizer',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='ner',
@@ -279,7 +279,7 @@ def run():
                 name=('PreTrained-HuggingFace-Translator-' +
                       translation_model_name.replace('/', '-')),
                 defaults=dict(
-                    py_loader_module_and_qualname=fullqualname(pipeline),
+                    py_loader_module_and_qualname=full_qual_name(pipeline),
                     artifact_global_url=None,
                     artifact_local_path=None,
                     params=dict(__init__=dict(task='translation',
@@ -297,7 +297,7 @@ def run():
         PreTrainedHuggingFaceZeroShotClassifier.objects.update_or_create(
             name='PreTrained-HuggingFace-Zero-Shot-Classifier',
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(pipeline),
+                py_loader_module_and_qualname=full_qual_name(pipeline),
                 artifact_global_url=None,
                 artifact_local_path=None,
                 params=dict(__init__=dict(task='zero-shot-classification',

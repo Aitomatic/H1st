@@ -18,7 +18,7 @@ from gradio.outputs import JSON as JSONOutputComponent
 
 from h1st.model.model import Model as CoreH1stModel
 
-from ...util import PGSQL_IDENTIFIER_MAX_LEN, fullqualname
+from ...util import PGSQL_IDENTIFIER_MAX_LEN, full_qual_name
 from ...util.models import _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
 from ..apps import H1stAIModelingModuleConfig
 
@@ -80,11 +80,11 @@ class Model(PolymorphicModel,
 
     @classproperty
     def subclass_full_qual_names(cls) -> list[str]:
-        return [fullqualname(s) for s in cls._subclasses]
+        return [full_qual_name(s) for s in cls._subclasses]
 
     @classproperty
     def subclasses_by_full_qual_name(cls) -> dict[str, PolymorphicModelBase]:
-        return {fullqualname(s): s for s in cls._subclasses}
+        return {full_qual_name(s): s for s in cls._subclasses}
 
     @classproperty
     def dash_ui(cls) -> DjangoDash:

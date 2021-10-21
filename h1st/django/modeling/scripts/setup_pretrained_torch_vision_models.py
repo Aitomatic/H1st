@@ -35,7 +35,7 @@ from torchvision.models.vgg import (vgg11, vgg11_bn, vgg13, vgg13_bn,
 
 from tqdm import tqdm
 
-from ...util import fullqualname
+from ...util import full_qual_name
 from ..models import PreTrainedTorchVisionImageNetClassifier
 
 
@@ -92,11 +92,11 @@ MODEL_SPECS = [
 def run():
     model_name_prefix = f'{PreTrainedTorchVisionImageNetClassifier.__name__}-'
 
-    for torch_model_loader, global_url in tqdm(MODEL_SPECS):
+    for torch_loader, global_url in tqdm(MODEL_SPECS):
         print(PreTrainedTorchVisionImageNetClassifier.objects.update_or_create(
-            name=model_name_prefix + torch_model_loader.__name__,
+            name=model_name_prefix + torch_loader.__name__,
             defaults=dict(
-                py_loader_module_and_qualname=fullqualname(torch_model_loader),
+                py_loader_module_and_qualname=full_qual_name(torch_loader),
                 artifact_global_url=global_url,
                 artifact_local_path=(Path('~/.cache/torch/hub/checkpoints') /
                                      Path(global_url).name),

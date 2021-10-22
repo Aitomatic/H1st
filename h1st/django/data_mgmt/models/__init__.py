@@ -1,15 +1,4 @@
-__all__ = ('DataSchema',
-           'DataSet',
-           'JSONDataSet',
-           'NumPyArray',
-           'PandasDataFrame',
-           'ParquetDataSet',
-           'CSVDataSet',
-           'TFRecordDataSet',
-           'TextDataSet',
-           'LiveDataSource',
-           )
-
+from collections.abc import Sequence
 
 from .base import DataSchema, DataSet
 from .json import JSONDataSet
@@ -20,3 +9,16 @@ from .csv import CSVDataSet
 from .tfrecord import TFRecordDataSet
 from .text import TextDataSet
 from .live import LiveDataSource
+
+
+__all__: Sequence[str] = ('DataSchema',
+                          'DataSet',
+                          'JSONDataSet',
+                          'NumPyArray',
+                          'PandasDataFrame',
+                          'ParquetDataSet',
+                          'CSVDataSet',
+                          'TFRecordDataSet',
+                          'TextDataSet',
+                          'LiveDataSource',
+                          )

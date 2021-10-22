@@ -1,4 +1,9 @@
+from collections.abc import Sequence
+
 from django.apps.config import AppConfig
+
+
+__all__: Sequence[str] = ('H1stAIDataManagementModuleConfig',)
 
 
 class H1stAIDataManagementModuleConfig(AppConfig):
@@ -7,7 +12,7 @@ class H1stAIDataManagementModuleConfig(AppConfig):
     # This attribute defines which application the configuration applies to.
     # It must be set in all AppConfig subclasses.
     # It must be unique across a Django project.
-    name = 'h1st.django.data_mgmt'
+    name: str = 'h1st.django.data_mgmt'
 
     # AppConfig.label
     # Short name for the application, e.g. 'admin'
@@ -16,12 +21,12 @@ class H1stAIDataManagementModuleConfig(AppConfig):
     # It defaults to the last component of name.
     # It should be a valid Python identifier.
     # It must be unique across a Django project.
-    label = 'H1stData'
+    label: str = 'H1stData'
 
     # AppConfig.verbose_name
     # Human-readable name for the application, e.g. “Administration”.
     # This attribute defaults to label.title().
-    verbose_name = 'H1st AI Data Management'
+    verbose_name: str = 'H1st AI Data Management'
 
     # AppConfig.path
     # Filesystem path to the application directory,

@@ -1,8 +1,5 @@
-__all__ = ('PreTrainedHuggingFaceTextClassifier',
-           'H1stPreTrainedHuggingFaceTextClassifier')
-
-
-from typing import Sequence, Union
+from collections.abc import Sequence
+from typing import Union
 
 from django.utils.functional import classproperty
 
@@ -15,21 +12,26 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+__all__: Sequence[str] = ('PreTrainedHuggingFaceTextClassifier',
+                          'H1stPreTrainedHuggingFaceTextClassifier')
+
+
 TextClassificationInputType = str
 TextClassificationOutputType = dict[str, float]
 
 
 class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
-        verbose_name = 'Pre-Trained Hugging Face Text Classifier'
-        verbose_name_plural = 'Pre-Trained Hugging Face Text Classifiers'
+        verbose_name: str = 'Pre-Trained Hugging Face Text Classifier'
+        verbose_name_plural: str = 'Pre-Trained Hugging Face Text Classifiers'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_pretrained_hugging_face_text_classifiers'
+        default_related_name: str = \
+            'h1st_pretrained_hugging_face_text_classifiers'
 
     @enable_dict_io
     def predict(self,
@@ -37,10 +39,11 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
                                      Sequence[TextClassificationInputType]]) \
             -> Union[TextClassificationOutputType,
                      Sequence[TextClassificationOutputType]]:
-        single_text = isinstance(text_or_texts, str)
+        single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts = list(text_or_texts)
+            text_or_texts: list[TextClassificationInputType] = \
+                list(text_or_texts)
 
         self.load()
 
@@ -140,7 +143,7 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

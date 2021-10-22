@@ -1,8 +1,5 @@
-__all__ = ('PreTrainedHuggingFaceMaskFiller',
-           'H1stPreTrainedHuggingFaceMaskFiller')
-
-
-from typing import Optional, Sequence, Union
+from collections.abc import Sequence
+from typing import Optional, Union
 
 from django.utils.functional import classproperty
 
@@ -17,32 +14,37 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+__all__: Sequence[str] = ('PreTrainedHuggingFaceMaskFiller',
+                          'H1stPreTrainedHuggingFaceMaskFiller')
+
+
 MaskFillingInputType = str
 MaskFillingOutputType = dict[str, float]
 
 
 class PreTrainedHuggingFaceMaskFiller(PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
-        verbose_name = 'Pre-Trained Hugging Face Mask Filler'
-        verbose_name_plural = 'Pre-Trained Hugging Face Mask Fillers'
+        verbose_name: str = 'Pre-Trained Hugging Face Mask Filler'
+        verbose_name_plural: str = 'Pre-Trained Hugging Face Mask Fillers'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_pretrained_hugging_face_mask_fillers'
+        default_related_name: str = 'h1st_pretrained_hugging_face_mask_fillers'
 
     @enable_dict_io
     def predict(self,
-                text_or_texts: Union[str, Sequence[str]],
+                text_or_texts: Union[MaskFillingInputType,
+                                     Sequence[MaskFillingInputType]],
                 targets: Optional[list[str]] = None,
                 n_labels: int = 5) \
             -> Union[MaskFillingOutputType, list[MaskFillingOutputType]]:
-        single_text = isinstance(text_or_texts, str)
+        single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts = list(text_or_texts)
+            text_or_texts: list[MaskFillingInputType] = list(text_or_texts)
 
         self.load()
 
@@ -62,7 +64,7 @@ class PreTrainedHuggingFaceMaskFiller(PreTrainedHuggingFaceTransformer):
                      targets: Optional[list[str]] = None,
                      n_labels: int = 5) -> dict[str, float]:
             if targets:
-                targets = [s for s in targets if s]
+                targets: list[str] = [s for s in targets if s]
 
             return cls.predict(self,
                                text_or_texts=text,
@@ -167,7 +169,7 @@ class PreTrainedHuggingFaceMaskFiller(PreTrainedHuggingFaceTransformer):
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

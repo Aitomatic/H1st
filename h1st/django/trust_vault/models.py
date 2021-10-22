@@ -1,10 +1,11 @@
+from collections.abc import Sequence
+from json.decoder import JSONDecoder
+
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import PROTECT
 from django.db.models.fields import CharField
 from django.db.models.fields.json import JSONField
 from django.db.models.fields.related import ForeignKey
-
-from json.decoder import JSONDecoder
 
 from ..modeling.models import H1stModel
 from ..util import PGSQL_IDENTIFIER_MAX_LEN
@@ -14,11 +15,14 @@ from ..util.pip import get_python_dependencies
 from .apps import H1stAITrustVaultModuleConfig
 
 
-class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
-    RELATED_NAME = 'decisions'
-    RELATED_QUERY_NAME = 'decision'
+__all__: Sequence[str] = 'Decision', 'ModelEvalMetricsSet'
 
-    input_data = \
+
+class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
+    RELATED_NAME: str = 'decisions'
+    RELATED_QUERY_NAME: str = 'decision'
+
+    input_data: JSONField = \
         JSONField(
             verbose_name='Input Data into Decision',
             help_text='Input Data into Decision',
@@ -41,7 +45,7 @@ class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
             # validators=None
         )
 
-    model = \
+    model: ForeignKey = \
         ForeignKey(
             verbose_name='Model producing Decision',
             help_text='Model producing Decision',
@@ -70,7 +74,7 @@ class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
             # validators=None
         )
 
-    model_code = \
+    model_code: JSONField = \
         JSONField(
             verbose_name='Code of Model(s) producing Decision',
             help_text='Code of Model(s) producing Decision',
@@ -93,7 +97,7 @@ class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
             # validators
         )
 
-    git_repo_head_commit_hash = \
+    git_repo_head_commit_hash: CharField = \
         CharField(
             verbose_name='Git Repository Head Commit Hash',
             help_text='Git Repository Head Commit Hash',
@@ -115,7 +119,7 @@ class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
             # validators
         )
 
-    python_dependencies = \
+    python_dependencies: JSONField = \
         JSONField(
             verbose_name='Python Dependencies',
             help_text='Python Dependencies',
@@ -138,7 +142,7 @@ class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
             # validators
         )
 
-    output_data = \
+    output_data: JSONField = \
         JSONField(
             verbose_name='Output Data from Decision',
             help_text='Output Data from Decision',
@@ -162,25 +166,25 @@ class Decision(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
         )
 
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
-        verbose_name = 'Decision'
-        verbose_name_plural = 'Decisions'
+        verbose_name: str = 'Decision'
+        verbose_name_plural: str = 'Decisions'
 
-        db_table = (f'{H1stAITrustVaultModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAITrustVaultModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'decisions'
+        default_related_name: str = 'decisions'
 
     def __str__(self) -> str:
         return f'{type(self).__name__} #{self.uuid} by {self.model}'
 
 
 class ModelEvalMetricsSet(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
-    RELATED_NAME = 'model_eval_metrics_sets'
-    RELATED_QUERY_NAME = 'model_eval_metrics_set'
+    RELATED_NAME: str = 'model_eval_metrics_sets'
+    RELATED_QUERY_NAME: str = 'model_eval_metrics_set'
 
-    model = \
+    model: ForeignKey = \
         ForeignKey(
             verbose_name='Model evaluated',
             help_text='Model evaluated',
@@ -209,7 +213,7 @@ class ModelEvalMetricsSet(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
             # validators
         )
 
-    eval_data = \
+    eval_data: JSONField = \
         JSONField(
             verbose_name='Data for Evaluation',
             help_text='Data for Evaluation',
@@ -232,7 +236,7 @@ class ModelEvalMetricsSet(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
             # validators
         )
 
-    eval_metrics = \
+    eval_metrics: JSONField = \
         JSONField(
             verbose_name='Evaluation Metrics',
             help_text='Evaluation Metrics',
@@ -256,17 +260,17 @@ class ModelEvalMetricsSet(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
         )
 
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
-        verbose_name = 'Model Evaluation Metrics Set'
-        verbose_name_plural = 'Model Evaluation Metrics Sets'
+        verbose_name: str = 'Model Evaluation Metrics Set'
+        verbose_name_plural: str = 'Model Evaluation Metrics Sets'
 
-        db_table = (f'{H1stAITrustVaultModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAITrustVaultModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'model_eval_metrics_sets'
+        default_related_name: str = 'model_eval_metrics_sets'
 
-        ordering = '-model__modified', '-modified'
+        ordering: Sequence[str] = '-model__modified', '-modified'
 
     def __str__(self) -> str:
         return f'Evaluation Metric Set #{self.uuid} of {self.h1st_model}: ' \

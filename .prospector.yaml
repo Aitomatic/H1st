@@ -4,6 +4,7 @@ pyflakes:
 
 pylint:
   disable:
+    - arguments-differ
     - import-error
     - import-outside-toplevel
     - inconsistent-return-statements

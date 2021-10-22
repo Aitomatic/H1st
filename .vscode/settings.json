@@ -18,6 +18,7 @@
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
     "--disable", "abstract-method",
+    "--disable", "arguments-differ",
     "--disable", "fixme",
     "--disable", "import-outside-toplevel",
     "--disable", "inconsistent-return-statements",

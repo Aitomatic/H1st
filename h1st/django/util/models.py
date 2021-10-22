@@ -1,21 +1,24 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from typing import Union
 from uuid import UUID, uuid4
 
 from django.db.models.base import Model
+from django.db.models.constraints import BaseConstraint
 from django.db.models.fields import CharField, UUIDField
+from django.db.models.indexes import Index
 from django.utils.functional import classproperty
 
 from model_utils.models import TimeStampedModel
 
 
-__all__ = ('_ModelWithUUIDPK',
-           '_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps')
+__all__: Sequence[str] = ('_ModelWithUUIDPK',
+                          '_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps')
 
 
 class _ModelWithUUIDPK(Model):
-    uuid = \
+    uuid: UUIDField = \
         UUIDField(
             # docs.djangoproject.com/en/dev/ref/models/fields/#field-options
 
@@ -74,81 +77,80 @@ class _ModelWithUUIDPK(Model):
     # docs.djangoproject.com/en/dev/ref/models/options/#available-meta-options
     class Meta:
         # docs.djangoproject.com/en/dev/ref/models/options/#abstract
-        abstract = True
+        abstract: bool = True
 
         # docs.djangoproject.com/en/dev/ref/models/options/#app-label
-        # app_label = ...
+        # app_label: str = ...
 
         # docs.djangoproject.com/en/dev/ref/models/options/#base-manager-name
-        base_manager_name = 'objects'
+        base_manager_name: str = 'objects'
 
         # docs.djangoproject.com/en/dev/ref/models/options/#db-table
-        # db_table = ...
+        # db_table: str = ...
 
         # docs.djangoproject.com/en/dev/ref/models/options/#db-tablespace
-        # db_tablespace = ...
+        # db_tablespace: str = ...
 
         # docs.djangoproject.com/en/dev/ref/models/options/#default-manager-name
-        default_manager_name = 'objects'
+        default_manager_name: str = 'objects'
 
         # docs.djangoproject.com/en/dev/ref/models/options/#default-related-name
-        # default_related_name = ...
+        # default_related_name: str = ...
 
         # docs.djangoproject.com/en/dev/ref/models/options/#get-latest-by
-        # get_latest_by = ...
+        # get_latest_by: Union[str, Sequence[str]] = ...
 
         # docs.djangoproject.com/en/dev/ref/models/options/#managed
-        managed = True
+        managed: bool = True
 
         # docs.djangoproject.com/en/dev/ref/models/options/#order-with-respect-to
-        # order_with_respect_to = ...
+        # order_with_respect_to: str = ...
 
         # docs.djangoproject.com/en/dev/ref/models/options/#ordering
-        ordering = ()
+        ordering: Sequence[str] = ()
 
         # docs.djangoproject.com/en/dev/ref/models/options/#permissions
-        permissions = ()
+        permissions: Sequence[tuple[str, str]] = ()
 
         # docs.djangoproject.com/en/dev/ref/models/options/#default-permissions
-        default_permissions = 'add', 'change', 'delete', 'view'
+        default_permissions: Sequence[str] = 'add', 'change', 'delete', 'view'
 
         # docs.djangoproject.com/en/dev/ref/models/options/#proxy
-        proxy = False
+        proxy: bool = False
 
         # docs.djangoproject.com/en/dev/ref/models/options/#required-db-features
-        required_db_features = ()
+        required_db_features: Sequence[str] = ()
 
         # docs.djangoproject.com/en/dev/ref/models/options/#required-db-vendor
-        # required_db_vendor = ...
+        # required_db_vendor: str = ...
 
         # docs.djangoproject.com/en/dev/ref/models/options/#select-on-save
-        select_on_save = False
+        select_on_save: bool = False
 
         # docs.djangoproject.com/en/dev/ref/models/options/#indexes
-        indexes = ()
+        indexes: Sequence[Index] = ()
 
         # DEPRECATED
         # docs.djangoproject.com/en/dev/ref/models/options/#unique-together
-        # unique_together = ()
+        # unique_together: Sequence[Union[str, Sequence[str]]] = ()
 
         # DEPRECATED
         # docs.djangoproject.com/en/dev/ref/models/options/#index-together
-        # index_together = ()
+        # index_together: Sequence[Union[str, Sequence[str]]] = ()
 
         # docs.djangoproject.com/en/dev/ref/models/options/#constraints
-        constraints = ()
+        constraints: Sequence[BaseConstraint] = ()
 
         # docs.djangoproject.com/en/dev/ref/models/options/#verbose-name
-        # verbose_name = ...
+        # verbose_name: str = ...
 
         # docs.djangoproject.com/en/dev/ref/models/options/#verbose-name-plural
-        # verbose_name_plural = ...
+        # verbose_name_plural: str  = ...
 
 
-class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
-        _ModelWithUUIDPK,
-        TimeStampedModel):
-    name = \
+class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(_ModelWithUUIDPK,
+                                                         TimeStampedModel):
+    name: CharField = \
         CharField(
             verbose_name='(optional) Unique Name',
             help_text='(optional) Unique Name',
@@ -171,11 +173,11 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
         )
 
     class Meta(_ModelWithUUIDPK.Meta):
-        abstract = True
+        abstract: bool = True
 
-        get_latest_by = 'modified'
+        get_latest_by: Union[str, Sequence[str]] = 'modified'
 
-        ordering = 'name', '-modified'
+        ordering: Sequence[str] = 'name', '-modified'
 
     def __str__(self) -> str:
         return (f'{type(self).__name__} "{self.name}"'
@@ -187,7 +189,7 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
         return self.name if self.name else self.uuid
 
     @classproperty
-    def names_or_uuids(cls) -> list[str]:   # noqa: N805
+    def names_or_uuids(cls) -> list[str]:
         return [(name if name else uuid)
                 for name, uuid in cls.objects.values_list('name', 'uuid')]
 
@@ -195,7 +197,7 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(
     def get_by_name_or_uuid(cls, name_or_uuid: Union[str, UUID]) \
             -> _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps:
         try:   # try looking up object by UUID
-            _uuid = UUID(name_or_uuid, version=4)
+            _uuid: UUID = UUID(name_or_uuid, version=4)
             return cls.objects.get(uuid=_uuid)
 
         except ValueError:

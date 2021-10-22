@@ -1,3 +1,6 @@
+__all__: tuple[str] = ('get_git_repo_head_commit_hash',)
+
+
 from pathlib import Path
 from typing import Optional
 

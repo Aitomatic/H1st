@@ -87,8 +87,6 @@ from .modeling.api import (
 
 from .trust_vault.api import Decision, ModelEvalMetricsSet
 
-from .util.config import config_app
-
 
 __all__: Sequence[str] = (
     'DataSchema',
@@ -176,6 +174,4 @@ __all__: Sequence[str] = (
     'Graph', 'H1stGraph', 'Workflow', 'H1stWorkflow',
 
     'Decision', 'ModelEvalMetricsSet',
-
-    'config_app',
 )

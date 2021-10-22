@@ -4,10 +4,13 @@ pyflakes:
 
 pylint:
   disable:
+    - import-error
     - import-outside-toplevel
+    - inconsistent-return-statements
     - no-else-return
     - not-a-mapping
     - protected-access
     - relative-beyond-top-level
     - signature-differs
     - too-many-ancestors
+    - too-many-return-statements

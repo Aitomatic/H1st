@@ -1,4 +1,13 @@
-__all__: tuple[str] = (
+from collections.abc import Sequence
+from functools import wraps
+from importlib import import_module
+from inspect import FullArgSpec, getfullargspec, isfunction, ismethod
+from logging import Formatter, getLogger, Logger, StreamHandler, DEBUG
+from sys import stdout
+from typing import Any, Callable, TypeVar
+
+
+__all__: Sequence[str] = (
     'PGSQL_IDENTIFIER_MAX_LEN',
     'LOGGER',
     'dir_path_with_slash',
@@ -6,14 +15,6 @@ __all__: tuple[str] = (
     'full_qual_name',
     'import_obj',
 )
-
-
-from functools import wraps
-from importlib import import_module
-from inspect import FullArgSpec, getfullargspec, isfunction, ismethod
-from logging import Formatter, getLogger, Logger, StreamHandler, DEBUG
-from sys import stdout
-from typing import Any, Callable, TypeVar
 
 
 PGSQL_IDENTIFIER_MAX_LEN: int = 63

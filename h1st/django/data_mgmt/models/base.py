@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from collections.abc import Sequence
 from json.decoder import JSONDecoder
-from typing import Any
+from typing import Any, Optional
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import SET_NULL

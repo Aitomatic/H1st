@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 import json
 
 import pandas
@@ -7,17 +8,20 @@ from ..apps import H1stAIDataManagementModuleConfig
 from .json import JSONDataSet
 
 
+__all__: Sequence[str] = ('PandasDataFrame',)
+
+
 class PandasDataFrame(JSONDataSet):
     class Meta(JSONDataSet.Meta):
-        verbose_name = 'Pandas DataFrame'
-        verbose_name_plural = 'Pandas DataFrames'
+        verbose_name: str = 'Pandas DataFrame'
+        verbose_name_plural: str = 'Pandas DataFrames'
 
-        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIDataManagementModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'pandas_dataframes'
+        default_related_name: str = 'pandas_dataframes'
 
     @classmethod
     def jsonize(cls, df: pandas.DataFrame) -> dict:
@@ -34,5 +38,5 @@ class PandasDataFrame(JSONDataSet):
                                      indent=None,
                                      storage_options=None))
 
-    def load(self):
-        return pandas.DataFrame(**self.in_db_json)
+    def load(self) -> None:
+        self.native_data_obj = pandas.DataFrame(**self.in_db_json)

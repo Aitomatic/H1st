@@ -26,6 +26,8 @@
     "--disable", "missing-class-docstring",
     "--disable", "missing-function-docstring",
     "--disable", "missing-module-docstring",
+    "--disable", "no-member",
+    "--disable", "no-self-argument",
     "--disable", "not-a-mapping",
     "--disable", "protected-access",
     "--disable", "relative-beyond-top-level",

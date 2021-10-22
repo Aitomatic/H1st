@@ -1,8 +1,5 @@
-__all__ = ('PreTrainedHuggingFaceZeroShotClassifier',
-           'H1stPreTrainedHuggingFaceZeroShotClassifier')
-
-
-from typing import Sequence, Union
+from collections.abc import Sequence
+from typing import Union
 
 from django.utils.functional import classproperty
 
@@ -17,6 +14,10 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+__all__: Sequence[str] = ('PreTrainedHuggingFaceZeroShotClassifier',
+                          'H1stPreTrainedHuggingFaceZeroShotClassifier')
+
+
 ZeroShotClassificationInputType = str
 ZeroShotClassificationOutputType = dict[str, float]
 
@@ -24,11 +25,12 @@ ZeroShotClassificationOutputType = dict[str, float]
 class PreTrainedHuggingFaceZeroShotClassifier(
         PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
-        verbose_name = 'Pre-Trained Hugging Face Zero-Shot Classifier'
-        verbose_name_plural = 'Pre-Trained Hugging Face Zero-Shot Classifiers'
+        verbose_name: str = 'Pre-Trained Hugging Face Zero-Shot Classifier'
+        verbose_name_plural: str = \
+            'Pre-Trained Hugging Face Zero-Shot Classifiers'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -45,10 +47,11 @@ class PreTrainedHuggingFaceZeroShotClassifier(
                 multi_label: bool = False) \
             -> Union[ZeroShotClassificationOutputType,
                      list[ZeroShotClassificationOutputType]]:
-        single_text = isinstance(text_or_texts, str)
+        single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts = list(text_or_texts)
+            text_or_texts: list[ZeroShotClassificationInputType] = \
+                list(text_or_texts)
 
         self.load()
 
@@ -174,7 +177,7 @@ class PreTrainedHuggingFaceZeroShotClassifier(
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

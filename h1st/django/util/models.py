@@ -197,7 +197,7 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(_ModelWithUUIDPK,
     def get_by_name_or_uuid(cls, name_or_uuid: Union[str, UUID]) \
             -> _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps:
         try:   # try looking up object by UUID
-            _uuid: UUID = UUID(name_or_uuid, version=4)
+            _uuid: UUID = UUID(hex=name_or_uuid, version=4)
             return cls.objects.get(uuid=_uuid)
 
         except ValueError:

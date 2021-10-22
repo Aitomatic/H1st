@@ -1,7 +1,4 @@
-__all__ = 'Model', 'H1stModel'
-
-
-from collections.abc import Generator
+from collections.abc import Generator, Sequence
 from json.decoder import JSONDecoder
 
 from django.core.serializers.json import DjangoJSONEncoder
@@ -23,10 +20,13 @@ from ...util.models import _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps
 from ..apps import H1stAIModelingModuleConfig
 
 
+__all__: Sequence[str] = 'Model', 'H1stModel'
+
+
 class Model(PolymorphicModel,
             _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps,
             CoreH1stModel):
-    params = \
+    params: JSONField = \
         JSONField(
             verbose_name='Model Parameters',
             help_text='Model Parameters',
@@ -50,15 +50,15 @@ class Model(PolymorphicModel,
         )
 
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
-        verbose_name = 'H1st Model'
-        verbose_name_plural = 'H1st Models'
+        verbose_name: str = 'H1st Model'
+        verbose_name_plural: str = 'H1st Models'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_models'
+        default_related_name: str = 'h1st_models'
 
     @classproperty
     def _subclasses(cls) -> Generator[PolymorphicModelBase, None, None]:

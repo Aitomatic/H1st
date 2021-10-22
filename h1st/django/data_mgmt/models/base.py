@@ -1,8 +1,7 @@
-__all__ = 'DataSchema', 'DataSet'
-
-
 from abc import abstractmethod
+from collections.abc import Sequence
 from json.decoder import JSONDecoder
+from typing import Any
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.deletion import SET_NULL
@@ -18,8 +17,11 @@ from ...util.models import (_ModelWithUUIDPK,
 from ..apps import H1stAIDataManagementModuleConfig
 
 
+__all__: Sequence[str] = 'DataSchema', 'DataSet'
+
+
 class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
-    name = \
+    name: CharField = \
         CharField(
             verbose_name='Data Schema Unique Name',
             help_text='Data Schema Unique Name',
@@ -41,7 +43,7 @@ class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
             # validators=None
         )
 
-    specs = \
+    specs: JSONField = \
         JSONField(
             verbose_name='Data Schema Specifications',
             help_text='Data Schema Specifications',
@@ -65,17 +67,17 @@ class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
         )
 
     class Meta(_ModelWithUUIDPK.Meta):
-        verbose_name = 'Data Schema'
-        verbose_name_plural = 'Data Schemas'
+        verbose_name: str = 'Data Schema'
+        verbose_name_plural: str = 'Data Schemas'
 
-        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIDataManagementModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'data_schemas'
+        default_related_name: str = 'data_schemas'
 
-        ordering = ('name',)
+        ordering: Sequence[str] = ('name',)
 
     def __str__(self) -> str:
         return f'"{self.name}" {type(self).__name__}'
@@ -83,10 +85,10 @@ class DataSchema(PolymorphicModel, _ModelWithUUIDPK):
 
 class DataSet(PolymorphicModel,
               _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps):
-    RELATED_NAME = 'data_sets'
-    RELATED_QUERY_NAME = 'data_set'
+    RELATED_NAME: str = 'data_sets'
+    RELATED_QUERY_NAME: str = 'data_set'
 
-    schema = \
+    schema: ForeignKey = \
         ForeignKey(
             verbose_name='Data Set Schema',
             help_text='Data Set Schema',
@@ -130,7 +132,7 @@ class DataSet(PolymorphicModel,
             # validators=None
         )
 
-    global_url = \
+    global_url: CharField = \
         CharField(
             verbose_name='Data Set Global URL',
             help_text='Data Set Global URL',
@@ -152,7 +154,7 @@ class DataSet(PolymorphicModel,
             # validators=None
         )
 
-    local_path = \
+    local_path: CharField = \
         CharField(
             verbose_name='Data Set Local Path',
             help_text='Data Set Local Path',
@@ -174,7 +176,7 @@ class DataSet(PolymorphicModel,
             # validators=None
         )
 
-    path_is_dir = \
+    path_is_dir: BooleanField = \
         BooleanField(
             verbose_name='Data Set Path/URL is Directory?',
             help_text='Data Set Path/URL is Directory?',
@@ -194,18 +196,18 @@ class DataSet(PolymorphicModel,
             # validators=None
         )
 
-    native_data_obj = None
+    native_data_obj: Any = None
 
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
-        verbose_name = 'Data Set'
-        verbose_name_plural = 'Data Sets'
+        verbose_name: str = 'Data Set'
+        verbose_name_plural: str = 'Data Sets'
 
-        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIDataManagementModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'data_sets'
+        default_related_name: str = 'data_sets'
 
     @property
     def _path_repr(self) -> str:
@@ -233,8 +235,8 @@ class DataSet(PolymorphicModel,
         return f'{type(self).__name__} #{self.uuid}{self._path_repr}'
 
     @abstractmethod
-    def load(self):
+    def load(self) -> None:
         raise NotImplementedError
 
-    def unload(self):
+    def unload(self) -> None:
         self.native_data_obj = None

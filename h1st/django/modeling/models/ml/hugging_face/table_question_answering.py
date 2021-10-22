@@ -1,8 +1,5 @@
-__all__ = ('PreTrainedHuggingFaceTableQuestionAnswerer',
-           'H1stPreTrainedHuggingFaceTableQuestionAnswerer')
-
-
-from typing import Sequence, Union
+from collections.abc import Sequence
+from typing import Union
 
 from django.utils.functional import classproperty
 
@@ -19,6 +16,10 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+__all__: Sequence[str] = ('PreTrainedHuggingFaceTableQuestionAnswerer',
+                          'H1stPreTrainedHuggingFaceTableQuestionAnswerer')
+
+
 TableQuestionAnswerInputType = Union[dict, DataFrame]
 TableQuestionAnswerOutputType = dict
 
@@ -26,12 +27,12 @@ TableQuestionAnswerOutputType = dict
 class PreTrainedHuggingFaceTableQuestionAnswerer(
         PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
-        verbose_name = 'Pre-Trained Hugging Face Table Question Answerer'
+        verbose_name: str = 'Pre-Trained Hugging Face Table Question Answerer'
         verbose_name_plural = \
             'Pre-Trained Hugging Face Table Question Answerers'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -159,7 +160,7 @@ class PreTrainedHuggingFaceTableQuestionAnswerer(
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

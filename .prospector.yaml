@@ -16,4 +16,5 @@ pylint:
     - relative-beyond-top-level
     - signature-differs
     - too-many-ancestors
+    - too-many-arguments
     - too-many-return-statements

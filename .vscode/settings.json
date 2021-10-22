@@ -40,6 +40,7 @@
     "--disable", "signature-differs",
     "--disable", "too-few-public-methods",
     "--disable", "too-many-ancestors",
+    "--disable", "too-many-arguments",
     "--disable", "too-many-return-statements",
   ],
 

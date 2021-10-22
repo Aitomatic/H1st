@@ -22,6 +22,7 @@
     "--disable", "inconsistent-return-statements",
     "--disable", "invalid-name",
     "--disable", "line-too-long",
+    "--disable", "logging-not-lazy",
     "--disable", "missing-class-docstring",
     "--disable", "missing-function-docstring",
     "--disable", "missing-module-docstring",

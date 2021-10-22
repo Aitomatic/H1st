@@ -1,4 +1,6 @@
 from abc import abstractmethod
+from collections.abc import Sequence
+from typing import Any, Optional
 
 from django.db.models.fields import CharField
 
@@ -7,8 +9,14 @@ from ...apps import H1stAIModelingModuleConfig
 from ..base import H1stModel
 
 
+__all__: Sequence[str] = ('MLModel', 'H1stMLModel',
+
+                          'PyLoadablePreTrainedMLModel',
+                          'H1stPyLoadablePreTrainedMLModel')
+
+
 class MLModel(H1stModel):
-    artifact_global_url = \
+    artifact_global_url: CharField = \
         CharField(
             verbose_name='ML Model Artifact Global URL',
             help_text='ML Model Artifact Global URL',
@@ -30,7 +38,7 @@ class MLModel(H1stModel):
             # validators=None
         )
 
-    artifact_local_path = \
+    artifact_local_path: CharField = \
         CharField(
             verbose_name='ML Model Artifact Local Path',
             help_text='ML Model Artifact Local Path',
@@ -52,29 +60,29 @@ class MLModel(H1stModel):
             # validators=None
         )
 
-    native_model_obj = None
+    native_model_obj: Optional[Any] = None
 
     class Meta(H1stModel.Meta):
-        verbose_name = 'H1st ML Model'
-        verbose_name_plural = 'H1st ML Models'
+        verbose_name: str = 'H1st ML Model'
+        verbose_name_plural: str = 'H1st ML Models'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_ml_models'
+        default_related_name: str = 'h1st_ml_models'
 
     @abstractmethod
-    def load(self):
+    def load(self) -> None:
         raise NotImplementedError
 
-    def unload(self):
+    def unload(self) -> None:
         self.native_model_obj = None
 
 
 class PyLoadablePreTrainedMLModel(MLModel):
-    py_loader_module_and_qualname = \
+    py_loader_module_and_qualname: CharField = \
         CharField(
             verbose_name='Pre-Trained ML Model Python Loader',
             help_text='Pre-Trained ML Model Python Loader (module.qualname)',
@@ -97,25 +105,25 @@ class PyLoadablePreTrainedMLModel(MLModel):
         )
 
     class Meta(MLModel.Meta):
-        verbose_name = 'H1st Python-Loadable Pre-Trained ML Model'
-        verbose_name_plural = 'H1st Python-Loadable Pre-Trained ML Models'
+        verbose_name: str = 'H1st Python-Loadable Pre-Trained ML Model'
+        verbose_name_plural: str = 'H1st Python-Loadable Pre-Trained ML Models'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_py_loadable_pretrained_ml_models'
+        default_related_name: str = 'h1st_py_loadable_pretrained_ml_models'
 
     @property
     def loader(self) -> callable:
         return import_obj(self.py_loader_module_and_qualname)
 
     @property
-    def init_params(self) -> dict:
+    def init_params(self) -> dict[str, Any]:
         return ({} if self.params is None else self.params).get('__init__', {})
 
-    def load(self):
+    def load(self) -> None:
         if not self.native_model_obj:
             self.native_model_obj = self.loader(**self.init_params)
 

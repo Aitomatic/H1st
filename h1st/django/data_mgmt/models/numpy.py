@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from json.decoder import JSONDecoder
 
 from django.core.serializers.json import DjangoJSONEncoder
@@ -10,8 +11,11 @@ from ..apps import H1stAIDataManagementModuleConfig
 from .json import JSONDataSet
 
 
+__all__: Sequence[str] = ('NumPyArray',)
+
+
 class NumPyArray(JSONDataSet):
-    dtype = \
+    dtype: JSONField = \
         JSONField(
             verbose_name='Numpy Array Data Type(s)',
             help_text='Numpy Array Data Type(s)',
@@ -34,7 +38,7 @@ class NumPyArray(JSONDataSet):
             # validators=None
         )
 
-    shape = \
+    shape: JSONField = \
         JSONField(
             verbose_name='Numpy Array Shape',
             help_text='Numpy Array Shape',
@@ -58,20 +62,20 @@ class NumPyArray(JSONDataSet):
         )
 
     class Meta(JSONDataSet.Meta):
-        verbose_name = 'NumPy Array'
-        verbose_name_plural = 'NumPy Arrays'
+        verbose_name: str = 'NumPy Array'
+        verbose_name_plural: str = 'NumPy Arrays'
 
-        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIDataManagementModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'numpy_arrays'
+        default_related_name: str = 'numpy_arrays'
 
-    def load(self):
-        return numpy.array(object=self.in_db_json,
-                           dtype=self.dtype,
-                           copy=False,
-                           order='K',
-                           subok=False,
-                           ndmin=0)
+    def load(self) -> None:
+        self.native_data_obj = numpy.array(object=self.in_db_json,
+                                           dtype=self.dtype,
+                                           copy=False,
+                                           order='K',
+                                           subok=False,
+                                           ndmin=0)

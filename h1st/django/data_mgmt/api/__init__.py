@@ -1,15 +1,4 @@
-__all__ = ('DataSchema',
-           'DataSet',
-           'JSONDataSet',
-           'NumPyArray',
-           'PandasDataFrame',
-           'ParquetDataSet',
-           'CSVDataSet',
-           'TFRecordDataSet',
-           'TextDataSet',
-           'LiveDataSource',
-           )
-
+from collections.abc import Sequence
 
 from ..models import (DataSchema,
                       DataSet,
@@ -22,3 +11,16 @@ from ..models import (DataSchema,
                       TextDataSet,
                       LiveDataSource,
                       )
+
+
+__all__: Sequence[str] = ('DataSchema',
+                          'DataSet',
+                          'JSONDataSet',
+                          'NumPyArray',
+                          'PandasDataFrame',
+                          'ParquetDataSet',
+                          'CSVDataSet',
+                          'TFRecordDataSet',
+                          'TextDataSet',
+                          'LiveDataSource',
+                          )

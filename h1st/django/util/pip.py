@@ -1,11 +1,17 @@
+from collections.abc import Sequence
+from typing import Optional
+
 from pip._internal.operations.freeze import freeze
 
 
-def get_python_dependencies():
-    d = {}
+__all__: Sequence[str] = ('get_python_dependencies',)
+
+
+def get_python_dependencies() -> dict[str, Optional[str]]:
+    d: dict[str, Optional[str]] = {}
 
     for deps_and_vers in freeze():
-        ls = deps_and_vers.split('==')
+        ls: list[str] = deps_and_vers.split('==')
 
         if len(ls) == 2:
             d[ls[0]] = ls[1]

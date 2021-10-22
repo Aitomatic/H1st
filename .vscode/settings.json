@@ -35,6 +35,7 @@
     "--disable", "not-a-mapping",
     "--disable", "not-an-iterable",
     "--disable", "protected-access",
+    "--disable", "redundant-keyword-arg",
     "--disable", "relative-beyond-top-level",
     "--disable", "signature-differs",
     "--disable", "too-few-public-methods",

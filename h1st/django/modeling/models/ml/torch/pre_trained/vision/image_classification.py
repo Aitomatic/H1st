@@ -1,9 +1,6 @@
-__all__ = ('PreTrainedTorchVisionImageNetClassifier',
-           'H1stPreTrainedTorchVisionImageNetClassifier')
-
-
+from collections.abc import Sequence
 from io import BytesIO
-from typing import Sequence, Union
+from typing import Union
 
 from django.utils.functional import classproperty
 
@@ -20,21 +17,26 @@ from ......apps import H1stAIModelingModuleConfig
 from ....base import H1stPyLoadablePreTrainedMLModel
 
 
+__all__: Sequence[str] = ('PreTrainedTorchVisionImageNetClassifier',
+                          'H1stPreTrainedTorchVisionImageNetClassifier')
+
+
 InputImageDataType = Union[str, BytesIO, Image.Image, numpy.ndarray]
 OutputImageClassificationType = dict[str, float]
 
 
 class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
     class Meta(H1stPyLoadablePreTrainedMLModel.Meta):
-        verbose_name = 'Pre-Trained Torch Vision ImageNet Classifier'
-        verbose_name_plural = 'Pre-Trained Torch Vision ImageNet Classifiers'
+        verbose_name: str = 'Pre-Trained Torch Vision ImageNet Classifier'
+        verbose_name_plural: str = \
+            'Pre-Trained Torch Vision ImageNet Classifiers'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = \
+        default_related_name: str = \
             'h1st_pretrained_torch_vision_imagenet_classifiers'
 
     @enable_dict_io
@@ -139,7 +141,7 @@ class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

@@ -1,8 +1,5 @@
-__all__ = ('PreTrainedHuggingFaceText2TextGenerator',
-           'H1stPreTrainedHuggingFaceText2TextGenerator')
-
-
-from typing import Sequence, Union
+from collections.abc import Sequence
+from typing import Union
 
 from django.utils.functional import classproperty
 
@@ -16,6 +13,10 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+__all__: Sequence[str] = ('PreTrainedHuggingFaceText2TextGenerator',
+                          'H1stPreTrainedHuggingFaceText2TextGenerator')
+
+
 Text2TextGenerationInputType = str
 Text2TextGenerationOutputType = Union[str, list[int]]
 
@@ -23,12 +24,12 @@ Text2TextGenerationOutputType = Union[str, list[int]]
 class PreTrainedHuggingFaceText2TextGenerator(
         PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
-        verbose_name = 'Pre-Trained Hugging Face Text-to-Text Generator'
+        verbose_name: str = 'Pre-Trained Hugging Face Text-to-Text Generator'
         verbose_name_plural = \
             'Pre-Trained Hugging Face Text-to-Text Generators'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -45,10 +46,11 @@ class PreTrainedHuggingFaceText2TextGenerator(
                 **generate_kwargs) \
             -> Union[Text2TextGenerationOutputType,
                      list[Text2TextGenerationOutputType]]:
-        single_text = isinstance(text_or_texts, str)
+        single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts = list(text_or_texts)
+            text_or_texts: list[Text2TextGenerationInputType] = \
+                list(text_or_texts)
 
         self.load()
 
@@ -68,13 +70,12 @@ class PreTrainedHuggingFaceText2TextGenerator(
                            .flatten().tolist())
                           for result in output])
 
-        else:
-            assert return_text, \
-                '*** EITHER return_tensors OR return_text MUST BE TRUE ***'
+        assert return_text, \
+            '*** EITHER return_tensors OR return_text MUST BE TRUE ***'
 
-            return (output[0]['generated_text']
-                    if single_text
-                    else [result['generated_text'] for result in output])
+        return (output[0]['generated_text']
+                if single_text
+                else [result['generated_text'] for result in output])
 
     @classproperty
     def gradio_ui(cls) -> Interface:
@@ -167,7 +168,7 @@ class PreTrainedHuggingFaceText2TextGenerator(
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

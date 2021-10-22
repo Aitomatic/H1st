@@ -1,4 +1,4 @@
-__all__ = (
+__all__: tuple[str] = (
     'PGSQL_IDENTIFIER_MAX_LEN',
     'LOGGER',
     'dir_path_with_slash',
@@ -74,7 +74,7 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
 
                 return f(self, d)
 
-            elif (len(args) == 2) and (not kwargs):
+            if (len(args) == 2) and (not kwargs):
                 d: Any = args[1]
 
                 if isinstance(d, dict):
@@ -90,15 +90,13 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
 
                     return d
 
-                else:
-                    LOGGER.info(msg=f'{self} .__call__( {d} )')
+                LOGGER.info(msg=f'{self} .__call__( {d} )')
 
-                    return f(self, d)
+                return f(self, d)
 
-            else:
-                return f(*args, **kwargs)
+            return f(*args, **kwargs)
 
-        elif (len(args) == 1) and (not kwargs):
+        if (len(args) == 1) and (not kwargs):
             d: Any = args[0]
 
             if isinstance(d, dict):
@@ -107,11 +105,9 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
                                    if k in arg_spec.args})
                 return d
 
-            else:
-                return f(d)
+            return f(d)
 
-        else:
-            return f(*args, **kwargs)
+        return f(*args, **kwargs)
 
     return decor_func_w_dict_io
 

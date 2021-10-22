@@ -1,8 +1,5 @@
-__all__ = ('PreTrainedHuggingFaceQuestionAnswerer',
-           'H1stPreTrainedHuggingFaceQuestionAnswerer')
-
-
-from typing import Sequence, Union
+from collections.abc import Sequence
+from typing import Union
 
 from django.utils.functional import classproperty
 
@@ -17,17 +14,22 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+__all__: Sequence[str] = ('PreTrainedHuggingFaceQuestionAnswerer',
+                          'H1stPreTrainedHuggingFaceQuestionAnswerer')
+
+
 QuestionAnswerInputType = str
 QuestionAnswerOutputType = dict
 
 
 class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
-        verbose_name = 'Pre-Trained Hugging Face Question Answerer'
-        verbose_name_plural = 'Pre-Trained Hugging Face Question Answerers'
+        verbose_name: str = 'Pre-Trained Hugging Face Question Answerer'
+        verbose_name_plural: str = \
+            'Pre-Trained Hugging Face Question Answerers'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -48,10 +50,10 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
                 handle_impossible_answer: bool = False) \
             -> Union[QuestionAnswerOutputType, list[QuestionAnswerOutputType]]:
         if not isinstance(question, (str, list)):
-            question = list(question)
+            question: list[QuestionAnswerInputType] = list(question)
 
         if not isinstance(context, (str, list)):
-            context = list(context)
+            context: list[QuestionAnswerInputType] = list(context)
 
         self.load()
 
@@ -184,7 +186,7 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

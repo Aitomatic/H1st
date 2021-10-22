@@ -9,6 +9,7 @@ pylint:
     - inconsistent-return-statements
     - logging-not-lazy
     - not-a-mapping
+    - not-an-iterable
     - protected-access
     - relative-beyond-top-level
     - signature-differs

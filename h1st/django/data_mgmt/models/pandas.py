@@ -39,4 +39,5 @@ class PandasDataFrame(JSONDataSet):
                                      storage_options=None))
 
     def load(self) -> None:
-        self.native_data_obj = pandas.DataFrame(**self.in_db_json)
+        if self.native_data_obj is None:
+            self.native_data_obj = pandas.DataFrame(**self.in_db_json)

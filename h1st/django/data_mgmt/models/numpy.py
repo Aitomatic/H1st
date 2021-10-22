@@ -73,9 +73,10 @@ class NumPyArray(JSONDataSet):
         default_related_name: str = 'numpy_arrays'
 
     def load(self) -> None:
-        self.native_data_obj = numpy.array(object=self.in_db_json,
-                                           dtype=self.dtype,
-                                           copy=False,
-                                           order='K',
-                                           subok=False,
-                                           ndmin=0)
+        if self.native_data_obj is None:
+            self.native_data_obj = numpy.array(object=self.in_db_json,
+                                               dtype=self.dtype,
+                                               copy=False,
+                                               order='K',
+                                               subok=False,
+                                               ndmin=0)

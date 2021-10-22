@@ -43,4 +43,5 @@ class TextDataSet(DataSet):
         default_related_name: str = 'text_data_sets'
 
     def load(self):
-        self.native_data_obj = self.in_db_text
+        if self.native_data_obj is None:
+            self.native_data_obj = self.in_db_text

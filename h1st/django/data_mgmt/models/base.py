@@ -196,7 +196,7 @@ class DataSet(PolymorphicModel,
             # validators=None
         )
 
-    native_data_obj: Any = None
+    native_data_obj: Optional[Any] = None
 
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
         verbose_name: str = 'Data Set'

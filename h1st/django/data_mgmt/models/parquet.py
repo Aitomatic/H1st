@@ -29,4 +29,5 @@ class ParquetDataSet(DataSet):
                                    **kwargs)
 
     def load(self, **kwargs) -> None:
-        self.native_data_obj = self.to_pandas(**kwargs)
+        if self.native_data_obj is None:
+            self.native_data_obj = self.to_pandas(**kwargs)

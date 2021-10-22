@@ -48,4 +48,5 @@ class JSONDataSet(DataSet):
         default_related_name: str = 'json_data_sets'
 
     def load(self) -> None:
-        self.native_data_obj = self.in_db_json
+        if self.native_data_obj is None:
+            self.native_data_obj = self.in_db_json

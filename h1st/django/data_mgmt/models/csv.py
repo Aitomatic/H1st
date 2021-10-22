@@ -26,4 +26,5 @@ class CSVDataSet(DataSet):
         return pandas.read_csv(self.path, **kwargs)
 
     def load(self, **kwargs) -> None:
-        self.native_data_obj = self.to_pandas(**kwargs)
+        if self.native_data_obj is None:
+            self.native_data_obj = self.to_pandas(**kwargs)

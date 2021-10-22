@@ -1,8 +1,5 @@
-__all__ = ('PreTrainedHuggingFaceTranslator',
-           'H1stPreTrainedHuggingFaceTranslator')
-
-
-from typing import Optional, Sequence, Union
+from collections.abc import Sequence
+from typing import Optional, Union
 
 from django.utils.functional import classproperty
 
@@ -19,21 +16,25 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+__all__: Sequence[str] = ('PreTrainedHuggingFaceTranslator',
+                          'H1stPreTrainedHuggingFaceTranslator')
+
+
 TranslationInputType = str
 TranslationOutputType = Union[str, list[int]]
 
 
 class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
-        verbose_name = 'Pre-Trained Hugging Face Translator'
-        verbose_name_plural = 'Pre-Trained Hugging Face Translators'
+        verbose_name: str = 'Pre-Trained Hugging Face Translator'
+        verbose_name_plural: str = 'Pre-Trained Hugging Face Translators'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_pretrained_hugging_face_translators'
+        default_related_name: str = 'h1st_pretrained_hugging_face_translators'
 
     @enable_dict_io
     def predict(self,
@@ -47,10 +48,10 @@ class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
                 **generate_kwargs) \
             -> Union[TranslationOutputType,
                      list[TranslationOutputType]]:
-        single_text = isinstance(text_or_texts, str)
+        single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts = list(text_or_texts)
+            text_or_texts: list[TranslationInputType] = list(text_or_texts)
 
         self.load()
 
@@ -71,13 +72,12 @@ class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
                            .flatten().tolist())
                           for result in output])
 
-        else:
-            assert return_text, \
-                '*** EITHER return_tensors OR return_text MUST BE TRUE ***'
+        assert return_text, \
+            '*** EITHER return_tensors OR return_text MUST BE TRUE ***'
 
-            return (output[0]['translation_text']
-                    if single_text
-                    else [result['translation_text'] for result in output])
+        return (output[0]['translation_text']
+                if single_text
+                else [result['translation_text'] for result in output])
 
     @classproperty
     def gradio_ui(cls) -> Interface:
@@ -185,7 +185,7 @@ class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

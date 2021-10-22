@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+
 from django.contrib.admin.decorators import register
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import site
@@ -5,6 +7,9 @@ from django.contrib.admin.sites import site
 from silk.profiling.profiler import silk_profile
 
 from .models import Decision, ModelEvalMetricsSet
+
+
+__all__: Sequence[str] = 'DecisionAdmin', 'ModelEvalMetricsSetAdmin'
 
 
 @register(Decision, site=site)

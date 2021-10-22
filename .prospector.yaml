@@ -8,7 +8,6 @@ pylint:
     - import-outside-toplevel
     - inconsistent-return-statements
     - logging-not-lazy
-    - no-else-return
     - not-a-mapping
     - protected-access
     - relative-beyond-top-level

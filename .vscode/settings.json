@@ -29,6 +29,7 @@
     "--disable", "missing-module-docstring",
     "--disable", "no-member",
     "--disable", "no-self-argument",
+    "--disable", "no-self-use",
     "--disable", "not-a-mapping",
     "--disable", "not-an-iterable",
     "--disable", "protected-access",

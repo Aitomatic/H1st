@@ -19,6 +19,7 @@
   "python.linting.pylintArgs": [
     "--disable", "abstract-method",
     "--disable", "import-outside-toplevel",
+    "--disable", "inconsistent-return-statements",
     "--disable", "invalid-name",
     "--disable", "line-too-long",
     "--disable", "missing-class-docstring",

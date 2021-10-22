@@ -17,25 +17,42 @@ from ....apps import H1stAIModelingModuleConfig
 from .. import CloudServiceModel
 
 
-class GoogleCloudTranslationServiceModel(CloudServiceModel):
-    class Meta(CloudServiceModel.Meta):
-        verbose_name = 'Google Cloud Translation Service Model'
-        verbose_name_plural = 'Google Cloud Translation Service Models'
+__all__: Sequence[str] = ('GoogleCloudTranslationServiceModel',
+                          'H1stGoogleCloudTranslationServiceModel',
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+                          'GoogleTranslateServiceModel',
+                          'H1stGoogleTranslateServiceModel')
+
+
+class GoogleCloudTranslationServiceModel(CloudServiceModel):
+    client = None
+
+    class Meta(CloudServiceModel.Meta):
+        verbose_name: str = 'Google Cloud Translation Service Model'
+        verbose_name_plural: str = 'Google Cloud Translation Service Models'
+
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_google_cloud_translation_service_models'
+        default_related_name: str = \
+            'h1st_google_cloud_translation_service_models'
+
+    def load(self) -> None:
+        if not self.client:
+            self.client = translate.Client()
 
     @enable_dict_io
-    def predict(self, text, src_lang='en', target_lang='es'):
-        translate_client = translate.Client()
+    def predict(self,
+                text_or_texts: Union[str, Sequence[str]],
+                src_lang: str = 'auto', target_lang: str = 'en') \
+            -> Union[str, list[str]]:
+        self.load()
 
-        result = translate_client.translate(text,
-                                            source_language=src_lang,
-                                            target_language=target_lang)
+        result = self.client.translate(text_or_texts,
+                                       source_language=src_lang,
+                                       target_language=target_lang)
 
         return result['translatedText']
 
@@ -44,17 +61,17 @@ class GoogleTranslateServiceModel(CloudServiceModel):
     client = None
 
     class Meta(CloudServiceModel.Meta):
-        verbose_name = 'Google Translate Service Model'
-        verbose_name_plural = 'Google Translate Service Models'
+        verbose_name: str = 'Google Translate Service Model'
+        verbose_name_plural: str = 'Google Translate Service Models'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_google_translate_service_models'
+        default_related_name: str = 'h1st_google_translate_service_models'
 
-    def load(self):
+    def load(self) -> None:
         if not self.client:
             self.client = Translator()
 
@@ -72,7 +89,7 @@ class GoogleTranslateServiceModel(CloudServiceModel):
 
     @classproperty
     def gradio_ui(cls) -> Interface:
-        languages = tuple(LANGUAGES.values())
+        languages: Sequence[str] = tuple(LANGUAGES.values())
 
         return Interface(
             fn=cls.predict,
@@ -166,11 +183,11 @@ class GoogleTranslateServiceModel(CloudServiceModel):
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 
-            description=type(self).__name__,
+            description='Google Translate Service Model',
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 

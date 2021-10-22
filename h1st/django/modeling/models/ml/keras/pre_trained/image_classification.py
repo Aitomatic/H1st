@@ -1,9 +1,6 @@
-__all__ = ('PreTrainedKerasImageNetClassifier',
-           'H1stPreTrainedKerasImageNetClassifier')
-
-
+from collections.abc import Sequence
 from io import BytesIO
-from typing import Sequence, Union
+from typing import Union
 
 from django.db.models.fields import CharField
 from django.utils.functional import classproperty
@@ -15,11 +12,16 @@ from gradio.outputs import Label as LabelOutputComponent
 
 import numpy
 from PIL import Image, ImageOps
-from tensorflow.python.keras.applications import imagenet_utils
+from tensorflow.python.keras.applications.imagenet_utils import \
+    decode_predictions
 
 from ......util import PGSQL_IDENTIFIER_MAX_LEN, enable_dict_io, import_obj
 from .....apps import H1stAIModelingModuleConfig
 from ...base import H1stPyLoadablePreTrainedMLModel
+
+
+__all__: Sequence[str] = ('PreTrainedKerasImageNetClassifier',
+                          'H1stPreTrainedKerasImageNetClassifier')
 
 
 ImageClassificationInputType = Union[str, BytesIO, Image.Image, numpy.ndarray]
@@ -27,7 +29,7 @@ ImageClassificationOutputType = dict[str, float]
 
 
 class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
-    preprocessor_module_and_qualname = \
+    preprocessor_module_and_qualname: CharField = \
         CharField(
             verbose_name='Preprocessor (module.qualname)',
             help_text='Preprocessor (module.qualname)',
@@ -50,38 +52,39 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
         )
 
     class Meta(H1stPyLoadablePreTrainedMLModel.Meta):
-        verbose_name = 'Pre-Trained Keras ImageNet Classifier'
-        verbose_name_plural = 'Pre-Trained Keras ImageNet Classifiers'
+        verbose_name: str = 'Pre-Trained Keras ImageNet Classifier'
+        verbose_name_plural: str = 'Pre-Trained Keras ImageNet Classifiers'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'h1st_pretrained_keras_imagenet_classifiers'
+        default_related_name: str = \
+            'h1st_pretrained_keras_imagenet_classifiers'
 
     @property
-    def img_dim_size(self):
+    def img_dim_size(self) -> int:
         return self.params['img_dim_size']
 
     def image_to_4d_array(self, image: ImageClassificationInputType) \
             -> numpy.ndarray:
         # if file-like or string file path, then load from file
         if isinstance(image, (str, BytesIO)):
-            image = Image.open(fp=image, mode='r', formats=None)
+            image: Image.Image = Image.open(fp=image, mode='r', formats=None)
 
         # if PIL.Image.Image instance,
         # then fit to size model expects and then convert to NumPy array
         if isinstance(image, Image.Image):
-            img_dim_size = self.img_dim_size
-            image = numpy.asarray(ImageOps.fit(image=image,
-                                               size=(img_dim_size,
-                                                     img_dim_size),
-                                               method=Image.BICUBIC,
-                                               bleed=0,
-                                               centering=(0.5, 0.5)),
-                                  dtype=int,
-                                  order=None)
+            img_dim_size: int = self.img_dim_size
+            image: numpy.ndarray = \
+                numpy.asarray(ImageOps.fit(image=image,
+                                           size=(img_dim_size, img_dim_size),
+                                           method=Image.BICUBIC,
+                                           bleed=0,
+                                           centering=(0.5, 0.5)),
+                              dtype=int,
+                              order=None)
 
         assert isinstance(image, numpy.ndarray), \
             TypeError(f'*** {image} not a NumPy Array ***')
@@ -100,33 +103,36 @@ class PreTrainedKerasImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                 n_labels: int = 5) \
             -> Union[ImageClassificationOutputType,
                      list[ImageClassificationOutputType]]:
-        single_img = isinstance(image_or_images, (str, BytesIO,
-                                                  Image.Image,
-                                                  numpy.ndarray))
+        single_img: bool = isinstance(image_or_images, (str, BytesIO,
+                                                        Image.Image,
+                                                        numpy.ndarray))
 
-        imgs = [image_or_images] if single_img else image_or_images
+        imgs: list[ImageClassificationInputType] = ([image_or_images]
+                                                    if single_img
+                                                    else image_or_images)
 
         # construct 4D array of images' data fitted into standardized size
-        fitted_img_batch_arr = numpy.vstack([self.image_to_4d_array(image=img)
-                                             for img in imgs])
+        fitted_img_batch_arr: numpy.ndarray = \
+            numpy.vstack([self.image_to_4d_array(image=img) for img in imgs])
 
         # preprocess
-        preprocessed_fitted_img_batch_arr = \
+        preprocessed_fitted_img_batch_arr: numpy.ndarray = \
             self.preprocessor(fitted_img_batch_arr)
 
         # load native model object & predict
         self.load()
 
-        pred_prob_arr = \
+        pred_prob_arr: numpy.ndarray = \
             self.native_model_obj.predict(
                 x=preprocessed_fitted_img_batch_arr)
 
         # decode predictions & return JSON-serializable dict
-        decoded_preds = [{tup[1]: float(tup[2]) for tup in decoded_pred}
-                         for decoded_pred in
-                         imagenet_utils.decode_predictions(
-                             preds=pred_prob_arr,
-                             top=n_labels)]
+        decoded_preds: list[dict[str, float]] = [{tup[1]: float(tup[2])
+                                                  for tup in decoded_pred}
+                                                 for decoded_pred in
+                                                 decode_predictions(
+                                                     preds=pred_prob_arr,
+                                                     top=n_labels)]
 
         return decoded_preds[0] if single_img else decoded_preds
 

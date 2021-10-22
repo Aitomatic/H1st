@@ -1,11 +1,17 @@
+from collections.abc import Sequence
+
 from django.urls.conf import include, path
+from django.urls.resolvers import URLPattern
 
 from .data_mgmt import urls as data_mgmt_urls
 from .modeling import urls as modeling_urls
 from .trust_vault import urls as trust_vault_urls
 
 
-urlpatterns = (
+__all__: Sequence[str] = ('urlpatterns',)
+
+
+urlpatterns: Sequence[URLPattern] = (
     path(route='data/',
          view=include(data_mgmt_urls)),
 

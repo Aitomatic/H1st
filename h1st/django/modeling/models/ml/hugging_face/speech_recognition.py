@@ -1,9 +1,6 @@
-__all__ = ('PreTrainedHuggingFaceSpeechRecognizer',
-           'H1stPreTrainedHuggingFaceSpeechRecognizer')
-
-
+from collections.abc import Sequence
 from tempfile import NamedTemporaryFile
-from typing import Sequence, Union
+from typing import Union
 
 from django.utils.functional import classproperty
 
@@ -18,17 +15,22 @@ from ....apps import H1stAIModelingModuleConfig
 from .base import PreTrainedHuggingFaceTransformer
 
 
+__all__: Sequence[str] = ('PreTrainedHuggingFaceSpeechRecognizer',
+                          'H1stPreTrainedHuggingFaceSpeechRecognizer')
+
+
 SpeechRecognitionInputType = Union[numpy.ndarray, str]
 SpeechRecognitionOutputType = str
 
 
 class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
-        verbose_name = 'Pre-Trained Hugging Face Speech Recognizer'
-        verbose_name_plural = 'Pre-Trained Hugging Face Speech Recognizers'
+        verbose_name: str = 'Pre-Trained Hugging Face Speech Recognizer'
+        verbose_name_plural: str = \
+            'Pre-Trained Hugging Face Speech Recognizers'
 
-        db_table = (f'{H1stAIModelingModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIModelingModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
@@ -42,10 +44,12 @@ class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
                           Sequence[SpeechRecognitionInputType]]) \
             -> Union[SpeechRecognitionOutputType,
                      list[SpeechRecognitionOutputType]]:
-        single_speech = isinstance(speech_or_speeches, (numpy.ndarray, str))
+        single_speech: bool = isinstance(speech_or_speeches, (numpy.ndarray,
+                                                              str))
 
         if not (single_speech or isinstance(speech_or_speeches, list)):
-            speech_or_speeches = list(speech_or_speeches)
+            speech_or_speeches: list[SpeechRecognitionInputType] = \
+                list(speech_or_speeches)
 
         self.load()
 
@@ -142,7 +146,7 @@ class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
 
             repeat_outputs_per_model=True,
 
-            title=self.name,
+            title=cls._meta.verbose_name,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 

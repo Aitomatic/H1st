@@ -1,11 +1,12 @@
-__all__: tuple[str] = ('get_git_repo_head_commit_hash',)
-
-
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Optional
 
 from git.exc import InvalidGitRepositoryError
 from git.repo.base import Repo
+
+
+__all__: Sequence[str] = ('get_git_repo_head_commit_hash',)
 
 
 _GIT_HASH_FILE_NAME: str = '.git-hash'

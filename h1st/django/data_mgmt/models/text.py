@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+
 from django.db.models.fields import TextField
 
 from ...util import PGSQL_IDENTIFIER_MAX_LEN
@@ -5,8 +7,11 @@ from ..apps import H1stAIDataManagementModuleConfig
 from .base import DataSet
 
 
+__all__: Sequence[str] = ('TextDataSet',)
+
+
 class TextDataSet(DataSet):
-    in_db_text = \
+    in_db_text: TextField = \
         TextField(
             verbose_name='In-Database Text Data Content',
             help_text='In-Database Text Data Content',
@@ -27,15 +32,15 @@ class TextDataSet(DataSet):
         )
 
     class Meta(DataSet.Meta):
-        verbose_name = 'Text Data Set'
-        verbose_name_plural = 'Text Data Sets'
+        verbose_name: str = 'Text Data Set'
+        verbose_name_plural: str = 'Text Data Sets'
 
-        db_table = (f'{H1stAIDataManagementModuleConfig.label}_'
-                    f"{__qualname__.split('.')[0]}")
+        db_table: str = (f'{H1stAIDataManagementModuleConfig.label}_'
+                         f"{__qualname__.split(sep='.', maxsplit=1)[0]}")
         assert len(db_table) <= PGSQL_IDENTIFIER_MAX_LEN, \
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
-        default_related_name = 'text_data_sets'
+        default_related_name: str = 'text_data_sets'
 
     def load(self):
-        return self.in_db_text
+        self.native_data_obj = self.in_db_text

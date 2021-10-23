@@ -106,6 +106,7 @@ Django = '^3.2.8'
 Django-Polymorphic = '^3.0.0'
 
 # Django Admin Themes
+Django-ForestAdmin = '^1.0.5'
 Django-Jazzmin = '^2.4.8'
 
 # Django Autocomplete
@@ -143,7 +144,7 @@ Django-Model-Utils = '^4.2.0'
 Django-Storages = '^1.12.2'
 
 # Django CORS Headers
-Django-CORS-Headers = '^3.10.0'
+Django-CORS-Headers = '3.7.0'   # fixed by Django-ForestAdmin
 
 # Application UIs
 Django-HTMX = '^1.6.0'

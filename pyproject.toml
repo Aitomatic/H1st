@@ -132,6 +132,7 @@ Rules = '^3.0'
 Django-Model-Query-Graphs = '^0.0.5'
 
 # Django Debugging & Query Profiling
+Django-Debug-Toolbar = '^3.2.2'
 Django-Query-Profiler = '^0.8'
 Django-Silk = '^4.2.0'
 Kolo = '^1.1.3'

@@ -113,7 +113,7 @@ Django-Autocomplete-Light = '^3.8.2'
 
 # Django GraphQL
 Graphene-Django = '^2.15.0'
-Strawberry-GraphQL = '^0.84.3'
+# Strawberry-GraphQL = '^0.84.3'   # conflicts with Graphene-Django
 
 # Django REST Framework
 DjangoRESTFramework = '^3.12.4'

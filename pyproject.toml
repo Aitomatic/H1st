@@ -110,7 +110,7 @@ Django-Jazzmin = '^2.4.8'
 Django-Autocomplete-Light = '^3.8.2'
 
 # Django GraphQL
-Graphene-Django = '^2.15.0'
+# Graphene-Django = '^2.15.0'
 Strawberry-GraphQL = '^0.84.3'
 
 # Django REST Framework

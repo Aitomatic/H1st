@@ -19,7 +19,7 @@ Pandas = '^1.3.4'
 PyArrow = '^5.0.0'
 Ray = {extras = ['tune'], version = '^1.7.1'}
 
-# MACHINE LEARNING / DEEP LEARNING
+# MACHINE LEARNING / DEEP LEARNING & RELATED
 Auto-SKLearn = '^0.14.0'
 # SciKit-Learn = '^1.0'
 
@@ -32,6 +32,9 @@ TorchServe = '^0.4.2'
 TorchText = '^0.11.0'
 TorchVision = '^0.11.1'
 
+Pillow = '^8.4.0'   # image processing
+# Pillow-SIMD = '^7.0.0'   # complex to install
+
 # Hugging Face & related
 DataSets = '^1.14.0'
 Transformers = '^4.11.3'
@@ -39,6 +42,9 @@ FFMPEG = '^1.4'
 SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
 Torch-Scatter = '^2.0.9'   # Table Question Answering
+
+# TDA
+GUDHI = '^3.4.1'
 
 # HYPER-PARAMETER TUNING
 Bayesian-Optimization = '^1.2.0'
@@ -119,8 +125,6 @@ PsycoPG2-binary = '^2.9.1'
 # OTHER
 Cython = '^0.29.24'
 GitPython = '^3.1.24'
-Pillow = '^8.4.0'
-# Pillow-SIMD = '^7.0.0'   # complex to install
 'Ruamel.YAML' = '^0.17.16'
 PSUtil = '^5.8.0'
 Python-DotEnv = '^0.19.1'

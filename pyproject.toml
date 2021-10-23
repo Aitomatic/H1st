@@ -9,31 +9,44 @@ homepage = "https://h1st.ai"
 repository = "https://github.com/h1st-ai/h1st"
 include = ["h1st/*"]
 
+
 [tool.poetry.dependencies]
+
 # PYTHON
+# ======
 Python = '^3.8'
 
+
 # DATA MANAGEMENT & PROCESSING
+# ============================
 NumPy = '^1.19'   # >= 1.20 incompat w/ TensorFlow
 Pandas = '^1.3.4'
 PyArrow = '^5.0.0'
 Ray = {extras = ['tune'], version = '^1.7.1'}
 
-# MACHINE LEARNING / DEEP LEARNING & RELATED
-Auto-SKLearn = '^0.14.0'
-# SciKit-Learn = '^1.0'
+Pillow = '^8.4.0'   # image processing
+# Pillow-SIMD = '^7.0.0'   # complex to install
 
+
+# MACHINE LEARNING / DEEP LEARNING & RELATED
+# ==========================================
+
+# SciKit-Learn & related
+Auto-SKLearn = '^0.14.0'
+SciKit-Learn = '^0.24.2'   # >= 1.0 incompat w/ Auto-SKLearn
+
+# TensorFlow & related
 TensorFlow = '^2.6.0'
 TensorFlow-Hub = '^0.12.0'
 
+# Torch & related
 Torch = '^1.10.0'
 Torch-Model-Archiver = '^0.4.2'
 TorchServe = '^0.4.2'
+
+TorchAudio = '^0.10.0'
 TorchText = '^0.11.0'
 TorchVision = '^0.11.1'
-
-Pillow = '^8.4.0'   # image processing
-# Pillow-SIMD = '^7.0.0'   # complex to install
 
 # Hugging Face & related
 DataSets = '^1.14.0'
@@ -43,40 +56,48 @@ SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
 Torch-Scatter = '^2.0.9'   # Table Question Answering
 
-# TDA
+# Topological Data Analysis (TDA) & related
 GUDHI = '^3.4.1'
 
-# HYPER-PARAMETER TUNING
+# Cloud AI/ML Services
+Google-Cloud-Translate = '^3.6.0'
+GoogleTrans = '^4.0.0rc1'
+
+# Hyper-Parameter Tuning & related
 Bayesian-Optimization = '^1.2.0'
 ConfigSpace = '^0.4.20'
 Hpbandster = '^0.7.4'
 Tabulate = '^0.8.9'
 
-# CLOUD SERVICES
-Google-Cloud-Translate = '^3.6.0'
-GoogleTrans = '^4.0.0rc1'
-
-# FUZZY LOGIC
-SciKit-Fuzzy = '^0.4.2'
-
-# TRUSTWORTHY AI
+# Model Explainability & related
 LIME = '^0.2.0.1'
 SHAP = '^0.40.0'
 
-# GRAPH PROCESSING
-GraphViz = '^0.17'
 
-# MODEL REPOSITORY
+# KNOWLEDGE MODELING
+# ==================
+
+# Fuzzy Logic
+SciKit-Fuzzy = '^0.4.2'
+
+
+# MODEL REPOSITORY & RELATED
+# ==========================
 CloudPickle = '^2.0.0'
 JobLib = '^1.1.0'
 S3FS = '^2021.10.1'
 ULID-Py = '^1.1.0'
 
-# CLI
-Click = '^7.1.2'   # aligned with Streamlit
-Colored = '^1.4.2'
 
-# DJANGO
+# GRAPH PROCESSING & ANALYSIS
+# ===========================
+GraphViz = '^0.17'
+
+
+# DJANGO & RELATED APPLICATION DEVELOPMENT
+# ========================================
+
+# Django Core
 Django = '^3.2.8'
 
 # Django Polymorphic Models
@@ -88,6 +109,10 @@ Django-Jazzmin = '^2.4.8'
 # Django Autocomplete
 Django-Autocomplete-Light = '^3.8.2'
 
+# Django GraphQL
+Graphene-Django = '^2.15.0'
+Strawberry-GraphQL = '^0.84.3'
+
 # Django REST Framework
 DjangoRESTFramework = '^3.12.4'
 CoreAPI = '^2.3.3'   # closely related to Django REST Framework
@@ -95,6 +120,10 @@ CoreAPI = '^2.3.3'   # closely related to Django REST Framework
 # Django Filtering
 Django-Filter = '^21.1'
 DjangoRESTFramework-Filters = '1.0.0.dev2'
+
+# Django Object-Level Permissions
+Django-Guardian = '^2.4.0'
+Django-Rules = '^0.2'
 
 # Django Model Query Optimization
 Django-Model-Query-Graphs = '^0.0.5'
@@ -104,6 +133,7 @@ Django-Query-Profiler = '^0.8'
 Django-Silk = '^4.2.0'
 
 # Django Extensions & Utilities
+Django-Environ = '^0.8.1'
 Django-Extensions = '^3.1.3'
 Django-Model-Utils = '^4.2.0'
 Django-Storages = '^1.12.2'
@@ -111,18 +141,32 @@ Django-Storages = '^1.12.2'
 # Django CORS Headers
 Django-CORS-Headers = '^3.10.0'
 
-# UI
+# Application UIs
+Django-HTMX = '^1.6.0'
 Django-Plotly-Dash = '^1.6.6'
-
 Gradio = '^2.3.9'
 Streamlit = '^1.1.0'
 Watchdog = '^2.1.6'   # better performance for Streamlit
 
-# DATABASE CONNECTORS/DRIVERS
+# Database Connectors/Drivers
 MySQLClient = '^2.0.3'
 PsycoPG2-binary = '^2.9.1'
 
+# ASGI Web Servers
+Channels = '^3.0.4'
+GUnicorn = '^20.1.0'
+Hypercorn = '^0.11.2'
+Uvicorn = '^0.15.0'
+
+
+# COMMAND-LINE INTERFACE (CLI)
+# ============================
+Click = '^7.1.2'   # aligned with Streamlit
+Colored = '^1.4.2'
+
+
 # OTHER
+# =====
 Cython = '^0.29.24'
 GitPython = '^3.1.24'
 'Ruamel.YAML' = '^0.17.16'

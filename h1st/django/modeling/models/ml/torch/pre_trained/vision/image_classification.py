@@ -191,8 +191,6 @@ class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
             # (bool) - if True, will occasionally show tips
             # about new Gradio features
 
-            embedding=None,
-
             flagging_dir='flagged',
             # (str) - what to name the dir where flagged data is stored.
 

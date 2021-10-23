@@ -37,6 +37,7 @@ SciKit-Learn = '^0.24.2'   # >= 1.0 incompat w/ Auto-SKLearn
 
 # TensorFlow & related
 TensorFlow = '^2.6.0'
+TensorFlow-DataSets = '^4.4.0'
 TensorFlow-Hub = '^0.12.0'
 
 # Torch & related
@@ -50,8 +51,9 @@ TorchVision = '^0.11.1'
 
 # Hugging Face & related
 DataSets = '^1.14.0'
+HuggingFace-Hub = '^0.0.19'
 Transformers = '^4.11.3'
-FFMPEG = '^1.4'
+
 SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
 Torch-Scatter = '^2.0.9'   # Table Question Answering

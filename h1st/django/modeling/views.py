@@ -1,3 +1,4 @@
+from inspect import isclass
 from typing import Union
 
 from django.http.response import Http404, HttpResponseRedirect
@@ -52,7 +53,7 @@ def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
         Dropdown(choices=model_names_or_uuids,
                  type='value',
                  default=(model_names_or_uuids[0]
-                          if issubclass(model, Model)
+                          if isclass(model)
                           else model.name_or_uuid),
                  label='H1st Model Name or UUID'))
 

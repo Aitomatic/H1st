@@ -130,9 +130,10 @@ Rules = '^3.0'
 # Django Model Query Optimization
 Django-Model-Query-Graphs = '^0.0.5'
 
-# Django Query Profiling
+# Django Debugging & Query Profiling
 Django-Query-Profiler = '^0.8'
 Django-Silk = '^4.2.0'
+Kolo = '^1.1.3'
 
 # Django Extensions & Utilities
 Django-Environ = '^0.8.1'

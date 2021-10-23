@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "h1st"
-version = "0.0.6.dev1"
+version = "0.0.6.dev2"
 description = "Human-First AI (H1ST)"
 authors = ["h1st-ai <engineering@aitomatic.com>"]
 license = "Apache-2.0"
@@ -14,10 +14,10 @@ include = ["h1st/*"]
 Python = '^3.8'
 
 # DATA MANAGEMENT & PROCESSING
-NumPy = '< 1.20'   # too low-level to specify?
-Pandas = '^1.3.3'
+NumPy = '^1.19'   # >= 1.20 incompat w/ TensorFlow
+Pandas = '^1.3.4'
 PyArrow = '^5.0.0'
-Ray = {extras = ['tune'], version = '^1.6.0'}
+Ray = {extras = ['tune'], version = '^1.7.1'}
 
 # MACHINE LEARNING / DEEP LEARNING
 Auto-SKLearn = '^0.14.0'
@@ -26,19 +26,19 @@ Auto-SKLearn = '^0.14.0'
 TensorFlow = '^2.6.0'
 TensorFlow-Hub = '^0.12.0'
 
-Torch = '^1.9.1'
+Torch = '^1.10.0'
 Torch-Model-Archiver = '^0.4.2'
 TorchServe = '^0.4.2'
-TorchText = '^0.10.1'
-TorchVision = '^0.10.1'
+TorchText = '^0.11.0'
+TorchVision = '^0.11.1'
 
 # Hugging Face & related
-DataSets = '^1.13.3'
+DataSets = '^1.14.0'
 Transformers = '^4.11.3'
 FFMPEG = '^1.4'
 SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
-Torch-Scatter = '^2.0.8'   # Table Question Answering
+Torch-Scatter = '^2.0.9'   # Table Question Answering
 
 # HYPER-PARAMETER TUNING
 Bayesian-Optimization = '^1.2.0'
@@ -47,7 +47,7 @@ Hpbandster = '^0.7.4'
 Tabulate = '^0.8.9'
 
 # CLOUD SERVICES
-Google-Cloud-Translate = '^3.4.1'
+Google-Cloud-Translate = '^3.6.0'
 GoogleTrans = '^4.0.0rc1'
 
 # FUZZY LOGIC
@@ -55,15 +55,15 @@ SciKit-Fuzzy = '^0.4.2'
 
 # TRUSTWORTHY AI
 LIME = '^0.2.0.1'
-SHAP = '^0.39.0'
+SHAP = '^0.40.0'
 
 # GRAPH PROCESSING
 GraphViz = '^0.17'
 
 # MODEL REPOSITORY
 CloudPickle = '^2.0.0'
-JobLib = '^1.0.1'
-S3FS = '^2021.10.0'
+JobLib = '^1.1.0'
+S3FS = '^2021.10.1'
 ULID-Py = '^1.1.0'
 
 # CLI
@@ -71,7 +71,7 @@ Click = '^7.1.2'   # aligned with Streamlit
 Colored = '^1.4.2'
 
 # DJANGO
-Django = '^3.2.7'
+Django = '^3.2.8'
 
 # Django Polymorphic Models
 Django-Polymorphic = '^3.0.0'
@@ -95,21 +95,21 @@ Django-Model-Query-Graphs = '^0.0.5'
 
 # Django Query Profiling
 Django-Query-Profiler = '^0.8'
-Django-Silk = '^4.1.0'
+Django-Silk = '^4.2.0'
 
 # Django Extensions & Utilities
 Django-Extensions = '^3.1.3'
-Django-Model-Utils = '^4.1.1'
-Django-Storages = '^1.11.1'
+Django-Model-Utils = '^4.2.0'
+Django-Storages = '^1.12.2'
 
 # Django CORS Headers
-Django-CORS-Headers = '^3.9.0'
+Django-CORS-Headers = '^3.10.0'
 
 # UI
 Django-Plotly-Dash = '^1.6.6'
 
-Gradio = '^2.3.6'
-Streamlit = '^1.0.0'
+Gradio = '^2.3.9'
+Streamlit = '^1.1.0'
 Watchdog = '^2.1.6'   # better performance for Streamlit
 
 # DATABASE CONNECTORS/DRIVERS
@@ -119,7 +119,7 @@ PsycoPG2-binary = '^2.9.1'
 # OTHER
 Cython = '^0.29.24'
 GitPython = '^3.1.24'
-Pillow = '^8.3.2'
+Pillow = '^8.4.0'
 # Pillow-SIMD = '^7.0.0'   # complex to install
 'Ruamel.YAML' = '^0.17.16'
 PSUtil = '^5.8.0'

@@ -144,7 +144,7 @@ Django-Model-Utils = '^4.2.0'
 Django-Storages = '^1.12.2'
 
 # Django CORS Headers
-Django-CORS-Headers = '3.7.0'   # fixed by Django-ForestAdmin
+Django-CORS-Headers = '3.7.0'   # fixed by Django-ForestAdmin 1.0.5
 
 # Application UIs
 Django-HTMX = '^1.6.0'
@@ -177,7 +177,7 @@ GitPython = '^3.1.24'
 'Ruamel.YAML' = '^0.17.16'
 PSUtil = '^5.8.0'
 Python-DotEnv = '^0.19.1'
-Requests = '^2.26.0'
+Requests = '2.25.1'   # fixed by Django-ForestAdmin 1.0.5
 Tqdm = '^4.62.3'
 
 

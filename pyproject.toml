@@ -113,11 +113,14 @@ Django-Jazzmin = '^2.4.8'
 Django-Autocomplete-Light = '^3.8.2'
 
 # Django GraphQL
+Ariadne = '^0.13.0'
+Django-RESTQL = '^0.15.1'
 Graphene-Django = '^2.15.0'
 # Strawberry-GraphQL = '^0.84.3'   # conflicts with Graphene-Django
 
 # Django REST Framework
 DjangoRESTFramework = '^3.12.4'
+DRFPasswordless = '^1.5.7'
 CoreAPI = '^2.3.3'   # closely related to Django REST Framework
 
 # Django Filtering
@@ -163,6 +166,7 @@ Channels = '^3.0.4'
 Daphne = '^3.0.2'
 GUnicorn = '^20.1.0'
 Hypercorn = '^0.11.2'
+Starlette = '^0.16.0'
 Uvicorn = '^0.15.0'
 
 

@@ -166,7 +166,7 @@ Channels = '^3.0.4'
 Daphne = '^3.0.2'
 GUnicorn = '^20.1.0'
 Hypercorn = '^0.11.2'
-Starlette = '^0.16.0'
+Starlette = '^0.14'   # aligned with Ariadne
 Uvicorn = '^0.15.0'
 
 

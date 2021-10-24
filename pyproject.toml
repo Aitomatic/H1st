@@ -113,7 +113,8 @@ Django-Jazzmin = '^2.4.8'
 Django-Autocomplete-Light = '^3.8.2'
 
 # Django GraphQL
-Ariadne = '^0.13.0'
+# Ariadne = '^0.13.0'   # ariadne 0.13.0 depends on graphql-core>=3.1.0
+                        # graphene-django 2.15.0 depends on graphql-core<3
 Django-RESTQL = '^0.15.1'
 Graphene-Django = '^2.15.0'
 # Strawberry-GraphQL = '^0.84.3'   # conflicts with Graphene-Django
@@ -166,7 +167,7 @@ Channels = '^3.0.4'
 Daphne = '^3.0.2'
 GUnicorn = '^20.1.0'
 Hypercorn = '^0.11.2'
-Starlette = '^0.14'   # aligned with Ariadne
+Starlette = '^0.16.0'
 Uvicorn = '^0.15.0'
 
 

@@ -160,6 +160,7 @@ PsycoPG2-binary = '^2.9.1'
 
 # ASGI Web Servers
 Channels = '^3.0.4'
+Daphne = '^3.0.2'
 GUnicorn = '^20.1.0'
 Hypercorn = '^0.11.2'
 Uvicorn = '^0.15.0'

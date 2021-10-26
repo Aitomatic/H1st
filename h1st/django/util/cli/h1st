@@ -118,6 +118,6 @@ if args.command in ('init', 'deploy'):
 
 else:
     run_command_with_config_file(
-        command=f'python3 -m django {args.command} --settings settings '
+        command=f'python3 -m django {args.command} --settings settings.default '
                 f"{' '.join(extra_args)}",
         h1st_django_config_file_path=args.h1st_django_config_file_path)

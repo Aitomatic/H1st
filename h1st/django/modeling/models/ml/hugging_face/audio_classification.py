@@ -193,7 +193,7 @@ class PreTrainedHuggingFaceAudioClassifier(PreTrainedHuggingFaceTransformer):
             # (bool) - if False, users will not see a button
             # to take a screenshot of the interface.
 
-            allow_flagging=True,
+            allow_flagging=False,
             # (bool) - if False, users will not see a button
             # to flag an input and output.
 

@@ -39,6 +39,10 @@ def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
         model_names_or_uuids: list[str] = model.names_or_uuids
 
     gradio_interface: Interface = model.gradio_ui
+
+    if gradio_interface is NotImplemented:
+        return Http404(f'*** {model} DOES NOT IMPLEMENT A GRADIO UI ***')
+
     assert isinstance(gradio_interface, Interface), \
         TypeError(f'*** {gradio_interface} NOT A GRADIO INTERFACE ***')
 

@@ -25,7 +25,7 @@ class KerasModel(H1stMLModel):
         default_related_name: str = 'h1st_keras_models'
 
     def load(self) -> None:
-        artifact_local_path = Path(self.artifact_local_path).expanduser()
+        artifact_local_path = str(Path(self.artifact_local_path).expanduser())
 
         self.native_model_obj = \
             load_model(filepath=(h5py.File(name=artifact_local_path, mode='r')

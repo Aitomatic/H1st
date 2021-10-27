@@ -178,6 +178,11 @@ Click = '^7.1.2'   # aligned with Streamlit
 Colored = '^1.4.2'
 
 
+# JUPYTER
+# =======
+Jupyter = '^1.0.0'
+
+
 # OTHER
 # =====
 Cython = '^0.29.24'

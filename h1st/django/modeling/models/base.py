@@ -1,6 +1,5 @@
 from collections.abc import Generator, Sequence
 from json.decoder import JSONDecoder
-from typing import Type, Union
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.fields.json import JSONField
@@ -92,7 +91,7 @@ class Model(PolymorphicModel,
         return NotImplemented
 
     @classproperty
-    def gradio_ui(cls) -> Union[Interface, Type[NotImplemented]]:
+    def gradio_ui(cls) -> Interface:
         return Interface(
             fn=cls.predict,
             # (Callable) - the function to wrap an interface around.

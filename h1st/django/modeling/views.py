@@ -1,5 +1,5 @@
 from inspect import isclass
-from typing import Type, Union
+from typing import Union
 
 from django.http.response import Http404, HttpResponseRedirect
 from polymorphic.base import PolymorphicModelBase
@@ -38,11 +38,7 @@ def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
 
         model_names_or_uuids: list[str] = model.names_or_uuids
 
-    gradio_interface: Union[Interface, Type[NotImplemented]] = model.gradio_ui
-
-    if gradio_interface is NotImplemented:
-        return Http404(f'*** {model} DOES NOT IMPLEMENT A GRADIO UI ***')
-
+    gradio_interface: Interface = model.gradio_ui
     assert isinstance(gradio_interface, Interface), \
         TypeError(f'*** {gradio_interface} NOT A GRADIO INTERFACE ***')
 

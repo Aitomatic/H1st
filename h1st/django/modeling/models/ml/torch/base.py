@@ -1,5 +1,7 @@
 from collections.abc import Sequence
 
+from torch.serialization import load
+
 from .....util import PGSQL_IDENTIFIER_MAX_LEN
 from ....apps import H1stAIModelingModuleConfig
 from ..base import H1stMLModel
@@ -19,6 +21,9 @@ class TorchModel(H1stMLModel):
             ValueError(f'*** "{db_table}" DB TABLE NAME TOO LONG ***')
 
         default_related_name: str = 'h1st_torch_models'
+
+    def load(self):
+        self.native_model_obj = load(f=self.artifact_local_path)
 
 
 # alias

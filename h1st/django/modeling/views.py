@@ -2,6 +2,7 @@ from inspect import isclass
 from typing import Union
 
 from django.http.response import Http404, HttpResponseRedirect
+from polymorphic.base import PolymorphicModelBase
 
 from gradio.inputs import Dropdown
 from gradio.interface import Interface
@@ -11,12 +12,14 @@ from .models import Model
 
 def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
         -> Union[Http404, HttpResponseRedirect]:
-    model_subclasses_by_name = Model.subclasses_by_name
+    model_subclasses_by_name: dict[str, PolymorphicModelBase] = \
+        Model.subclasses_by_name
 
     if model_class_or_instance_name_or_uuid in model_subclasses_by_name:
-        model = model_subclasses_by_name[model_class_or_instance_name_or_uuid]
+        model: PolymorphicModelBase = \
+            model_subclasses_by_name[model_class_or_instance_name_or_uuid]
 
-        model_names_or_uuids = model.names_or_uuids
+        model_names_or_uuids: list[str] = model.names_or_uuids
 
         if not model_names_or_uuids:
             return Http404('*** MODEL CLASS ' +
@@ -25,7 +28,7 @@ def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
 
     else:
         try:
-            model = Model.get_by_name_or_uuid(
+            model: Model = Model.get_by_name_or_uuid(
                 name_or_uuid=model_class_or_instance_name_or_uuid)
 
         except Model.DoesNotExist:
@@ -33,15 +36,15 @@ def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
                            model_class_or_instance_name_or_uuid +
                            ' NOT FOUND ***')
 
-        model_names_or_uuids = model.names_or_uuids
+        model_names_or_uuids: list[str] = model.names_or_uuids
 
-    gradio_interface = model.gradio_ui
+    gradio_interface: Interface = model.gradio_ui
     assert isinstance(gradio_interface, Interface), \
         TypeError(f'*** {gradio_interface} NOT A GRADIO INTERFACE ***')
 
     assert isinstance(gradio_interface.predict, list), \
         TypeError(f'*** {gradio_interface.predict} NOT A LIST ***')
-    f = gradio_interface.predict.pop()
+    f: callable = gradio_interface.predict.pop()
     assert not gradio_interface.predict, \
         ValueError(f'*** {gradio_interface.predict} NOT AN EMPTY LIST ***')
     gradio_interface.predict.append(

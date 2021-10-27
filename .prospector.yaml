@@ -19,3 +19,4 @@ pylint:
     - too-many-ancestors
     - too-many-arguments
     - too-many-return-statements
+    - unused-argument

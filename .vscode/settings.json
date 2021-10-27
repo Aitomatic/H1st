@@ -43,6 +43,7 @@
     "--disable", "too-many-ancestors",
     "--disable", "too-many-arguments",
     "--disable", "too-many-return-statements",
+    "--disable", "unused-argument",
   ],
 
   "python.linting.flake8Enabled": true,

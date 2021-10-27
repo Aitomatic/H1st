@@ -19,4 +19,6 @@ pylint:
     - too-many-ancestors
     - too-many-arguments
     - too-many-return-statements
+    - unsubscriptable-object
+    - unsupported-membership-test
     - unused-argument

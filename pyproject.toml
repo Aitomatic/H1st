@@ -19,9 +19,8 @@ Python = '^3.8'
 
 # DATA MANAGEMENT & PROCESSING
 # ============================
-NumPy = '^1.19'   # >= 1.20 incompat w/ TensorFlow
 Pandas = '^1.3.4'
-PyArrow = '^5.0.0'
+PyArrow = '^6.0.0'
 Ray = {extras = ['tune'], version = '^1.7.1'}
 
 Pillow = '^8.4.0'   # image processing
@@ -33,7 +32,7 @@ Pillow = '^8.4.0'   # image processing
 
 # SciKit-Learn & related
 Auto-SKLearn = '^0.14.0'
-SciKit-Learn = '^0.24.2'   # >= 1.0 incompat w/ Auto-SKLearn
+# SciKit-Learn = '^0.24.2'   # >= 1.0 incompat w/ Auto-SKLearn
 
 # TensorFlow & related
 TensorFlow = '^2.6.0'
@@ -52,7 +51,7 @@ TorchVision = '^0.11.1'
 # Hugging Face & related
 DataSets = '^1.14.0'
 HuggingFace-Hub = '^0.0.19'
-Transformers = '^4.11.3'
+Transformers = '^4.12.0'
 
 SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
@@ -106,11 +105,7 @@ Django = '^3.2.8'
 Django-Polymorphic = '^3.0.0'
 
 # Django Admin Themes
-Django-ForestAdmin = '^1.0.5'
 Django-Jazzmin = '^2.4.8'
-
-# Django Autocomplete
-Django-Autocomplete-Light = '^3.8.2'
 
 # Django GraphQL
 # Ariadne = '^0.13.0'   # ariadne 0.13.0 depends on graphql-core>=3.1.0
@@ -190,7 +185,7 @@ GitPython = '^3.1.24'
 'Ruamel.YAML' = '^0.17.16'
 PSUtil = '^5.8.0'
 Python-DotEnv = '^0.19.1'
-Requests = '2.25.1'   # fixed by Django-ForestAdmin 1.0.5
+Requests = '^2.26.0'
 Tqdm = '^4.62.3'
 
 
@@ -199,6 +194,11 @@ commitizen = "^2.19.0"
 pytest = "^6.2.5"
 pre-commit = "^2.15.0"
 tensorflow = "^2.6.0"
+
+
+[tool.poetry.scripts]
+h1st = 'h1st.django.util.cli:h1st'
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -25,7 +25,7 @@ class PreTrainedHuggingFaceText2TextGenerator(
         PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
         verbose_name: str = 'Pre-Trained Hugging Face Text-to-Text Generator'
-        verbose_name_plural = \
+        verbose_name_plural: str = \
             'Pre-Trained Hugging Face Text-to-Text Generators'
 
         db_table: str = (f'{H1stAIModelingModuleConfig.label}_'

@@ -28,7 +28,7 @@ class PreTrainedHuggingFaceTableQuestionAnswerer(
         PreTrainedHuggingFaceTransformer):
     class Meta(PreTrainedHuggingFaceTransformer.Meta):
         verbose_name: str = 'Pre-Trained Hugging Face Table Question Answerer'
-        verbose_name_plural = \
+        verbose_name_plural: str = \
             'Pre-Trained Hugging Face Table Question Answerers'
 
         db_table: str = (f'{H1stAIModelingModuleConfig.label}_'

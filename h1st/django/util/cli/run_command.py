@@ -49,9 +49,6 @@ def run_command(command: str,
     os.system(command=command)
 
     if copy_standard_files:
-        os.remove(_H1ST_DJANGO_CONFIG_FILE_NAME)
-        assert not os.path.exists(path=_H1ST_DJANGO_CONFIG_FILE_NAME)
-
         if asgi:
             os.remove(_ASGI_PY_FILE_NAME)
             assert not os.path.exists(path=_ASGI_PY_FILE_NAME)

@@ -102,7 +102,7 @@ def deploy(aws_eb_env_name: Optional[str] = None,
            asgi: Optional[str] = None,
            create: bool = False):
     """Deploy H1st onto AWS Elastic Beanstalk."""
-    profile = input('AWS IAM Profile = ')
+    profile = input('AWS IAM Profile: ')
     if not profile:
         profile = 'default'
     region = input('AWS Region: ')

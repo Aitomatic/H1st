@@ -102,15 +102,6 @@ def deploy(aws_eb_env_name: Optional[str] = None,
            asgi: Optional[str] = None,
            create: bool = False):
     """Deploy H1st onto AWS Elastic Beanstalk."""
-    profile = input('AWS IAM Profile: ')
-    if not profile:
-        profile = 'default'
-    region = input('AWS Region: ')
-    vpc = input('AWS VPC: ')
-    subnets = input('AWS Subnets: ')
-    instance_type = input('AWS EC2 Instance Type: ')
-    assert region and vpc and subnets
-
     assert not os.path.exists(path=_EB_EXTENSIONS_DIR_NAME)
     shutil.copytree(
         src=_H1ST_AWS_EB_CLI_UTIL_DIR_PATH / _EB_EXTENSIONS_DIR_NAME,
@@ -142,19 +133,34 @@ def deploy(aws_eb_env_name: Optional[str] = None,
         dirs_exist_ok=False)
     assert os.path.isdir(_PLATFORM_DIR_NAME)
 
-    run_command(
-        command=('eb ' +
-                 ((f'create --region {region} --vpc.id {vpc}'
-                   f' --vpc.dbsubnets {subnets} --vpc.ec2subnets {subnets}'
-                   f' --vpc.elbsubnets {subnets} --vpc.elbpublic'
-                   ' --vpc.publicip'
-                   f' --instance_type {instance_type}')
-                  if create
-                  else 'deploy') +
-                 (f' --profile {profile}'
-                  f" {aws_eb_env_name if aws_eb_env_name else ''}")),
-        copy_standard_files=True,
-        asgi=asgi)
+    if create:
+        profile = input('AWS IAM Profile: ')
+        if not profile:
+            profile = 'default'
+
+        region = input('AWS Region: ')
+        vpc = input('AWS VPC: ')
+        subnets = input('AWS Subnets: ')
+        instance_type = input('AWS EC2 Instance Type: ')
+        assert region and vpc and subnets and instance_type
+
+        run_command(
+            command=(f'eb create --region {region} --vpc.id {vpc}'
+                     f' --vpc.dbsubnets {subnets} --vpc.ec2subnets {subnets}'
+                     f' --vpc.elbsubnets {subnets} --vpc.elbpublic'
+                     ' --vpc.publicip'
+                     f' --instance_type {instance_type}'
+                     f' --profile {profile}'
+                     f" {aws_eb_env_name if aws_eb_env_name else ''}"),
+            copy_standard_files=True,
+            asgi=asgi)
+
+    else:
+        run_command(
+            command=(f'eb deploy --profile {profile}'
+                     f" {aws_eb_env_name if aws_eb_env_name else ''}"),
+            copy_standard_files=True,
+            asgi=asgi)
 
     shutil.rmtree(
         path=_EB_EXTENSIONS_DIR_NAME,

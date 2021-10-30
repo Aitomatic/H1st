@@ -133,11 +133,11 @@ def deploy(aws_eb_env_name: Optional[str] = None,
         dirs_exist_ok=False)
     assert os.path.isdir(_PLATFORM_DIR_NAME)
 
-    if create:
-        profile = input('AWS IAM Profile: ')
-        if not profile:
-            profile = 'default'
+    profile = input('AWS IAM Profile: ')
+    if not profile:
+        profile = 'default'
 
+    if create:
         region = input('AWS Region: ')
         vpc = input('AWS VPC: ')
         subnets = input('AWS Subnets: ')

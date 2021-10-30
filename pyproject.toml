@@ -55,7 +55,7 @@ Transformers = '^4.12.0'
 
 SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
-Torch-Scatter = '^2.0.9'   # Table Question Answering
+# Torch-Scatter = '^2.0.9'   # Table Question Answering
 
 # Topological Data Analysis (TDA) & related
 GUDHI = '^3.4.1'

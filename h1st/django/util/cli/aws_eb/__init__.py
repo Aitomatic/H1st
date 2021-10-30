@@ -133,7 +133,7 @@ def deploy(aws_eb_env_name: Optional[str] = None,
         dirs_exist_ok=False)
     assert os.path.isdir(_PLATFORM_DIR_NAME)
 
-    profile = input('AWS IAM Profile: ')
+    profile = input('AWS CLI Profile: ')
     if not profile:
         profile = 'default'
 

@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Dict, List, Sequence   # TODO: Py3.9: use generics
 from typing import Union
 
 from django.utils.functional import classproperty
@@ -20,7 +20,7 @@ __all__: Sequence[str] = ('PreTrainedHuggingFaceImageClassifier',
 
 
 ImageClassificationInputType = Union[str, Image]
-ImageClassificationOutputType = dict[str, float]
+ImageClassificationOutputType = Dict[str, float]
 
 
 class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
@@ -42,11 +42,11 @@ class PreTrainedHuggingFaceImageClassifier(PreTrainedHuggingFaceTransformer):
                                        Sequence[ImageClassificationInputType]],
                 n_labels: int = 5) \
             -> Union[ImageClassificationOutputType,
-                     list[ImageClassificationOutputType]]:
+                     List[ImageClassificationOutputType]]:
         single_img: bool = isinstance(image_or_images, (str, Image))
 
         if not (single_img or isinstance(image_or_images, list)):
-            image_or_images: list[ImageClassificationInputType] = \
+            image_or_images: List[ImageClassificationInputType] = \
                 list(image_or_images)
 
         self.load()

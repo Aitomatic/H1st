@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import List, Sequence   # TODO: Py3.9: use generics/collections.abc
 from typing import Optional, Union
 
 from django.utils.functional import classproperty
@@ -21,7 +21,7 @@ __all__: Sequence[str] = ('PreTrainedHuggingFaceTranslator',
 
 
 TranslationInputType = str
-TranslationOutputType = Union[str, list[int]]
+TranslationOutputType = Union[str, List[int]]
 
 
 class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
@@ -46,12 +46,11 @@ class PreTrainedHuggingFaceTranslator(PreTrainedHuggingFaceTransformer):
                 src_lang: Optional[str] = None,
                 tgt_lang: Optional[str] = None,
                 **generate_kwargs) \
-            -> Union[TranslationOutputType,
-                     list[TranslationOutputType]]:
+            -> Union[TranslationOutputType, List[TranslationOutputType]]:
         single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts: list[TranslationInputType] = list(text_or_texts)
+            text_or_texts: List[TranslationInputType] = list(text_or_texts)
 
         self.load()
 

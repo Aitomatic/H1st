@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Dict, List, Sequence   # TODO: Py3.9: use generics
 from typing import Union
 
 from django.utils.functional import classproperty
@@ -17,7 +17,7 @@ __all__: Sequence[str] = ('PreTrainedHuggingFaceTextClassifier',
 
 
 TextClassificationInputType = str
-TextClassificationOutputType = dict[str, float]
+TextClassificationOutputType = Dict[str, float]
 
 
 class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
@@ -38,7 +38,7 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
                 text_or_texts: Union[TextClassificationInputType,
                                      Sequence[TextClassificationInputType]]) \
             -> Union[TextClassificationOutputType,
-                     Sequence[TextClassificationOutputType]]:
+                     List[TextClassificationOutputType]]:
         single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):

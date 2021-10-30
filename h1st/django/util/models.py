@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections.abc import Sequence
+from typing import Sequence   # TODO: Py3.9: use generic collections.abc
 from typing import Union
 from uuid import UUID, uuid4
 

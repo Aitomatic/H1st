@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Dict, List, Sequence   # TODO: Py3.9: use generics
 from typing import Optional
 
 from pip._internal.operations.freeze import freeze
@@ -7,11 +7,11 @@ from pip._internal.operations.freeze import freeze
 __all__: Sequence[str] = ('get_python_dependencies',)
 
 
-def get_python_dependencies() -> dict[str, Optional[str]]:
-    d: dict[str, Optional[str]] = {}
+def get_python_dependencies() -> Dict[str, Optional[str]]:
+    d: Dict[str, Optional[str]] = {}
 
     for deps_and_vers in freeze():
-        ls: list[str] = deps_and_vers.split('==')
+        ls: List[str] = deps_and_vers.split('==')
 
         if len(ls) == 2:
             d[ls[0]] = ls[1]

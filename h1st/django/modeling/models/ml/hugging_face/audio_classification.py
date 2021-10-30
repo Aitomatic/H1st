@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Dict, List, Sequence, Tuple   # TODO: Py3.9: use generics
 from typing import Union
 
 from django.utils.functional import classproperty
@@ -20,7 +20,7 @@ __all__: Sequence[str] = ('PreTrainedHuggingFaceAudioClassifier',
 
 
 AudioClassificationInputType = Union[numpy.ndarray, str]
-AudioClassificationOutputType = dict[str, float]
+AudioClassificationOutputType = Dict[str, float]
 
 
 class PreTrainedHuggingFaceAudioClassifier(PreTrainedHuggingFaceTransformer):
@@ -43,11 +43,11 @@ class PreTrainedHuggingFaceAudioClassifier(PreTrainedHuggingFaceTransformer):
                           Sequence[AudioClassificationInputType]],
                 n_labels: int = 5) \
             -> Union[AudioClassificationOutputType,
-                     list[AudioClassificationOutputType]]:
+                     List[AudioClassificationOutputType]]:
         single_audio: bool = isinstance(audio_or_audios, (numpy.ndarray, str))
 
         if not (single_audio or isinstance(audio_or_audios, list)):
-            audio_or_audios: list[AudioClassificationInputType] = \
+            audio_or_audios: List[AudioClassificationInputType] = \
                 list(audio_or_audios)
 
         self.load()
@@ -63,8 +63,8 @@ class PreTrainedHuggingFaceAudioClassifier(PreTrainedHuggingFaceTransformer):
     def gradio_ui(cls) -> Interface:
         def _predict(self,
                      sampling_rate_and_double_channel_audio_array:
-                     tuple[int, numpy.ndarray],
-                     n_labels: int = 5) -> dict[str, float]:
+                     Tuple[int, numpy.ndarray],
+                     n_labels: int = 5) -> Dict[str, float]:
             _sampling_rate, double_channel_audio_array = \
                 sampling_rate_and_double_channel_audio_array
 

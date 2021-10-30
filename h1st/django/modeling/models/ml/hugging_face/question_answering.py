@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Dict, List, Sequence   # TODO: Py3.9: use generics
 from typing import Union
 
 from django.utils.functional import classproperty
@@ -48,12 +48,12 @@ class PreTrainedHuggingFaceQuestionAnswerer(PreTrainedHuggingFaceTransformer):
                 max_seq_len: int = 384,
                 max_question_len: int = 64,
                 handle_impossible_answer: bool = False) \
-            -> Union[QuestionAnswerOutputType, list[QuestionAnswerOutputType]]:
+            -> Union[QuestionAnswerOutputType, List[QuestionAnswerOutputType]]:
         if not isinstance(question, (str, list)):
-            question: list[QuestionAnswerInputType] = list(question)
+            question: List[QuestionAnswerInputType] = list(question)
 
         if not isinstance(context, (str, list)):
-            context: list[QuestionAnswerInputType] = list(context)
+            context: List[QuestionAnswerInputType] = list(context)
 
         self.load()
 

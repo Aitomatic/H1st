@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from collections.abc import Sequence
+from typing import Sequence   # TODO: Py3.9: use generic collections.abc
 from json.decoder import JSONDecoder
 from typing import Any, Optional
 

@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import List, Sequence   # TODO: Py3.9: use generics/collections.abc
 from typing import Union
 
 from django.utils.functional import classproperty
@@ -18,7 +18,7 @@ __all__: Sequence[str] = ('PreTrainedHuggingFaceTextSummarizer',
 
 
 TextSummarizationInputType = str
-TextSummarizationOutputType = Union[str, list[int]]
+TextSummarizationOutputType = Union[str, List[int]]
 
 
 class PreTrainedHuggingFaceTextSummarizer(PreTrainedHuggingFaceTransformer):
@@ -43,11 +43,11 @@ class PreTrainedHuggingFaceTextSummarizer(PreTrainedHuggingFaceTransformer):
                 clean_up_tokenization_spaces: bool = True,
                 **generate_kwargs) \
             -> Union[TextSummarizationOutputType,
-                     list[TextSummarizationOutputType]]:
+                     List[TextSummarizationOutputType]]:
         single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts: list[TextSummarizationInputType] = \
+            text_or_texts: List[TextSummarizationInputType] = \
                 list(text_or_texts)
 
         self.load()

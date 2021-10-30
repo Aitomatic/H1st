@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Sequence   # TODO: Py3.9: use generic collections.abc
 from functools import wraps
 from importlib import import_module
 from inspect import FullArgSpec, getfullargspec, isfunction, ismethod

@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Dict, List, Sequence, Tuple   # TODO: Py3.9: use generics
 from typing import Any, Union
 
 from django.utils.functional import classproperty
@@ -21,7 +21,7 @@ __all__: Sequence[str] = ('PreTrainedHuggingFaceObjectDetector',
 
 
 ObjectDetectionInputType = Union[str, Image]
-ObjectDetectionOutputType = list[dict]
+ObjectDetectionOutputType = List[dict]
 
 
 class PreTrainedHuggingFaceObjectDetector(PreTrainedHuggingFaceTransformer):
@@ -43,9 +43,9 @@ class PreTrainedHuggingFaceObjectDetector(PreTrainedHuggingFaceTransformer):
                                        Sequence[ObjectDetectionInputType]],
                 threshold: float = 0.9) \
             -> Union[ObjectDetectionOutputType,
-                     Sequence[ObjectDetectionOutputType]]:
+                     List[ObjectDetectionOutputType]]:
         if not isinstance(image_or_images, (str, Image, list)):
-            image_or_images: list[ObjectDetectionInputType] = \
+            image_or_images: List[ObjectDetectionInputType] = \
                 list(image_or_images)
 
         self.load()
@@ -55,14 +55,14 @@ class PreTrainedHuggingFaceObjectDetector(PreTrainedHuggingFaceTransformer):
 
     @classproperty
     def gradio_ui(cls) -> Interface:
-        BoundingBoxType = tuple[str, int, int, int, int]   # noqa: N806
+        BoundingBoxType = Tuple[str, int, int, int, int]   # noqa: N806
 
         def _predict(self, img: Image, threshold: float = 0.9) \
-                -> tuple[Image, list[BoundingBoxType]]:
-            detected_objs: list[dict[str, Any]] = \
+                -> Tuple[Image, List[BoundingBoxType]]:
+            detected_objs: List[Dict[str, Any]] = \
                 cls.predict(self, image_or_images=img, threshold=threshold)
 
-            bounding_boxes: list[BoundingBoxType] = []
+            bounding_boxes: List[BoundingBoxType] = []
             for i in detected_objs:
                 box_coords = i['box']
                 bounding_boxes.append((i['label'],
@@ -100,7 +100,7 @@ class PreTrainedHuggingFaceObjectDetector(PreTrainedHuggingFaceTransformer):
             # the number of parameters in fn.
 
             outputs=[ImageOutputComponent(type='pil',
-                                          labeled_segments=True,
+                                          # labeled_segments=True,  # TODO: fix
                                           label='Detected Objects'),
 
                      JSONOutputComponent(label='Detected Objects')],

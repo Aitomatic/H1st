@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import List, Sequence   # TODO: Py3.9: use generics
 from typing import Union
 
 from django.utils.functional import classproperty
@@ -47,7 +47,7 @@ class PreTrainedHuggingFaceTableQuestionAnswerer(
                 padding: Union[bool, str] = False,
                 truncation: Union[bool, str] = False) \
             -> Union[TableQuestionAnswerOutputType,
-                     list[TableQuestionAnswerOutputType]]:
+                     List[TableQuestionAnswerOutputType]]:
         self.load()
 
         return self.native_model_obj(table=table, query=queries,

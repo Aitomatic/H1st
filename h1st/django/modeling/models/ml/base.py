@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from collections.abc import Sequence
+from typing import Dict, Sequence   # TODO: Py3.9: use generic collections.abc
 from typing import Any, Optional
 
 from django.db.models.fields import CharField
@@ -120,7 +120,7 @@ class PyLoadablePreTrainedMLModel(MLModel):
         return import_obj(self.py_loader_module_and_qualname)
 
     @property
-    def init_params(self) -> dict[str, Any]:
+    def init_params(self) -> Dict[str, Any]:
         return ({} if self.params is None else self.params).get('__init__', {})
 
     def load(self) -> None:

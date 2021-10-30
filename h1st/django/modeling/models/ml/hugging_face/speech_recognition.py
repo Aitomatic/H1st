@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import List, Sequence   # TODO: Py3.9: use generics
 from tempfile import NamedTemporaryFile
 from typing import Union
 
@@ -43,12 +43,12 @@ class PreTrainedHuggingFaceSpeechRecognizer(PreTrainedHuggingFaceTransformer):
                     Union[SpeechRecognitionInputType,
                           Sequence[SpeechRecognitionInputType]]) \
             -> Union[SpeechRecognitionOutputType,
-                     list[SpeechRecognitionOutputType]]:
+                     List[SpeechRecognitionOutputType]]:
         single_speech: bool = isinstance(speech_or_speeches, (numpy.ndarray,
                                                               str))
 
         if not (single_speech or isinstance(speech_or_speeches, list)):
-            speech_or_speeches: list[SpeechRecognitionInputType] = \
+            speech_or_speeches: List[SpeechRecognitionInputType] = \
                 list(speech_or_speeches)
 
         self.load()

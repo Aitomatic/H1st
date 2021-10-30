@@ -1,5 +1,5 @@
-from collections.abc import Generator, Sequence
 from json.decoder import JSONDecoder
+from typing import Dict, Generator, List, Sequence
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.fields.json import JSONField
@@ -67,23 +67,23 @@ class Model(PolymorphicModel,
             yield from s._subclasses
 
     @classproperty
-    def subclasses(cls) -> list[PolymorphicModelBase]:
+    def subclasses(cls) -> List[PolymorphicModelBase]:
         return list(cls._subclasses)
 
     @classproperty
-    def subclass_names(cls) -> list[str]:
+    def subclass_names(cls) -> List[str]:
         return [s.__name__ for s in cls._subclasses]
 
     @classproperty
-    def subclasses_by_name(cls) -> dict[str, PolymorphicModelBase]:
+    def subclasses_by_name(cls) -> Dict[str, PolymorphicModelBase]:
         return {s.__name__: s for s in cls._subclasses}
 
     @classproperty
-    def subclass_full_qual_names(cls) -> list[str]:
+    def subclass_full_qual_names(cls) -> List[str]:
         return [full_qual_name(s) for s in cls._subclasses]
 
     @classproperty
-    def subclasses_by_full_qual_name(cls) -> dict[str, PolymorphicModelBase]:
+    def subclasses_by_full_qual_name(cls) -> Dict[str, PolymorphicModelBase]:
         return {full_qual_name(s): s for s in cls._subclasses}
 
     @classproperty

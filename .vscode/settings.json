@@ -43,6 +43,7 @@
     "--disable", "too-many-ancestors",
     "--disable", "too-many-arguments",
     "--disable", "too-many-return-statements",
+    "--disable", "ungrouped-imports",
     "--disable", "unsubscriptable-object",
     "--disable", "unsupported-membership-test",
     "--disable", "unused-argument",

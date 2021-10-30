@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import List, Sequence   # TODO: Py3.9: use generic collections.abc
 from typing import Union
 
 from django.utils.functional import classproperty
@@ -48,7 +48,7 @@ class GoogleCloudTranslationServiceModel(CloudServiceModel):
     def predict(self,
                 text_or_texts: Union[str, Sequence[str]],
                 src_lang: str = 'auto', target_lang: str = 'en') \
-            -> Union[str, list[str]]:
+            -> Union[str, List[str]]:
         self.load()
 
         result = self.client.translate(text_or_texts,
@@ -79,7 +79,7 @@ class GoogleTranslateServiceModel(CloudServiceModel):
     @enable_dict_io
     def predict(self,
                 text_or_texts: Union[str, Sequence[str]],
-                src: str = 'auto', dest: str = 'en') -> Union[str, list[str]]:
+                src: str = 'auto', dest: str = 'en') -> Union[str, List[str]]:
         self.load()
 
         return (self.client.translate(text=text_or_texts,

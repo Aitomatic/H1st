@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Dict, List, Sequence   # TODO: Py3.9: use generics
 from io import BytesIO
 from typing import Union
 
@@ -22,7 +22,7 @@ __all__: Sequence[str] = ('PreTrainedTorchVisionImageNetClassifier',
 
 
 InputImageDataType = Union[str, BytesIO, Image.Image, numpy.ndarray]
-OutputImageClassificationType = dict[str, float]
+OutputImageClassificationType = Dict[str, float]
 
 
 class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
@@ -45,7 +45,7 @@ class PreTrainedTorchVisionImageNetClassifier(H1stPyLoadablePreTrainedMLModel):
                                        Sequence[InputImageDataType]],
                 n_labels: int = 5) \
             -> Union[OutputImageClassificationType,
-                     list[OutputImageClassificationType]]:
+                     List[OutputImageClassificationType]]:
         return ...
 
     @classproperty

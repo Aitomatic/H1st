@@ -1,4 +1,4 @@
-from collections.abc import Sequence
+from typing import Sequence   # TODO: Py3.9: use generic collections.abc
 
 from ...util import PGSQL_IDENTIFIER_MAX_LEN
 from ..apps import H1stAIDataManagementModuleConfig

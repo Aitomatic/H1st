@@ -1,7 +1,7 @@
 from inspect import isclass
 from typing import Union
 
-from django.http.response import Http404, HttpResponseRedirect
+from django.http.response import Http404, HttpResponsePermanentRedirect
 from polymorphic.base import PolymorphicModelBase
 
 from gradio.inputs import Dropdown
@@ -11,7 +11,7 @@ from .models import Model
 
 
 def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
-        -> Union[Http404, HttpResponseRedirect]:
+        -> Union[Http404, HttpResponsePermanentRedirect]:
     model_subclasses_by_name: dict[str, PolymorphicModelBase] = \
         Model.subclasses_by_name
 
@@ -93,4 +93,4 @@ def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
             private_endpoint=None,
             prevent_thread_lock=False)
 
-    return HttpResponseRedirect(redirect_to=gradio_share_url)
+    return HttpResponsePermanentRedirect(redirect_to=gradio_share_url)

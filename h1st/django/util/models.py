@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Sequence   # TODO: Py3.9: use generic collections.abc
+from typing import List, Sequence   # TODO: Py3.9: use generics/collections.abc
 from typing import Union
 from uuid import UUID, uuid4
 
@@ -189,7 +189,7 @@ class _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps(_ModelWithUUIDPK,
         return self.name if self.name else self.uuid
 
     @classproperty
-    def names_or_uuids(cls) -> list[str]:
+    def names_or_uuids(cls) -> List[str]:
         return [(name if name else uuid)
                 for name, uuid in cls.objects.values_list('name', 'uuid')]
 

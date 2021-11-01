@@ -1,5 +1,5 @@
 from inspect import isclass
-from typing import Union
+from typing import Dict, List, Sequence, Union   # Py3.9+: use generics
 
 from django.http.response import Http404, HttpResponsePermanentRedirect
 from polymorphic.base import PolymorphicModelBase
@@ -10,16 +10,19 @@ from gradio.interface import Interface
 from .models import Model
 
 
+__all__: Sequence[str] = ('launch_gradio_ui',)
+
+
 def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
         -> Union[Http404, HttpResponsePermanentRedirect]:
-    model_subclasses_by_name: dict[str, PolymorphicModelBase] = \
+    model_subclasses_by_name: Dict[str, PolymorphicModelBase] = \
         Model.subclasses_by_name
 
     if model_class_or_instance_name_or_uuid in model_subclasses_by_name:
         model: PolymorphicModelBase = \
             model_subclasses_by_name[model_class_or_instance_name_or_uuid]
 
-        model_names_or_uuids: list[str] = model.names_or_uuids
+        model_names_or_uuids: List[str] = model.names_or_uuids
 
         if not model_names_or_uuids:
             return Http404('*** MODEL CLASS ' +
@@ -36,7 +39,7 @@ def launch_gradio_ui(request, model_class_or_instance_name_or_uuid: str) \
                            model_class_or_instance_name_or_uuid +
                            ' NOT FOUND ***')
 
-        model_names_or_uuids: list[str] = model.names_or_uuids
+        model_names_or_uuids: List[str] = model.names_or_uuids
 
     gradio_interface: Interface = model.gradio_ui
 

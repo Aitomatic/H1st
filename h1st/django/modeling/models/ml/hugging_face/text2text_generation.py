@@ -1,4 +1,4 @@
-from typing import Dict, List, Sequence   # TODO: Py3.9: use generics
+from typing import List, Sequence   # TODO: Py3.9: use generics/collections.abc
 from typing import Union
 
 from django.utils.functional import classproperty

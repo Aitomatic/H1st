@@ -1,4 +1,4 @@
-from typing import Sequence   # TODO: Py3.9: use generic collections.abc
+from typing import Dict, Sequence   # TODO: Py3.9: use generics/collections.abc
 from functools import wraps
 from importlib import import_module
 from inspect import FullArgSpec, getfullargspec, isfunction, ismethod
@@ -57,7 +57,7 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
                     ValueError('*** H1ST GRAPHS DO NOT TAKE KWARGS ***')
 
                 if (len(args) == 2) and isinstance(args[1], dict):
-                    d: dict[str, Any] = args[1]
+                    d: Dict[str, Any] = args[1]
 
                 else:
                     non_self_args: tuple[Any] = args[1:]
@@ -68,7 +68,7 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
                             f'*** NO. OF PROVIDED ARGS {non_self_args}'
                             f'EXCEEDS NO. OF EXPECTED ARGS {self.args} ***')
 
-                    d: dict[str, Any] = dict(zip(self.args[:n_non_self_args],
+                    d: Dict[str, Any] = dict(zip(self.args[:n_non_self_args],
                                                  non_self_args))
 
                 LOGGER.info(msg=f'{self} .__call__( {d} )')
@@ -79,7 +79,7 @@ def enable_dict_io(f: CallableTypeVar) -> CallableTypeVar:
                 d: Any = args[1]
 
                 if isinstance(d, dict):
-                    _d: dict[str, Any] = {k: v
+                    _d: Dict[str, Any] = {k: v
                                           for k, v in d.items()
                                           if k in arg_spec.args}
 

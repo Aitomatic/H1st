@@ -64,7 +64,7 @@ class PreTrainedHuggingFaceMaskFiller(PreTrainedHuggingFaceTransformer):
                      targets: Optional[List[str]] = None,
                      n_labels: int = 5) -> Dict[str, float]:
             if targets:
-                targets: list[str] = [s for s in targets if s]
+                targets: List[str] = [s for s in targets if s]
 
             return cls.predict(self,
                                text_or_texts=text,

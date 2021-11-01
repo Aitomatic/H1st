@@ -42,7 +42,7 @@ class PreTrainedHuggingFaceTextClassifier(PreTrainedHuggingFaceTransformer):
         single_text: bool = isinstance(text_or_texts, str)
 
         if not (single_text or isinstance(text_or_texts, list)):
-            text_or_texts: list[TextClassificationInputType] = \
+            text_or_texts: List[TextClassificationInputType] = \
                 list(text_or_texts)
 
         self.load()

@@ -50,7 +50,7 @@ TorchVision = '^0.11.1'
 
 # Hugging Face & related
 DataSets = '^1.14.0'
-HuggingFace-Hub = '^0.1.0'
+HuggingFace-Hub = '^0.0.19'   # fixed by DataSets
 Transformers = '^4.12.2'
 
 SentencePiece = '^0.1.96'   # Translation

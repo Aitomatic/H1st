@@ -21,7 +21,7 @@ Python = '^3.8'
 # ============================
 Pandas = '^1.3.4'
 PyArrow = '^6.0.0'
-Ray = {extras = ['tune'], version = '^1.7.1'}
+Ray = {extras = ['tune'], version = '^1.8.0'}
 
 Pillow = '^8.4.0'   # image processing
 # Pillow-SIMD = '^7.0.0'   # complex to install
@@ -35,7 +35,7 @@ Auto-SKLearn = '^0.14.0'
 # SciKit-Learn = '^0.24.2'   # >= 1.0 incompat w/ Auto-SKLearn
 
 # TensorFlow & related
-TensorFlow = '^2.6.0'
+TensorFlow = '^2.6.1'
 TensorFlow-DataSets = '^4.4.0'
 TensorFlow-Hub = '^0.12.0'
 
@@ -50,8 +50,8 @@ TorchVision = '^0.11.1'
 
 # Hugging Face & related
 DataSets = '^1.14.0'
-HuggingFace-Hub = '^0.0.19'
-Transformers = '^4.12.0'
+HuggingFace-Hub = '^0.1.0'
+Transformers = '^4.12.2'
 
 SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
@@ -99,12 +99,13 @@ GraphViz = '^0.17'
 # ========================================
 
 # Django Core
-Django = '^3.2.8'
+Django = '^3.2.9'
 
 # Django Polymorphic Models
 Django-Polymorphic = '^3.0.0'
 
 # Django Admin Themes
+Django-ForestAdmin = '^1.0.5'
 Django-Jazzmin = '^2.4.8'
 
 # Django GraphQL
@@ -135,14 +136,14 @@ Django-Model-Query-Graphs = '^0.0.5'
 Django-Debug-Toolbar = '^3.2.2'
 Django-Query-Profiler = '^0.8'
 Django-Silk = '^4.2.0'
-Kolo = '^1.1.3'
+Kolo = '^1.2.1'
 
 # Django Extensions & Utilities
 Django-Compressor = '2.4.1'
 Django-Environ = '^0.8.1'
 Django-Extensions = '^3.1.3'
 Django-Model-Utils = '^4.2.0'
-Django-Storages = '^1.12.2'
+Django-Storages = '^1.12.3'
 
 # Django CORS Headers
 Django-CORS-Headers = '3.7.0'   # fixed by Django-ForestAdmin 1.0.5
@@ -151,12 +152,12 @@ Django-CORS-Headers = '3.7.0'   # fixed by Django-ForestAdmin 1.0.5
 Django-HTMX = '^1.6.0'
 
 Django-Plotly-Dash = '^1.6.6'
-Dash-Bootstrap-Components = '^0.13.1'
+Dash-Bootstrap-Components = '^0.13.1'   # compat w/ Django-Plotly-Dash
 DPD-Static-Support = '^0.0.5'
 Django-Bootstrap4 = '^3.0.1'
 WhiteNoise = '^5.3.0'
 
-Gradio = '^2.3.9'
+Gradio = '^2.4.1'
 
 Streamlit = '^1.1.0'
 Watchdog = '^2.1.6'   # better performance for Streamlit
@@ -177,7 +178,7 @@ Uvicorn = '^0.15.0'
 # COMMAND-LINE INTERFACE (CLI)
 # ============================
 Click = '^7.1.2'   # aligned with Streamlit
-Colored = '^1.4.2'
+Colored = '^1.4.3'
 
 
 # JUPYTER

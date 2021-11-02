@@ -8,6 +8,7 @@ from django.utils.functional import classproperty
 from polymorphic.base import PolymorphicModelBase
 from polymorphic.models import PolymorphicModel
 
+from dash_html_components import html
 from django_plotly_dash import DjangoDash
 
 from gradio.interface import Interface
@@ -88,7 +89,19 @@ class Model(PolymorphicModel,
 
     @classproperty
     def dash_ui(cls) -> DjangoDash:
-        return NotImplemented
+        app = DjangoDash(name=cls.__name__,
+                         serve_locally=False,
+                         add_bootstrap_links=True,
+                         suppress_callback_exceptions=False,
+                         external_stylesheets=None,
+                         external_scripts=None)
+
+        app.layout = html.Div([
+            'Please override the `dash_ui` classproperty to create a Dash UI '
+            f'for the "{cls._meta.verbose_name}" AI model class'
+        ])
+
+        return app
 
     @classproperty
     def gradio_ui(cls) -> Interface:
@@ -174,7 +187,9 @@ class Model(PolymorphicModel,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 
-            description='A H1st Model',
+            description=('Please override the `gradio_ui` classproperty '
+                         'to create a Gradio UI for '
+                         f'the "{cls._meta.verbose_name}" H1st model class'),
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 

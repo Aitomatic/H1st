@@ -1,3 +1,4 @@
+from functools import partial
 from typing import Sequence   # TODO: Py3.9: use generic collections.abc
 
 from django.urls.conf import include, path
@@ -6,7 +7,7 @@ from django.urls.resolvers import URLPattern
 from rest_framework.routers import BaseRouter, DefaultRouter
 
 from .api.rest.views import H1stModelViewSet, ModelExecAPIView
-from .views import launch_gradio_ui
+from .views import model_ui
 
 
 __all__: Sequence[str] = ('urlpatterns',)
@@ -26,7 +27,11 @@ urlpatterns: Sequence[URLPattern] = (
          view=ModelExecAPIView.as_view(),
          kwargs=None, name=None),
 
+    path(route='<str:model_class_or_instance_name_or_uuid>/dash/',
+         view=partial(model_ui, ui_type='dash'),
+         kwargs=None, name=None),
+
     path(route='<str:model_class_or_instance_name_or_uuid>/gradio/',
-         view=launch_gradio_ui,
+         view=partial(model_ui, ui_type='gradio'),
          kwargs=None, name=None),
 )

@@ -8,7 +8,7 @@ from django.utils.functional import classproperty
 from polymorphic.base import PolymorphicModelBase
 from polymorphic.models import PolymorphicModel
 
-from dash_html_components import html
+import dash_html_components as html
 from django_plotly_dash import DjangoDash
 
 from gradio.interface import Interface
@@ -98,7 +98,7 @@ class Model(PolymorphicModel,
 
         app.layout = html.Div([
             'Please override the `dash_ui` classproperty to create a Dash UI '
-            f'for the "{cls._meta.verbose_name}" AI model class'
+            f'for the "{cls._meta.verbose_name}" H1st model class'
         ])
 
         return app

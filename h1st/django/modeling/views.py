@@ -57,7 +57,7 @@ def model_ui(request: HttpRequest,
         django_dash_stateless_app: StatelessApp = \
             StatelessApp.objects.get_or_create(
                 app_name=model_class_or_instance_name_or_uuid)[0]
-        django_dash_stateless_app.as_dash_app = lambda self: dash_ui
+        django_dash_stateless_app._stateless_dash_app_instance = dash_ui
 
         django_dash_app: DashApp = \
             DashApp.objects.get_or_create(

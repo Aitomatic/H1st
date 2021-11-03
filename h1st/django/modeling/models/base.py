@@ -8,8 +8,11 @@ from django.utils.functional import classproperty
 from polymorphic.base import PolymorphicModelBase
 from polymorphic.models import PolymorphicModel
 
-import dash_html_components as html
 from django_plotly_dash import DjangoDash
+from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
+import dash_core_components as dcc
+import dash_html_components as html
 
 from gradio.interface import Interface
 from gradio.outputs import JSON as JSONOutputComponent
@@ -93,13 +96,231 @@ class Model(PolymorphicModel,
                          serve_locally=False,
                          add_bootstrap_links=True,
                          suppress_callback_exceptions=False,
-                         external_stylesheets=None,
+                         external_stylesheets=[dbc.themes.SUPERHERO],
                          external_scripts=None)
 
-        app.layout = html.Div([
-            'Please override the `dash_ui` classproperty to create a Dash UI '
-            f'for the "{cls._meta.verbose_name}" H1st model class'
-        ])
+        app.layout = html.Div(children=[
+            html.H1(
+                'Override the `dash_ui` classproperty to create a Dash UI for '
+                f'{cls._meta.verbose_name_plural}'),
+
+            dcc.Dropdown(
+                id='ai-model-dropdown',
+                # (string; optional):
+                # The ID of this component,
+                # used to identify dash components in callbacks.
+                # The ID needs to be unique across all of the app's components.
+
+                className='dropdown',
+                # (string; optional): className of the dropdown element.
+
+                clearable=True,
+                # (boolean; default True):
+                # Whether or not the dropdown is "clearable",
+                # that is, whether or not a small "x" appears on the right
+                # of the dropdown that removes the selected value.
+
+                disabled=False,
+                # (boolean; default False):
+                # If True, this dropdown is disabled and the selection
+                # cannot be changed.
+
+                loading_state=None,
+                # (dict; optional):
+                # Object that holds the loading state object
+                # coming from dash-renderer.
+                # loading_state is a dict with keys:
+                # - component_name (string; optional):
+                #     Holds the name of the component that is loading.
+                # - is_loading (boolean; optional):
+                #     Determines if the component is loading or not.
+                # - prop_name (string; optional):
+                #     Holds which property is loading.
+
+                multi=False,
+                # (boolean; default False):
+                # If True, the user can select multiple values.
+
+                optionHeight=48,
+                # (number; default 35): height of each option.
+                # Can be increased when label lengths would wrap around.
+
+                options=[dict(disabled=False, label=i, title=i, value=i)
+                         for i in cls.names_or_uuids],
+                # (list of dicts; optional): An array of options
+                # {label: [string|number], value: [string|number]},
+                # an optional disabled field can be used for each option.
+                # options is a list of dicts with keys:
+                # - disabled (boolean; optional):
+                #     If True, this option is disabled and cannot be selected.
+                # - label (string | number; required): The dropdown's label.
+                # - title (string; optional):
+                #     The HTML 'title' attribute for the option.
+                #     Allows for information on hover.
+                #     For more information on this attribute, see
+                # developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title.
+                # - value (string | number; required):
+                #     The value of the dropdown.
+                #     This value corresponds to the items specified
+                #     in the value property.
+
+                persisted_props=['value'],
+                # (list of values equal to: 'value'; default ['value']):
+                # Properties whose user interactions will persist
+                # after refreshing the component or the page. Since only value
+                # is allowed this prop can normally be ignored.
+
+                persistence=True,
+                # (boolean | string | number; optional):
+                # Used to allow user interactions in this component
+                # to be persisted when the component - or the page -
+                # is refreshed. If persisted is truthy and hasn't changed
+                # from its previous value, a value that the user has changed
+                # while using the app will keep that change,
+                # as long as the new value also matches what was given
+                # originally. Used in conjunction with persistence_type.
+
+                persistence_type='session',
+                # (a value equal to: 'local', 'session' or 'memory';
+                # default 'local'):
+                # Where persisted user changes will be stored:
+                # - memory: only kept in memory, reset on page refresh.
+                # - local: window.localStorage,
+                #          data is kept after the browser quit.
+                # - session: window.sessionStorage,
+                #            data is cleared once the browser quit.
+
+                placeholder='AI Model Name or UUID',
+                # (string; optional):
+                # The grey, default text shown when no option is selected.
+
+                search_value=None,
+                # (string; optional):
+                # The value typed in the DropDown for searching.
+
+                searchable=True,
+                # (boolean; default True):
+                # Whether to enable the searching feature or not.
+
+                style=None,
+                # (dict; optional):
+                # Defines CSS styles which will override styles previously set.
+
+                value=None,
+                # (string | number | list of strings | numbers; optional):
+                # The value of the input.
+                # If multi is False (the default) then value is
+                # just a string that corresponds to the values provided
+                # in the options property.
+                # If multi is True,
+                # then multiple values can be selected at once,
+                # and value is an array of items with values corresponding
+                # to those in the options prop.
+            ),
+
+            html.Div(id='ai-model-dropdown-output-container')
+        ],
+            # (list of or a singular dash component, string or number;
+            # optional): The children of this component.
+
+            # id=...,
+            # (string; optional): The ID of this component,
+            # used to identify dash components in callbacks.
+            # The ID needs to be unique across all of the components in an app.
+
+            accessKey=None,
+            # (string; optional):
+            # Keyboard shortcut to activate or add focus to the element.
+
+            # aria-* (string; optional): A wildcard aria attribute.
+
+            className=None,
+            # (string; optional):
+            # Often used with CSS to style elements with common properties.
+
+            contentEditable=True,
+            # (string; optional):
+            # Indicates whether the element's content is editable.
+
+            contextMenu=None,
+            # (string; optional):
+            # Defines the ID of a <menu> element
+            # which will serve as the element's context menu.
+
+            # data-* (string; optional): A wildcard data attribute.
+
+            dir='ltr',
+            # (string; optional): Defines the text direction.
+            # Allowed values are ltr (Left-To-Right) or rtl (Right-To-Left).
+
+            draggable=True,
+            # (string; optional): Defines whether the element can be dragged.
+
+            hidden=False,
+            # (a value equal to: 'hidden' or 'HIDDEN' | boolean; optional):
+            # Prevents rendering of given element,
+            # while keeping child elements, e.g. script elements, active.
+
+            key=None,
+            # (string; optional): A unique identifier for the component,
+            # used to improve performance by React.js while rendering
+            # components. See https://reactjs.org/docs/lists-and-keys.html
+            # for more info.
+
+            lang='en',
+            # (string; optional): Defines the language used in the element.
+
+            loading_state=None,
+            # (dict; optional):
+            # Object that holds the loading state object
+            # coming from dash-renderer.
+            # loading_state is a dict with keys:
+            # - component_name (string; optional):
+            #     Holds the name of the component that is loading.
+            # - is_loading (boolean; optional):
+            #     Determines if the component is loading or not.
+            # - prop_name (string; optional):
+            # Holds which property is loading.
+
+            n_clicks=0,
+            # (number; default 0):
+            # An integer that represents the number of times that
+            # this element has been clicked on.
+
+            n_clicks_timestamp=-1,
+            # (number; default -1):
+            # An integer that represents the time (in ms since 1970)
+            # at which n_clicks changed.
+            # This can be used to tell which button was changed most recently.
+
+            role=None,
+            # (string; optional): The ARIA role attribute.
+
+            spellCheck=True,
+            # (string; optional):
+            # Indicates whether spell checking is allowed for the element.
+
+            style={'height': '88%', 'width': '88%'},
+            # (dict; optional):
+            # Defines CSS styles which will override styles previously set.
+
+            tabIndex=None,
+            # (string; optional):
+            # Overrides the browser's default tab order and
+            # follows the one specified instead.
+
+            title=None
+            # (string; optional):
+            # Text to be displayed in a tooltip when hovering over the element.
+        )
+
+        @app.callback(Output(component_id='ai-model-dropdown-output-container',
+                             component_property='children'),
+                      Input(component_id='ai-model-dropdown',
+                            component_property='value'))
+        def update_ai_model_dropdown_output(value):
+            if value:
+                return f'{value} selected'
 
         return app
 
@@ -187,9 +408,8 @@ class Model(PolymorphicModel,
             # (str) - a title for the interface;
             # if provided, appears above the input and output components.
 
-            description=('Please override the `gradio_ui` classproperty '
-                         'to create a Gradio UI for '
-                         f'the "{cls._meta.verbose_name}" H1st model class'),
+            description=('Override the `gradio_ui` classproperty to create a '
+                         f'Gradio UI for {cls._meta.verbose_name_plural}'),
             # (str) - a description for the interface;
             # if provided, appears above the input and output components.
 

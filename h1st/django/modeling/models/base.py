@@ -190,7 +190,7 @@ class Model(PolymorphicModel,
                 # - session: window.sessionStorage,
                 #            data is cleared once the browser quit.
 
-                placeholder='AI Model Name or UUID',
+                placeholder='H1st Model Name or UUID',
                 # (string; optional):
                 # The grey, default text shown when no option is selected.
 

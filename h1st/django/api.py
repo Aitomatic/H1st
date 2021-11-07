@@ -1,3 +1,6 @@
+"""H1st Django public API."""
+
+
 from typing import Sequence   # TODO: Py3.9: use generic collections.abc
 
 from .data_mgmt.api import (DataSchema,

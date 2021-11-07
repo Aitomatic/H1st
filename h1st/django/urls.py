@@ -1,3 +1,6 @@
+"""H1st Django URLs."""
+
+
 from typing import Sequence   # TODO: Py3.9: use generic collections.abc
 
 from django.urls.conf import include, path

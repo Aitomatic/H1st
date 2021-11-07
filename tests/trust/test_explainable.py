@@ -1,4 +1,6 @@
-import unittest
+import os
+import urllib.parse
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -8,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from h1st.model.ml_model import MLModel
 
 
-class TestModelExplainable(MLModel):
+class ExplainableModel(MLModel):
     def __init__(self):
         super().__init__()
         self.dataset_name = "WineQuality"
@@ -22,7 +24,7 @@ class TestModelExplainable(MLModel):
         self.prepared_data = None
 
     def load_data(self):
-        filename = "./examples/Trust/data/wine_quality.csv"
+        filename = "./tests/trust/wine_quality.csv"
         df = pd.read_csv(filename)
         df["quality"] = df["quality"].astype(int)
         return df.reset_index(drop=True)
@@ -64,14 +66,14 @@ class TestModelExplainable(MLModel):
         return self.metrics
 
 
-class TestExplainable(unittest.TestCase):
+class TestExplainable():
     def test_explainable(self):
-        m = TestModelExplainable()
+        m = ExplainableModel()
         data = m.load_data()
         prepared_data = m.prep_data(data)
         m.train(prepared_data)
         idx = 4
         decision = m.prepared_data["train_df"].iloc[idx], m.prepared_data["train_labels"].iloc[idx]
         explainer = m.explain(decision=decision)
-        self.assertEqual(len(explainer.lime_explainer.explainer.feature_names), len(m.features))
-        self.assertIsInstance(explainer, object)
+        assert len(explainer.lime_explainer.explainer.feature_names) == len(m.features)
+        assert isinstance(explainer, object)

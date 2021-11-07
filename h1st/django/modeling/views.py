@@ -23,7 +23,7 @@ def model_ui(request: HttpRequest,
              ui_type: Literal['dash', 'gradio']) \
         -> Union[Http404, HttpResponse, HttpResponseRedirect]:
     model_subclasses_by_name: Dict[str, PolymorphicModelBase] = \
-        Model.subclasses_by_name
+        Model._subclasses_by_name
 
     if model_class_or_instance_name_or_uuid in model_subclasses_by_name:
         model: PolymorphicModelBase = \

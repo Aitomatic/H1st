@@ -1,5 +1,8 @@
+"""H1st Django base (predictive) H1stModel class."""
+
+
 from json.decoder import JSONDecoder
-from typing import Dict, Generator, List, Sequence
+from typing import Dict, Generator, List, Sequence  # TODO: Py3.9: use generics
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.fields.json import JSONField
@@ -30,6 +33,8 @@ __all__: Sequence[str] = 'Model', 'H1stModel'
 class Model(PolymorphicModel,
             _ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps,
             CoreH1stModel):
+    """H1st Django base (predictive) H1stModel class."""
+
     params: JSONField = \
         JSONField(
             verbose_name='Model Parameters',
@@ -54,6 +59,8 @@ class Model(PolymorphicModel,
         )
 
     class Meta(_ModelWithUUIDPKAndOptionalUniqueNameAndTimestamps.Meta):
+        """Django DB object model class metadata."""
+
         verbose_name: str = 'H1st Model'
         verbose_name_plural: str = 'H1st Models'
 
@@ -65,33 +72,34 @@ class Model(PolymorphicModel,
         default_related_name: str = 'h1st_models'
 
     @classproperty
-    def _subclasses(cls) -> Generator[PolymorphicModelBase, None, None]:
+    def _iter_subclasses(cls) -> Generator[PolymorphicModelBase, None, None]:
         for s in cls.__subclasses__():
             yield s
             yield from s._subclasses
 
     @classproperty
-    def subclasses(cls) -> List[PolymorphicModelBase]:
-        return list(cls._subclasses)
+    def _subclasses(cls) -> List[PolymorphicModelBase]:
+        return list(cls._iter_subclasses)
 
     @classproperty
-    def subclass_names(cls) -> List[str]:
-        return [s.__name__ for s in cls._subclasses]
+    def _subclass_names(cls) -> List[str]:
+        return [s.__name__ for s in cls._iter_subclasses]
 
     @classproperty
-    def subclasses_by_name(cls) -> Dict[str, PolymorphicModelBase]:
-        return {s.__name__: s for s in cls._subclasses}
+    def _subclasses_by_name(cls) -> Dict[str, PolymorphicModelBase]:
+        return {s.__name__: s for s in cls._iter_subclasses}
 
     @classproperty
-    def subclass_full_qual_names(cls) -> List[str]:
-        return [full_qual_name(s) for s in cls._subclasses]
+    def _subclass_full_qual_names(cls) -> List[str]:
+        return [full_qual_name(s) for s in cls._iter_subclasses]
 
     @classproperty
-    def subclasses_by_full_qual_name(cls) -> Dict[str, PolymorphicModelBase]:
-        return {full_qual_name(s): s for s in cls._subclasses}
+    def _subclasses_by_full_qual_name(cls) -> Dict[str, PolymorphicModelBase]:
+        return {full_qual_name(s): s for s in cls._iter_subclasses}
 
     @classproperty
     def dash_ui(cls) -> DjangoDash:
+        """H1stModel's Dash UI."""
         app = DjangoDash(name=cls.__name__,
                          serve_locally=False,
                          add_bootstrap_links=True,
@@ -326,6 +334,7 @@ class Model(PolymorphicModel,
 
     @classproperty
     def gradio_ui(cls) -> Interface:
+        """H1stModel's Gradio UI."""
         return Interface(
             fn=cls.predict,
             # (Callable) - the function to wrap an interface around.
@@ -465,10 +474,6 @@ class Model(PolymorphicModel,
             # a queue instead of with parallel threads.
             # Required for longer inference times (> 1min) to prevent timeout.
         )
-
-    @classproperty
-    def streamlit_ui(cls):
-        return NotImplemented
 
 
 # aliases

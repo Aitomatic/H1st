@@ -50,7 +50,7 @@ TorchVision = '^0.11.1'
 
 # Hugging Face & related
 DataSets = '^1.15.1'
-HuggingFace-Hub = '^0.0.19'   # fixed by DataSets
+HuggingFace-Hub = '^0.1.1'   # fixed by DataSets
 Transformers = '^4.12.3'
 
 SentencePiece = '^0.1.96'   # Translation
@@ -73,6 +73,9 @@ Tabulate = '^0.8.9'
 # Model Explainability & related
 LIME = '^0.2.0.1'
 SHAP = '^0.40.0'
+
+# Pipelines
+Kedro = {version = '^0.17.5', markers = "python_version < '3.9'"}
 
 
 # KNOWLEDGE MODELING

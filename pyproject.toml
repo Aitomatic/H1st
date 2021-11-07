@@ -35,7 +35,7 @@ Auto-SKLearn = '^0.14.0'
 # SciKit-Learn = '^0.24.2'   # >= 1.0 incompat w/ Auto-SKLearn
 
 # TensorFlow & related
-TensorFlow = '^2.6.1'
+TensorFlow = '^2.7.0'
 TensorFlow-DataSets = '^4.4.0'
 TensorFlow-Hub = '^0.12.0'
 
@@ -49,9 +49,9 @@ TorchText = '^0.11.0'
 TorchVision = '^0.11.1'
 
 # Hugging Face & related
-DataSets = '^1.14.0'
+DataSets = '^1.15.1'
 HuggingFace-Hub = '^0.0.19'   # fixed by DataSets
-Transformers = '^4.12.2'
+Transformers = '^4.12.3'
 
 SentencePiece = '^0.1.96'   # Translation
 TIMM = '^0.4.12'   # for Object Detection
@@ -61,7 +61,7 @@ TIMM = '^0.4.12'   # for Object Detection
 GUDHI = '^3.4.1'
 
 # Cloud AI/ML Services
-Google-Cloud-Translate = '^3.6.0'
+Google-Cloud-Translate = '^3.6.1'
 GoogleTrans = '^4.0.0rc1'
 
 # Hyper-Parameter Tuning & related
@@ -86,7 +86,7 @@ SciKit-Fuzzy = '^0.4.2'
 # ==========================
 CloudPickle = '^2.0.0'
 JobLib = '^1.1.0'
-S3FS = '^2021.10.1'
+S3FS = '^2021.11.0'
 ULID-Py = '^1.1.0'
 
 
@@ -154,10 +154,10 @@ Django-HTMX = '^1.6.0'
 Django-Plotly-Dash = '^1.6.6'
 Dash-Bootstrap-Components = '*'   # compat w/ Django-Plotly-Dash
 DPD-Static-Support = '^0.0.5'
-Django-Bootstrap4 = '^3.0.1'
+Django-Bootstrap4 = '^21.1'
 WhiteNoise = '^5.3.0'
 
-Gradio = '^2.4.1'
+Gradio = '^2.4.2'
 
 Streamlit = '^1.1.0'
 Watchdog = '^2.1.6'   # better performance for Streamlit
@@ -171,7 +171,7 @@ Channels = '^3.0.4'
 Daphne = '^3.0.2'
 GUnicorn = '^20.1.0'
 Hypercorn = '^0.11.2'
-Starlette = '^0.16.0'
+Starlette = '^0.17.0'
 Uvicorn = '^0.15.0'
 
 

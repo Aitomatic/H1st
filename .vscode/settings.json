@@ -56,9 +56,13 @@
 
   "python.linting.mypyEnabled": false,
 
-  "python.linting.pydocstyleEnabled": false,
+  "python.linting.pydocstyleEnabled": true,
+  "python.linting.pydocstyleArgs": [
+  ],
 
   "python.linting.pycodestyleEnabled": true,
+  "python.linting.pycodestyleArgs": [
+  ],
 
   "python.linting.prospectorEnabled": true,
 
@@ -70,5 +74,5 @@
   "python.linting.banditEnabled": true,
   "python.linting.banditArgs": [
     "--skip B101",
-  ]
+  ],
 }

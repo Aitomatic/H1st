@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "h1st"
-version = "0.0.6.dev4"
-description = "Human-First AI (H1ST)"
-authors = ["h1st-ai <engineering@aitomatic.com>"]
-license = "Apache-2.0"
-readme = "README.md"
-homepage = "https://h1st.ai"
-repository = "https://github.com/h1st-ai/h1st"
-include = ["h1st/*"]
+name = 'H1st'
+version = '0.0.6.dev0'
+description = 'Human-First AI (H1st)'
+authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
+license = 'Apache-2.0'
+readme = 'README.md'
+homepage = 'H1st.ai'
+repository = 'GitHub.com/H1st-AI/H1st'
+include = ['h1st/*']
 
 
 [tool.poetry.dependencies]
@@ -212,5 +212,5 @@ h1st = 'h1st.django.util.cli:h1st'
 
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ['Poetry-Core >= 1.0.0']
+build-backend = 'poetry.core.masonry.api'

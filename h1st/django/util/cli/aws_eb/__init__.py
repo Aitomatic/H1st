@@ -1,3 +1,6 @@
+"""H1st Django AWS Elastic Beanstalk deployment."""
+
+
 import os
 from pathlib import Path
 import shutil
@@ -112,7 +115,7 @@ def deploy(aws_eb_env_name: Optional[str] = None,
         dirs_exist_ok=False)
     assert os.path.isdir(_EB_EXTENSIONS_DIR_NAME)
 
-    _eb_ignore_exists = os.path.exists(path=_EB_IGNORE_FILE_NAME)
+    _eb_ignore_exists: bool = os.path.exists(path=_EB_IGNORE_FILE_NAME)
 
     if _eb_ignore_exists:
         assert os.path.isfile(_EB_IGNORE_FILE_NAME)
@@ -133,16 +136,20 @@ def deploy(aws_eb_env_name: Optional[str] = None,
         dirs_exist_ok=False)
     assert os.path.isdir(_PLATFORM_DIR_NAME)
 
-    profile = input('AWS CLI Profile: ')
-    if not profile:
-        profile = 'default'
+    profile: str = input('AWS CLI Profile (if not default): ')
+    if not profile.strip():
+        profile: str = 'default'
 
     if create:
-        region = input('AWS Region: ')
-        vpc = input('AWS VPC: ')
-        subnets = input('AWS Subnets: ')
-        instance_type = input('AWS EC2 Instance Type: ')
-        assert region and vpc and subnets and instance_type
+        region: str = input('AWS Region: ')
+        vpc: str = input('AWS VPC: ')
+        subnets: str = input('AWS Subnets: ')
+        assert region and vpc and subnets
+
+        instance_type: str = input('AWS EC2 Instance Type '
+                                   '(default: "c5.large"): ')
+        if not instance_type.strip():
+            instance_type: str = 'c5.large'
 
         run_command(
             command=(f'eb create --region {region} --vpc.id {vpc}'

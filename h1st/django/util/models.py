@@ -1,3 +1,6 @@
+"""H1st Django DB Model Utilities."""
+
+
 from __future__ import annotations
 
 from typing import List, Sequence   # TODO: Py3.9: use generics/collections.abc

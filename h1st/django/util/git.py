@@ -1,3 +1,6 @@
+"""H1st Git-related Utilities."""
+
+
 from typing import Sequence   # TODO: Py3.9: use generic collections.abc
 from pathlib import Path
 from typing import Optional

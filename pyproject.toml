@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'H1st'
-version = '0.0.6.dev1'
+version = '0.0.6.dev2'
 description = 'Human-First AI (H1st)'
 authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
 license = 'Apache-2.0'
@@ -197,6 +197,7 @@ GitPython = '^3.1.24'
 'Ruamel.YAML' = '^0.17.17'
 PSUtil = '^5.8.0'
 Python-DotEnv = '^0.19.2'
+HiRedis = '2.0.0'   # AWS: "redis-py works best with hiredis, pPlease consider installing"
 Requests = '^2.15.1'   # fixed by Django-ForestAdmin
 Tqdm = '^4.62.3'
 

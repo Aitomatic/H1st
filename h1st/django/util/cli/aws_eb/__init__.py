@@ -149,8 +149,8 @@ def deploy(aws_eb_env_name: Optional[str] = None,
         instance_type: str = input('AWS EC2 Instance Type '
                                    '(default: "c5.xlarge"): ')
         if not instance_type.strip():
-            # c5.large (4GB mem) insufficient for meaningful data/AI workloads 
-            instance_type: str = 'c5.xlarge'
+            # c5.xlarge (8GB mem) insufficient for meaningful data/AI workloads 
+            instance_type: str = 'c5.2xlarge'
 
         run_command(
             command=(f'eb create --region {region} --vpc.id {vpc}'

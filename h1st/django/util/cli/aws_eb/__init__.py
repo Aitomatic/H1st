@@ -147,10 +147,10 @@ def deploy(aws_eb_env_name: Optional[str] = None,
         assert region and vpc and subnets
 
         instance_type: str = input('AWS EC2 Instance Type '
-                                   '(default: "c5.4xlarge"): ')
+                                   '(default: "c5n.2xlarge"): ')
         if not instance_type.strip():
             # c5.2xlarge (16GB mem) insufficient for meaningful workloads
-            instance_type: str = 'c5.4xlarge'
+            instance_type: str = 'c5n.2xlarge'
 
         run_command(
             command=(f'eb create --region {region} --vpc.id {vpc}'

@@ -15,7 +15,7 @@ from .models import (
 
     CSVDataSet,
     ParquetDataSet,
-    TFRecordDataSet
+    TFRecordDataSet,
 )
 
 

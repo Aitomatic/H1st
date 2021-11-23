@@ -162,7 +162,7 @@ DPD-Static-Support = '^0.0.5'
 Django-Bootstrap4 = '^21.1'
 WhiteNoise = '^5.3.0'
 
-Gradio = '^2.4.5'
+Gradio = '^2.4.6'
 
 Streamlit = '^1.2.0'
 Watchdog = '^2.1.6'   # better performance for Streamlit

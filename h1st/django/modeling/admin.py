@@ -1,3 +1,6 @@
+"""H1st Django Modeling admin."""
+
+
 from django.contrib.admin.decorators import register
 from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import site
@@ -5,6 +8,8 @@ from django.contrib.admin.sites import site
 from silk.profiling.profiler import silk_profile
 
 from .models import (
+    KnowledgeModel,
+
     GoogleCloudTranslationServiceModel, GoogleTranslateServiceModel,
     PreTrainedKerasImageNetClassifier, PreTrainedTorchVisionImageNetClassifier,
     PreTrainedHuggingFaceTransformer,
@@ -18,6 +23,20 @@ class H1stModelAdmin(ModelAdmin):
         return ('(not implemented)'
                 if obj.gradio_ui is NotImplemented
                 else f'h1st/models/{obj.name_or_uuid}/ui')
+
+
+@register(KnowledgeModel, site=site)
+class KnowledgeModelAdmin(H1stModelAdmin):
+    show_full_result_count = False
+
+    @silk_profile(name=(f'{__module__}: {KnowledgeModel._meta.verbose_name}'))
+    def changeform_view(self, *args, **kwargs):
+        return super().changeform_view(*args, **kwargs)
+
+    @silk_profile(
+        name=(f'{__module__}: {KnowledgeModel._meta.verbose_name_plural}'))
+    def changelist_view(self, *args, **kwargs):
+        return super().changelist_view(*args, **kwargs)
 
 
 @register(GoogleCloudTranslationServiceModel, site=site)

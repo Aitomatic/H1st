@@ -22,3 +22,4 @@ pylint:
     - unsubscriptable-object
     - unsupported-membership-test
     - unused-argument
+    - protected-access   # e.g., Django ModelClass._meta

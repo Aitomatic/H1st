@@ -1,3 +1,6 @@
+"""H1st Django Modeling module."""
+
+
 import sys
 
 if sys.version_info >= (3, 9):

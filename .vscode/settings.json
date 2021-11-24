@@ -36,7 +36,7 @@
     "--disable", "redundant-keyword-arg",
     "--disable", "relative-beyond-top-level",
     "--disable", "signature-differs",
-    "--disable", "too-few-public-methods",
+    "--disable", "too-few-public-methods",   // e.g., Django ModelClass.Meta
     "--disable", "too-many-ancestors",
     "--disable", "too-many-arguments",
     "--disable", "too-many-return-statements",
@@ -44,6 +44,10 @@
     "--disable", "unsubscriptable-object",
     "--disable", "unsupported-membership-test",
     "--disable", "unused-argument",
+    "--disable", "missing-class-docstring",
+    "--disable", "missing-function-docstring",
+    "--disable", "missing-module-docstring",
+    "--disable", "protected-access",   // e.g., Django ModelClass._meta
   ],
 
   "python.linting.flake8Enabled": true,
@@ -53,7 +57,7 @@
 
   "python.linting.mypyEnabled": false,
 
-  "python.linting.pydocstyleEnabled": true,
+  "python.linting.pydocstyleEnabled": false,
   "python.linting.pydocstyleArgs": [
   ],
 

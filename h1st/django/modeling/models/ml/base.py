@@ -4,7 +4,7 @@ from typing import Any, Optional
 
 from django.db.models.fields import CharField
 
-from ....util import PGSQL_IDENTIFIER_MAX_LEN, import_obj
+from h1st.django.util import PGSQL_IDENTIFIER_MAX_LEN, import_obj
 from ...apps import H1stAIModelingModuleConfig
 from ..base import H1stModel
 

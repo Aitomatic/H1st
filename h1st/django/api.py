@@ -1,22 +1,25 @@
 """H1st Django public API."""
 
 
-from typing import Sequence   # TODO: Py3.9: use generic collections.abc
+import sys
 
-from .data_mgmt.api import (DataSchema,
-                            DataSet,
-                            JSONDataSet,
-                            NumPyArray,
-                            PandasDataFrame,
-                            ParquetDataSet,
-                            CSVDataSet,
-                            TFRecordDataSet,
-                            TextDataSet,
-                            LiveDataSource,
-                            )
-
-from .modeling.api import (
+from h1st.django.data_mgmt.api import (
+    DataSchema,
+    DataSet,
+    JSONDataSet,
+    NumPyArray,
+    PandasDataFrame,
+    ParquetDataSet,
+    CSVDataSet,
+    TFRecordDataSet,
+    TextDataSet,
+    LiveDataSource,
+)
+from h1st.django.modeling.api import (
     Model, H1stModel,
+
+    KnowledgeModel,
+    BooleanLogicKnowledgeModel,
 
     CloudServiceModel, H1stCloudServiceModel,
 
@@ -88,7 +91,12 @@ from .modeling.api import (
 
     Graph, H1stGraph, Workflow, H1stWorkflow)
 
-from .trust_vault.api import Decision, ModelEvalMetricsSet
+from h1st.django.trust_vault.api import Decision, ModelEvalMetricsSet
+
+if sys.version_info >= (3, 9):
+    from collections.abc import Sequence
+else:
+    from typing import Sequence
 
 
 __all__: Sequence[str] = (
@@ -104,6 +112,9 @@ __all__: Sequence[str] = (
     'LiveDataSource',
 
     'Model', 'H1stModel',
+
+    'KnowledgeModel',
+    'BooleanLogicKnowledgeModel',
 
     'CloudServiceModel', 'H1stCloudServiceModel',
 

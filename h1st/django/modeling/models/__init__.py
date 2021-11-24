@@ -1,6 +1,11 @@
-from typing import Sequence   # TODO: Py3.9: use generic collections.abc
+import sys
 
 from .base import Model, H1stModel
+
+from .knowledge import (
+    KnowledgeModel,
+    BooleanLogicKnowledgeModel,
+)
 
 from .cloud_svc import (
     CloudServiceModel, H1stCloudServiceModel,
@@ -73,9 +78,17 @@ from .ml import (
 
 from .graph import Graph, H1stGraph, Workflow, H1stWorkflow
 
+if sys.version_info >= (3, 9):
+    from collections.abc import Sequence
+else:
+    from typing import Sequence
+
 
 __all__: Sequence[str] = (
     'Model', 'H1stModel',
+
+    'KnowledgeModel',
+    'BooleanLogicKnowledgeModel',
 
     'CloudServiceModel', 'H1stCloudServiceModel',
 

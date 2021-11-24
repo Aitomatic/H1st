@@ -1,7 +1,13 @@
-from typing import Sequence   # TODO: Py3.9: use generic collections.abc
+"""H1st Django Modeling public API."""
+
+
+import sys
 
 from ..models import (
     Model, H1stModel,
+
+    KnowledgeModel,
+    BooleanLogicKnowledgeModel,
 
     CloudServiceModel, H1stCloudServiceModel,
 
@@ -69,9 +75,17 @@ from ..models import (
 
     Graph, H1stGraph, Workflow, H1stWorkflow)
 
+if sys.version_info >= (3, 9):
+    from collections.abc import Sequence
+else:
+    from typing import Sequence
+
 
 __all__: Sequence[str] = (
     'Model', 'H1stModel',
+
+    'KnowledgeModel',
+    'BooleanLogicKnowledgeModel',
 
     'CloudServiceModel', 'H1stCloudServiceModel',
 

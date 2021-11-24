@@ -2,7 +2,12 @@
 
 
 from importlib.metadata import version
-from typing import Sequence   # TODO: Py3.9: use generics/collections.abc
+import sys
+
+if sys.version_info >= (3, 9):
+    from collections.abc import Sequence
+else:
+    from typing import Sequence
 
 
 __all__: Sequence[str] = ('__version__',)

@@ -1,4 +1,4 @@
-from typing import Sequence   # TODO: Py3.9: use generic collections.abc
+import sys
 
 from .base import (MLModel, H1stMLModel,
                    PyLoadablePreTrainedMLModel, H1stPyLoadablePreTrainedMLModel
@@ -67,6 +67,11 @@ from .hugging_face import (
     PreTrainedHuggingFaceZeroShotClassifier,
     H1stPreTrainedHuggingFaceZeroShotClassifier,
 )
+
+if sys.version_info >= (3, 9):
+    from collections.abc import Sequence
+else:
+    from typing import Sequence
 
 
 __all__: Sequence[str] = (

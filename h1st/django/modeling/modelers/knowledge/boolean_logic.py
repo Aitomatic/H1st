@@ -1,10 +1,9 @@
-"""Knowledge Modelers."""
+"""Boolean Logic Knowledge Modeler."""
 
 
 import sys
 
-from .boolean_logic import BooleanLogicKnowledgeModeler
-from .fuzzy_logic import FuzzyLogicKnowledgeModeler
+from ..base import H1stModeler
 
 if sys.version_info >= (3, 9):
     from collections.abc import Sequence
@@ -14,5 +13,8 @@ else:
 
 __all__: Sequence[str] = (
     'BooleanLogicKnowledgeModeler',
-    'FuzzyLogicKnowledgeModeler',
 )
+
+
+class BooleanLogicKnowledgeModeler(H1stModeler):
+    """Boolean Logic Knowledge Modeler."""

@@ -3,6 +3,11 @@
 
 import sys
 
+from ..modelers import (
+    Modeler, H1stModeler,
+
+    BooleanLogicKnowledgeModeler, FuzzyLogicKnowledgeModeler,
+)
 from ..models import (
     Model, H1stModel,
 
@@ -82,6 +87,10 @@ else:
 
 
 __all__: Sequence[str] = (
+    'Modeler', 'H1stModeler',
+
+    'BooleanLogicKnowledgeModeler', 'FuzzyLogicKnowledgeModeler',
+
     'Model', 'H1stModel',
 
     'KnowledgeModel',

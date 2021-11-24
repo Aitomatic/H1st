@@ -14,7 +14,7 @@ class Modeler(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def create_model(self) -> Model:
+    def create_model(self, *args, **kwargs) -> Model:
         raise NotImplementedError
 
 

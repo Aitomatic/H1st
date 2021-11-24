@@ -16,6 +16,10 @@ from h1st.django.data_mgmt.api import (
     LiveDataSource,
 )
 from h1st.django.modeling.api import (
+    Modeler, H1stModeler,
+
+    BooleanLogicKnowledgeModeler, FuzzyLogicKnowledgeModeler,
+
     Model, H1stModel,
 
     KnowledgeModel,
@@ -110,6 +114,10 @@ __all__: Sequence[str] = (
     'TFRecordDataSet',
     'TextDataSet',
     'LiveDataSource',
+
+    'Modeler', 'H1stModeler',
+
+    'BooleanLogicKnowledgeModeler', 'FuzzyLogicKnowledgeModeler',
 
     'Model', 'H1stModel',
 

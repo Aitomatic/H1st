@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'H1st'
-version = '0.0.6.dev8'
+version = '0.0.6.dev9'
 description = 'Human-First AI (H1st)'
 authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
 license = 'Apache-2.0'
@@ -82,6 +82,11 @@ S3FS = '^2021.11.0'
 ULID-Py = '^1.1.0'
 
 
+# GRAPH PROCESSING & ANALYSIS
+# ===========================
+GraphViz = '^0.18.2'
+
+
 # DJANGO & RELATED APPLICATION DEVELOPMENT
 # ========================================
 
@@ -160,10 +165,9 @@ Tqdm = '^4.62.3'
 
 
 [tool.poetry.dev-dependencies]
-commitizen = "^2.19.0"
-pytest = "^6.2.5"
-pre-commit = "^2.15.0"
-tensorflow = "^2.6.0"
+Commitizen = '^2.20.0'
+Pre-Commit = '^2.15.0'
+PyTest = '^6.2.5'
 
 
 [tool.poetry.scripts]

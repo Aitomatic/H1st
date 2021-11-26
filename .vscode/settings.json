@@ -58,8 +58,6 @@
   "python.linting.mypyEnabled": false,
 
   "python.linting.pydocstyleEnabled": false,
-  "python.linting.pydocstyleArgs": [
-  ],
 
   "python.linting.pycodestyleEnabled": true,
   "python.linting.pycodestyleArgs": [

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'H1st'
-version = '0.0.6.dev6'
+version = '0.0.6.dev7'
 description = 'Human-First AI (H1st)'
 authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
 license = 'Apache-2.0'
@@ -65,8 +65,7 @@ GUDHI = '^3.4.1'
 Google-Cloud-Translate = '^3.6.1'
 GoogleTrans = '^4.0.0rc1'
 
-# Model Explainability & related
-LIME = '^0.2.0.1'
+# Model Explainability
 SHAP = '^0.40.0'
 
 
@@ -75,6 +74,11 @@ SHAP = '^0.40.0'
 
 # Fuzzy Logic
 SciKit-Fuzzy = '^0.4.2'
+
+
+# MODEL REPOSITORY & RELATED
+# ==========================
+ULID-Py = '^1.1.0'
 
 
 # DJANGO & RELATED APPLICATION DEVELOPMENT

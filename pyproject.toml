@@ -5,15 +5,12 @@ description = 'Human-First AI (H1st)'
 authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
 license = 'Apache-2.0'
 readme = 'README.md'
-homepage = 'H1st.ai'
-repository = 'GitHub.com/H1st-AI/H1st'
+homepage = 'https://H1st.ai'
+repository = 'https://GitHub.com/H1st-AI/H1st'
 include = ['h1st/*']
 
 
 [tool.poetry.dependencies]
-
-# PYTHON
-# ======
 Python = '>= 3.8, < 3.10'
 
 
@@ -33,7 +30,7 @@ Pillow = '^8.4.0'   # image processing
 
 # SciKit-Learn & related
 Auto-SKLearn = '^0.14.2'
-# SciKit-Learn = '^0.24.2'   # >= 1.0 incompat w/ Auto-SKLearn
+# SciKit-Learn = '^0.24.2'   # let Auto-SKLearn figure
 
 # TensorFlow & related
 TensorFlow = '^2.7.0'

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'H1st'
-version = '0.0.6.dev7'
+version = '0.0.6.dev8'
 description = 'Human-First AI (H1st)'
 authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
 license = 'Apache-2.0'
@@ -78,6 +78,7 @@ SciKit-Fuzzy = '^0.4.2'
 
 # MODEL REPOSITORY & RELATED
 # ==========================
+S3FS = '^2021.11.0'
 ULID-Py = '^1.1.0'
 
 

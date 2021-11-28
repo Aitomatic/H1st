@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'H1st'
-version = '0.0.6.dev10'
+version = '0.0.6.dev11'
 description = 'Human-First AI (H1st)'
 authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
 license = 'Apache-2.0'
@@ -22,7 +22,6 @@ PySpark = '^3.2.0'
 Ray = '^1.8.0'
 
 Pillow = '^8.4.0'   # image processing
-# Pillow-SIMD = '^7.0.0'   # complex to install
 
 
 # MACHINE LEARNING / DEEP LEARNING & RELATED

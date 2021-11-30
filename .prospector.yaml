@@ -1,25 +1,7 @@
-pyflakes:
-  disable:
-    - F821
+# pyflakes:
+#   disable:
 
 pylint:
   disable:
     - arguments-differ
-    - arguments-renamed
-    - import-error
-    - import-outside-toplevel
-    - inconsistent-return-statements
-    - logging-not-lazy
-    - not-a-mapping
-    - not-an-iterable
-    - protected-access
-    - redundant-keyword-arg
-    - relative-beyond-top-level
-    - signature-differs
-    - too-many-ancestors
-    - too-many-arguments
-    - too-many-return-statements
-    - unsubscriptable-object
-    - unsupported-membership-test
-    - unused-argument
     - protected-access   # e.g., Django ModelClass._meta

@@ -21,29 +21,8 @@
     "--disable", "arguments-differ",
     "--disable", "arguments-renamed",
     "--disable", "fixme",
-    "--disable", "import-outside-toplevel",
-    "--disable", "inconsistent-return-statements",
-    "--disable", "invalid-name",
-    "--disable", "line-too-long",
-    "--disable", "logging-not-lazy",
-    "--disable", "no-member",
-    "--disable", "no-name-in-module",
-    "--disable", "no-self-argument",
-    "--disable", "no-self-use",
-    "--disable", "not-a-mapping",
-    "--disable", "not-an-iterable",
-    "--disable", "protected-access",
-    "--disable", "redundant-keyword-arg",
-    "--disable", "relative-beyond-top-level",
-    "--disable", "signature-differs",
     "--disable", "too-few-public-methods",   // e.g., Django ModelClass.Meta
     "--disable", "too-many-ancestors",
-    "--disable", "too-many-arguments",
-    "--disable", "too-many-return-statements",
-    "--disable", "ungrouped-imports",
-    "--disable", "unsubscriptable-object",
-    "--disable", "unsupported-membership-test",
-    "--disable", "unused-argument",
     "--disable", "missing-class-docstring",
     "--disable", "missing-function-docstring",
     "--disable", "missing-module-docstring",
@@ -52,7 +31,7 @@
 
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Args": [
-    "--ignore=F821,N805,N811,W504",
+    "--ignore=N805,N811",
   ],
 
   "python.linting.mypyEnabled": false,
@@ -67,7 +46,6 @@
 
   "python.linting.pylamaEnabled": true,
   "python.linting.pylamaArgs": [
-    "--ignore E0602",
   ],
 
   "python.linting.banditEnabled": true,

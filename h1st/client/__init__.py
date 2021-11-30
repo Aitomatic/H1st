@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from os import PathLike
 from tempfile import NamedTemporaryFile
 from typing import Optional, Union
@@ -6,12 +7,11 @@ import requests
 from streamlit.uploaded_file_manager import UploadedFile
 
 
+@dataclass
 class H1stClient:
-    def __init__(self,
-                 h1st_ai_server_url: str = 'http://localhost:8000',
-                 auth: Optional[str] = None):
-        self.h1st_ai_server_url = h1st_ai_server_url
-        self.auth = auth
+    h1st_ai_server_url: str = 'http://localhost:8000'
+    
+    auth: Optional[str] = None
 
     def list_models(self):
         return requests.get(url=f'{self.h1st_ai_server_url}/h1st/models',

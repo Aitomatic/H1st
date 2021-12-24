@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import pyarrow.parquet as pq
 import s3fs
 import sys
 

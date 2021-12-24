@@ -169,5 +169,8 @@ h1st = 'h1st.django.util.cli:h1st'
 
 
 [build-system]
-requires = ['Poetry-Core >= 1.0.0']
-build-backend = 'poetry.core.masonry.api'
+requires = [
+    "Poetry-Core >= 1.0.0",
+    "SetUpTools >= 60.0.0",   # temp fix for SetUpTools-related bug
+]
+build-backend = "poetry.core.masonry.api"

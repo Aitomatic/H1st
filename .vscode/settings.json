@@ -18,23 +18,20 @@
   "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": [
     "--disable", "abstract-method",
-    "--disable", "import-outside-toplevel",
-    "--disable", "invalid-name",
-    "--disable", "line-too-long",
+    "--disable", "arguments-differ",
+    "--disable", "arguments-renamed",
+    "--disable", "fixme",
+    "--disable", "too-few-public-methods",   // e.g., Django ModelClass.Meta
+    "--disable", "too-many-ancestors",
     "--disable", "missing-class-docstring",
     "--disable", "missing-function-docstring",
     "--disable", "missing-module-docstring",
-    "--disable", "not-a-mapping",
-    "--disable", "protected-access",
-    "--disable", "relative-beyond-top-level",
-    "--disable", "signature-differs",
-    "--disable", "too-few-public-methods",
-    "--disable", "too-many-ancestors",
+    "--disable", "protected-access",   // e.g., Django ModelClass._meta
   ],
 
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Args": [
-    "--ignore=F821",
+    "--ignore=N805,N811",
   ],
 
   "python.linting.mypyEnabled": false,
@@ -42,16 +39,17 @@
   "python.linting.pydocstyleEnabled": false,
 
   "python.linting.pycodestyleEnabled": true,
+  "python.linting.pycodestyleArgs": [
+  ],
 
   "python.linting.prospectorEnabled": true,
 
   "python.linting.pylamaEnabled": true,
   "python.linting.pylamaArgs": [
-    "--ignore E0602",
   ],
 
   "python.linting.banditEnabled": true,
   "python.linting.banditArgs": [
     "--skip B101",
-  ]
+  ],
 }

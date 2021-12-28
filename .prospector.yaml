@@ -1,13 +1,7 @@
-pyflakes:
-  disable:
-    - F821
+# pyflakes:
+#   disable:
 
 pylint:
   disable:
-    - import-outside-toplevel
-    - no-else-return
-    - not-a-mapping
-    - protected-access
-    - relative-beyond-top-level
-    - signature-differs
-    - too-many-ancestors
+    - arguments-differ
+    - protected-access   # e.g., Django ModelClass._meta

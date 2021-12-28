@@ -1,23 +1,40 @@
+"""H1st Django URLs."""
+
+
+from typing import Sequence   # TODO: Py3.9: use generic collections.abc
+
 from django.urls.conf import include, path
+from django.urls.resolvers import URLPattern
 
-from .data import urls as data_urls
-from .model import urls as model_urls
-from .trust import urls as trust_urls
+from .data_mgmt import urls as data_mgmt_urls
+from .modeling import urls as modeling_urls
+from .trust_vault import urls as trust_vault_urls
 
 
-urlpatterns = [
+__all__: Sequence[str] = ('urlpatterns',)
+
+
+urlpatterns: Sequence[URLPattern] = (
     path(route='data/',
-         view=include(data_urls)),
+         view=include(data_mgmt_urls)),
 
+    path(route='modeling/',
+         view=include(modeling_urls)),
     path(route='models/',
-         view=include(model_urls)),
+         view=include(modeling_urls)),
     path(route='model/',
-         view=include(model_urls)),
+         view=include(modeling_urls)),
+
+    # TODO: enhance
     path(route='workflows/',
-         view=include(model_urls)),
+         view=include(modeling_urls)),
     path(route='workflow/',
-         view=include(model_urls)),
+         view=include(modeling_urls)),
+    path(route='graphs/',
+         view=include(modeling_urls)),
+    path(route='graph/',
+         view=include(modeling_urls)),
 
     path(route='trust/',
-         view=include(trust_urls))
-]
+         view=include(trust_vault_urls)),
+)

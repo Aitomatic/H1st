@@ -1,0 +1,154 @@
+[tool.poetry]
+name = 'H1st'
+version = '0.0.7.dev0'
+description = 'Human-First AI (H1st)'
+authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
+license = 'Apache-2.0'
+readme = 'README.md'
+homepage = 'https://H1st.ai'
+repository = 'https://GitHub.com/H1st-AI/H1st'
+include = ['h1st/*']
+
+
+[tool.poetry.dependencies]
+Python = '>= 3.8, < 3.10'
+
+
+# DATA MANAGEMENT & PROCESSING
+# ============================
+Pandas = '^1.3.5'
+PyArrow = '^6.0.1'
+
+Pillow = '^8.4.0'   # image processing
+
+
+# MACHINE LEARNING / DEEP LEARNING & RELATED
+# ==========================================
+
+# SciKit-Learn & related
+Auto-SKLearn = '^0.14.2'
+SciKit-Learn = '*'   # let Auto-SKLearn figure
+
+# TensorFlow & related
+TensorFlow = '^2.7.0'
+TensorFlow-DataSets = '^4.4.0'
+TensorFlow-Hub = '^0.12.0'
+
+# Torch & related
+Torch = '^1.10.1'
+Torch-Model-Archiver = '^0.5.1'
+TorchServe = '^0.5.1'
+
+TorchAudio = '^0.10.1'
+TorchText = '^0.11.1'
+TorchVision = '^0.11.2'
+
+# Hugging Face & related
+DataSets = '^1.17.0'
+HuggingFace-Hub = '^0.2.1'
+Transformers = '^4.15.0'
+
+SentencePiece = '^0.1.96'   # Translation
+TIMM = '^0.4.12'   # for Object Detection
+# Torch-Scatter = '^2.0.9'   # Table Question Answering
+
+# Cloud AI/ML Services
+Google-Cloud-Translate = '^3.6.1'
+GoogleTrans = '^4.0.0rc1'
+
+# Model Explainability
+LIME = '^0.2.0.1'
+SHAP = '^0.40.0'
+
+
+# KNOWLEDGE MODELING
+# ==================
+
+# Fuzzy Logic
+SciKit-Fuzzy = '^0.4.2'
+
+
+# MODEL REPOSITORY & RELATED
+# ==========================
+S3FS = '^2021.11.0'
+ULID-Py = '^1.1.0'
+
+
+# DJANGO & RELATED APPLICATION DEVELOPMENT
+# ========================================
+
+# Django Core
+Django = '^4.0'
+
+# Django Polymorphic Models
+Django-Polymorphic = '^3.1.0'
+
+# Django REST Framework
+DjangoRESTFramework = '^3.13.1'
+CoreAPI = '^2.3.3'   # closely related to Django REST Framework
+
+# Django Filtering
+Django-Filter = '^21.1'
+DjangoRESTFramework-Filters = '1.0.0.dev2'
+
+# Django Model Query Optimization
+Django-Model-Query-Graphs = '^0.0.5'
+
+# Django Debugging & Query Profiling
+Django-Silk = '^4.2.0'
+
+# Django Extensions & Utilities
+Django-Environ = '^0.8.1'
+Django-Extensions = '^3.1.5'
+Django-Model-Utils = '^4.2.0'
+
+# Django CORS Headers
+Django-CORS-Headers = '^3.10.1'
+
+# Application UIs
+Django-Plotly-Dash = '^1.6.6'
+Dash-Bootstrap-Components = '*'   # compat w/ Django-Plotly-Dash
+DPD-Static-Support = '^0.0.5'
+Django-Bootstrap4 = '^21.1'
+WhiteNoise = '^5.3.0'
+
+Gradio = '^2.6.2'
+
+# Database Connectors/Drivers
+MySQLClient = '^2.1.0'
+PsycoPG2-binary = '^2.9.2'
+
+
+# COMMAND-LINE INTERFACE (CLI)
+# ============================
+Click = '^8.0.3'
+
+
+# JUPYTER
+# =======
+Jupyter = '^1.0.0'
+
+
+# OTHER
+# =====
+GitPython = '^3.1.24'
+Requests = '^2.26.0'
+Tqdm = '^4.62.3'
+
+
+[tool.poetry.dev-dependencies]
+Commitizen = '^2.20.3'
+Pre-Commit = '^2.16.0'
+PyTest = '^6.2.5'
+
+
+[tool.poetry.scripts]
+h1st = 'h1st.django.util.cli:h1st'
+
+
+[build-system]
+requires = [
+    "Poetry-Core >= 1.0.0",
+    "SetUpTools >= 60.0.0",   # temp fix for SetUpTools-related bug
+]
+build-backend = "poetry.core.masonry.api"

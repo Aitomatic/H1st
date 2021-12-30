@@ -1,11 +1,10 @@
 from typing import Dict, Any
 
-import __init__
-from h1st.model.ensemble.ensemble_modeler import EnsembleModeler
-from h1st.model.rule_based_model import RuleBasedModel
 import pandas as pd
 
-from boolean_model import BooleanModel
+import __init__
+from h1st.model.rule_based_model import RuleBasedModel
+from h1st.h1flow.h1flow import Graph
 from generalizer_modeler import MyGenModeler
 from generalizer import MyGeneralizer
 from ensemble_modeler import MyEnsembleModeler
@@ -14,7 +13,7 @@ from oracle import MyOracle
 
 
 class MyOracleBuilder:
-    def load_data(self):
+    def load_data(self) -> Dict:
         path_to_data = ""
         df_data = pd.read_parquet(path_to_data)
         self.feature_list = ['feature_1', 'feature_2']
@@ -22,7 +21,7 @@ class MyOracleBuilder:
             'df_data': df_data[self.feature_list]
         }    
 
-    def build(self, data: Dict, my_knowledge_model: RuleBasedModel):
+    def build(self, data: Dict, my_knowledge_model: RuleBasedModel) -> Graph:
         df_data = data['df_data']
         # Get K-Model prediction
         y_pred_bool = my_knowledge_model.predict({

@@ -1,6 +1,14 @@
 import __init__
+from typing import Dict, Any, List
+
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import RobustScaler
+
 from h1st.model.ensemble.ensemble_modeler import EnsembleModeler
-from ensemble import MyEnsemble
+from h1st.model.model import Model
+from h1st.model.ml_model import MLModel
 
 
 class MyEnsembleModeler(EnsembleModeler):
@@ -61,3 +69,10 @@ class MyEnsembleModeler(EnsembleModeler):
             my_ensemble.stats = self.stats.copy()
             
         return my_ensemble
+
+
+class MyEnsemble(MLModel):
+    def predict(self, data):
+        pass
+
+

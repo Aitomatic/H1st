@@ -36,8 +36,8 @@ TensorFlow-Hub = '^0.12.0'
 
 # Torch & related
 Torch = '^1.10.1'
-Torch-Model-Archiver = '^0.5.1'
-TorchServe = '^0.5.1'
+Torch-Model-Archiver = '^0.5.2'
+TorchServe = '^0.5.2'
 
 TorchAudio = '^0.10.1'
 TorchText = '^0.11.1'
@@ -70,7 +70,7 @@ SciKit-Fuzzy = '^0.4.2'
 
 # MODEL REPOSITORY & RELATED
 # ==========================
-S3FS = '^2021.11.0'
+S3FS = '^2021.11.1'
 ULID-Py = '^1.1.0'
 
 
@@ -109,14 +109,14 @@ Django-CORS-Headers = '^3.10.1'
 Django-Plotly-Dash = '^1.6.6'
 Dash-Bootstrap-Components = '*'   # compat w/ Django-Plotly-Dash
 DPD-Static-Support = '^0.0.5'
-Django-Bootstrap4 = '^21.1'
+Django-Bootstrap4 = '^21.2'
 WhiteNoise = '^5.3.0'
 
-Gradio = '^2.6.2'
+Gradio = '^2.6.3'
 
 # Database Connectors/Drivers
 MySQLClient = '^2.1.0'
-PsycoPG2-binary = '^2.9.2'
+PsycoPG2-binary = '^2.9.3'
 
 
 # COMMAND-LINE INTERFACE (CLI)

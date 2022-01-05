@@ -149,3 +149,6 @@ flake8.txt
 
 # misc/other
 .DS_Store
+
+# poetry
+poetry.lock

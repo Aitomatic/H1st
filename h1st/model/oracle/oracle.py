@@ -10,7 +10,12 @@ Oracle architecture:
 @startuml
 allowmixing
 
-Class Teacher
+Component Oracle #EEE {
+	Class Teacher
+	Class Student
+	Class Ensemble
+}
+
 Actor "AI Engineer" as User
 
 User .down.> TeacherModeler : uses
@@ -22,8 +27,8 @@ Teacher .right.> Student : teaches
 
 
 
-Teacher -down-> Oracle : trains
-Student -down-> Oracle : trains
+Teacher -down-> Ensemble : trains
+Student -down-> Ensemble : trains
 
 Note as N1  #green
 <size:16><color:white>Construction Phase</color></size>
@@ -35,18 +40,22 @@ end Note
 @startuml
 allowmixing
 
-Class Teacher <<RuleBasedModel>>
-Class Student <<ML Generalizer>>
+Component Oracle #EEE {
+    Class Teacher <<RuleBasedModel>>
+    Class Student <<ML Generalizer>>
+	Class Ensemble
+}
+
 Database Data
 Circle Prediction
 
 Data -down-> Teacher
 Data -down-> Student
 
-Teacher -down-> Oracle : votes
-Student -down-> Oracle : votes
+Teacher -down-> Ensemble : votes
+Student -down-> Ensemble : votes
 
-Oracle -down-> Prediction
+Ensemble -down-> Prediction
 
 Note as N1  #green
 <size:16><color:white>Execution Phase</color></size>

@@ -1,13 +1,13 @@
 [tool.poetry]
-name = 'H1st'
-version = '0.0.7.dev0'
-description = 'Human-First AI (H1st)'
-authors = ['Aitomatic, Inc. <Engineering@Aitomatic.com>']
-license = 'Apache-2.0'
-readme = 'README.md'
-homepage = 'https://H1st.ai'
-repository = 'https://GitHub.com/H1st-AI/H1st'
-include = ['h1st/*']
+name = "h1st"
+version = "0.0.8"
+description = "Human-First AI (H1ST)"
+authors = ["h1st-ai <engineering@aitomatic.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://h1st.ai"
+repository = "https://github.com/h1st-ai/h1st"
+include = ["h1st/*"]
 
 
 [tool.poetry.dependencies]

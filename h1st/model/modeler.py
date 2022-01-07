@@ -34,14 +34,14 @@ class Modeler(NodeContainable):
            my_modeler = MyModeler()
            my_modeler.model_class = MyModel
 
-           my_model = my_modeler.build()
+           my_model = my_modeler.build_model()
 
            # Persist the model to repo
            my_model.persist('1st_version')
 
            # Load the model from the repo
            my_model_2 = MyModel()
-           my_model_2.load('1st_version')
+           my_model_2.load_params('1st_version')
     """
     @property
     def model_class(self) -> Any:
